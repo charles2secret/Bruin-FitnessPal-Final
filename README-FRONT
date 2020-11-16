@@ -1,0 +1,73 @@
+Last Edited: 16 Nov 2020
+
+* notes on project configuration
+  1. Angular app built using 'ng new frontend'
+  2. already installed packages:
+      Angular Material Schematics (AMS) by 'ng add @angular/material'
+  3. getting start: 
+      cd frontend
+      ng serve
+      localhost:4200
+      Ctl-c (terminate)
+
+* notes on git and project management
+  1. git commit only commits in local repo, use git push to merge
+  2. develope under frontend branch, any merging to the main will need approval
+      merging to frontend: will need 1 approval (which is your teammate)
+      merging to main: require additional approval from Ao Jiao
+  3. do not merge/push if your code is not runnable
+      this is especially for merging request to main,
+      as we want to maintain a copy ready to represent at all time
+  4. any packages/tools/libraries that you use:
+      if need collaboration, let your teemmate know
+      if it updates config in any way, let your teammate know
+      golden rule: if you do 'npm install XXX' or 'ng add XXX', let your teemmate know!
+      
+* notes on AngularJS structure
+  1. Angular uses MVC mode (Model, View, Controller)
+  2. Naming convention: https://angular.io/guide/styleguide
+     e.g. create a dashboard tool using @angular/material:dashboard
+          when ask package name, enter: dashboard-home
+     basically, use '-' to connect two words, with the first word being name 
+     of the tool or component template that you use
+
+* !!!!!!!!!!!!!!!!!!!!
+  although we are already using version control, please keep two copies in your local repo
+  so that if anything happens, it won't significantly impact your progress
+
+TODO: 
+1. frontend/src/app/dashboard-home  and frontend/src/app/navigation-panel
+    * two folders are already downloaded with Material objects
+    * modify it so that we have a fitness home page in which:
+      -> it represents the dashboard as home dashboard
+      -> it has a navigation feature that can take us to other pages we need in the future
+
+2. src/app
+    * modify files (HTML, CSS, TS) under src/app, using 'ng serve' to see what it does originally
+    * modify these files so that it serves as the login page for our user
+    * warning!!!!!!!!!!!
+        be extra careful about routing and how these files are used in other parts of the program
+        do not just simply delete them all with your customized html, css, etc files and hoping it should work!
+
+3. connect with backend
+    before adding more pages and features to Navigation Panel,
+    we need to successfully allow users to perform CRU operations in our login page
+      1. C - create, a link when user clicks, it directs to signup page
+      2. R - retrieve, a link that gives users' the option to reteivew username
+      3. U - update, a place for user to change password
+             note: this feature should be reusable as we want user able to do that once after login as well
+      4. D - do not need, but later we may need (optional) in user home page
+
+
+------> future works
+  refer to https://docs.google.com/document/d/1oH9xSe_y9WimOapK-o_ST8C9ihfyOcbzNj8CcnB7Sa0/edit
+  
+
+
+
+
+    
+
+
+
+  
