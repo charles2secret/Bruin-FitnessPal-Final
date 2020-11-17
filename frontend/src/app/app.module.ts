@@ -15,6 +15,7 @@ import { NavigationPanelComponent } from './navigation-panel/navigation-panel.co
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { LoginComponent } from './login/login.component';
 
 // for communicating with backend using HttpClient
 import { AppService } from './app.service';
@@ -24,7 +25,8 @@ import {HttpClientModule} from '@angular/common/http';
   declarations: [
     AppComponent,
     DashboardHomeComponent,
-    NavigationPanelComponent
+    NavigationPanelComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
