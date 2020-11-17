@@ -17,11 +17,18 @@ export class LoginComponent implements OnInit {
    */
   // a test case for login
   ngOnInit() {
-    alert("helo?")
-    this.appService.getIssues().subscribe((issue)=>{
-      console.log(issue);
+    this.appService.addIssue("abs","edb").subscribe((issue)=>{
+      const temp = {
+        name: "10",
+        age: "20",
+      }
+      if (issue == true) {
+        alert("login success")
+      }
+      else {
+        alert("login failed")
+      }
     })
-
   }
 
  loginUser(event: any){

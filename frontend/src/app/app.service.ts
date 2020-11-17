@@ -26,7 +26,7 @@ export class AppService {
   // they can use HttpClient to send request
   constructor(private httpClient: HttpClient) { }
 
-  uri = 'http://localhost:4200';
+  uri = 'http://localhost:3000';
 
   getIssues() {
     return this.httpClient.get(`${this.uri}/issues`);
@@ -36,14 +36,12 @@ export class AppService {
     return this.httpClient.get(`${this.uri}/issues/${id}`);
   }
 
-  addIssue(title, responsible, description, severity) {
+  addIssue(username, password) {
     const issue = {
-      title: title,
-      responsible: responsible,
-      description: description,
-      severity: severity
+      username: username,
+      password: password,
     };
-    return this.httpClient.post(`${this.uri}/issue`,issue);
+    return this.httpClient.post(`${this.uri}/issues`,issue);
   }
 
   updateIssue(id, title, responsible, description, severity) {
@@ -61,3 +59,4 @@ export class AppService {
   }
 
 }
+
