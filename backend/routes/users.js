@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.post('/log', function(req, res, next) {
+  res.send(true);
+});
+
+
 module.exports = router;

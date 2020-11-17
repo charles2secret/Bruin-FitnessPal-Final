@@ -10,4 +10,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.post('/', function(req, res, next) {
+    res.send(true);
+});
+
+
+
 module.exports = router;
