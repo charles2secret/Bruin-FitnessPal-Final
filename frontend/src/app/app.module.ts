@@ -16,6 +16,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 
+// for communicating with backend using HttpClient
+import { AppService } from './app.service';
+import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,9 +38,11 @@ import { MatListModule } from '@angular/material/list';
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule // new module for AppService
   ],
-  providers: [],
+  // add service class to providers
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
