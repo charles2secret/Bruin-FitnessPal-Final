@@ -15,12 +15,14 @@ import { NavigationPanelComponent } from './navigation-panel/navigation-panel.co
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardHomeComponent,
-    NavigationPanelComponent
+    NavigationPanelComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
