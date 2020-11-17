@@ -40,7 +40,7 @@ h1 span {
 
 .hero-bg p {
     font-weight: bold;
-    margin: 0 1em 3em
+    margin: 0 1em 1em
 }
 
 .form-container {
@@ -77,6 +77,17 @@ input[type=text] {
 }
 
 input[type=button] {
+    background-color: #F89104;
+    border: none;
+    width: 20%;
+    color:white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.5em;
+    
+}
+
+input[type=submit] {
     background-color: #F89104;
     border: none;
     width: 20%;

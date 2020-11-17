@@ -17,21 +17,23 @@ export class LoginComponent implements OnInit {
    */
   // a test case for login
   ngOnInit() {
-    this.appService.addIssue("abs","edb").subscribe((issue)=>{
-      const temp = {
-        name: "10",
-        age: "20",
-      }
-      if (issue == true) {
-        alert("login success")
-      }
-      else {
-        alert("login failed")
-      }
-    })
+    
   }
 
  loginUser(event: any){
-   console.log(event)
+   event.preventDefault()
+   const target = event.target
+   const username = target.querySelector('#username').value
+   const password = target.querySelector('#password').value
+   this.appService.addIssue(username,password).subscribe((issue)=>{
+    
+    if (username == "123") {
+      alert("login success")
+    }
+    else {
+      alert("login failed")
+    }
+  })
+   console.log(username,password)
  }
 }

@@ -20,13 +20,15 @@ import { LoginComponent } from './login/login.component';
 // for communicating with backend using HttpClient
 import { AppService } from './app.service';
 import {HttpClientModule} from '@angular/common/http';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardHomeComponent,
     NavigationPanelComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

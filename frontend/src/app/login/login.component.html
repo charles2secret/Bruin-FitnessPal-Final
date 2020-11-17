@@ -11,15 +11,17 @@
             <p>Logging in your personal workout moments, and connecting with other users. </p>
             
             <div class="form-container">
-                <form action="">
+                <form (submit)="loginUser($event)">
                     <div class="sign-in">
                         <label for="username">Username</label>
                         <input type="text" name="username" id="username" size=”15” maxlength=”30”>
                         <label for="password">Password</label>
                         <input type="text" name="password" id="password" size=”15” maxlength=”30”>
+                        <p>Click the "sign in" button if you are ready</p>
+                        <input type="submit" value="Sign in" href="#">
                         <p>If you haven't created an account yet, please click the "sign up" button below. </p>
                     </div>
-                    <input type="button" value="Sign Up" href="#">
+                    <input type="button" value="Sign Up" routerLink="/signUp">
                 </form>
             </div>
         </section>
