@@ -17,6 +17,8 @@ export class SignUpComponent implements OnInit {
     event.preventDefault()
     const target = event.target
     const gender = target.querySelector('#gender').value
+    const birthday=target.querySelector('#birthday').value
+    const email=target.querySelector('#email').value
     const username = target.querySelector('#username').value
     const password = target.querySelector('#password').value
     this.appService.addIssue2(gender,username,password).subscribe((issue)=>{
@@ -28,7 +30,7 @@ export class SignUpComponent implements OnInit {
        alert("login failed")
      }
    })
-    console.log(gender,username,password)
+    console.log(gender,birthday,email,username,password)
   }
 }
 
