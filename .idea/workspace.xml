@@ -10,17 +10,45 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4825801-2d39-4543-bc27-a7d488761758" name="Default Changelist" comment="" />
+    <list default="true" id="c4825801-2d39-4543-bc27-a7d488761758" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/services/user.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README-BACK" beforeDir="false" afterPath="$PROJECT_DIR$/README-BACK" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/HISTORY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/lib/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/object-assign/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/object-assign/license" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/object-assign/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/object-assign/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/users.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/backend" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1kMkSmbwPUwws7Vvdhz8avI6NdO" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -36,6 +64,22 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/frontend/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend" />
+      <recent name="$PROJECT_DIR$/backend/services" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="user.service.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/backend/services/user.service.js" working-dir="$PROJECT_DIR$/backend/services">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.user.service.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -62,11 +106,32 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="469" y="225" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605529057019">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="469" y="225" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.801@0.23.1440.801" timestamp="1605529057019" />
+    <state x="614" y="170" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605632122590">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="614" y="170" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.801@0.23.1440.801" timestamp="1605632122590" />
+    <state width="1313" height="201" key="GridCell.Tab.0.bottom" timestamp="1605631750791">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1313" height="201" key="GridCell.Tab.0.bottom/0.23.1440.801@0.23.1440.801" timestamp="1605631750791" />
+    <state width="1313" height="201" key="GridCell.Tab.0.center" timestamp="1605631750790">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1313" height="201" key="GridCell.Tab.0.center/0.23.1440.801@0.23.1440.801" timestamp="1605631750790" />
+    <state width="1313" height="201" key="GridCell.Tab.0.left" timestamp="1605631750789">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1313" height="201" key="GridCell.Tab.0.left/0.23.1440.801@0.23.1440.801" timestamp="1605631750789" />
+    <state width="1313" height="201" key="GridCell.Tab.0.right" timestamp="1605631750790">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state width="1313" height="201" key="GridCell.Tab.0.right/0.23.1440.801@0.23.1440.801" timestamp="1605631750790" />
   </component>
 </project>

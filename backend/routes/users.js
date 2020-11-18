@@ -10,5 +10,4 @@ router.post('/log', function(req, res, next) {
   res.send(true);
 });
 
-
 module.exports = router;
