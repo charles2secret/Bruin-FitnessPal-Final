@@ -1,18 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Goldman&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
 .main{
     text-align: center;
+    background-color: #2d7d98;
+    padding-bottom: 5em;
+    
 
+}
+body{
+    font-family: 'Noto Sans TC', sans-serif;
 }
 header{
     
     font-weight: bold;
     font-size: large;
     padding-top: 1em;
-    padding-bottom: 1em;
+    
 
 }
 
 .form-container {
-    background-color: white;
+    
     margin: 2em -1em 0;
     padding-top: 1em;
     padding-bottom: 1em;
@@ -21,7 +29,7 @@ header{
 }
 
 label {
-    color: #2d7d98;
+    color:white;
     font-weight: bold;
     display: block;
     margin-top: 1em;
@@ -51,6 +59,11 @@ input[type=reset] {
     font-weight: bold;
     cursor: pointer;
     border-radius: 0.5em;
-   
+    
+    
+}
+
+p{
+    padding-top: 1em;
     
 }

@@ -21,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { AppService } from './app.service';
 import {HttpClientModule} from '@angular/common/http';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { FriendsComponent } from './friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     DashboardHomeComponent,
     NavigationPanelComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
