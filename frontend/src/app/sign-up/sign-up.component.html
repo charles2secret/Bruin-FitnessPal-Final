@@ -1,24 +1,32 @@
-<div class="main">
-
-    <body>
-        <header>New User Sign Up Sheet</header>
-        <form (submit)="loginUser($event)">
-            <div class="info">
-                <label for="gender">Gender</label>
-                <input type="text" name="gender" id="gender" size=”15” maxlength=”20”>
-                <label for="birthday">Birthday</label>
-                <input type="date" id="birthday" name="birthday" min="1950-01-01" max="2015-12-31">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required>
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" size=”15” maxlength=”15” required>
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" size=”15” maxlength=”15” required>
-            </div>
-            <p> </p>
+<div class="signup-box">
+    <h2>Sign Up</h2>
+    <form (submit)="loginUser($event)">
+        <div class="user-box">
+            <input type="text" name="gender" id="gender" size=”15” maxlength=”20” required>
+            <label>Gender</label>
+        </div>
+        <div class="user-box">
+            <input type="email" id="email" name="email" required>
+            <label>Email Address</label>
+        </div>
+        <div class="user-box">
+            <input type="text" id="userID" name="userID" maxlength="20" minlength="6" required>
+            <label>User ID(6-20 characters)</label>
+        </div>
+        <div class="user-box">
+            <input type="text" id="username" name="username" required>
+            <label>Username</label>
+        </div>
+        <div class="user-box">
+            <input type="password" id="password" name="password" required>
+            <label>Password</label>
+        </div>
+        <a>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
             <input type="submit" value="submit" href="#">
-            <p> </p>
-            <input type="reset" value="reset">
-        </form>
-    </body>
+        </a>
+    </form>
 </div>
