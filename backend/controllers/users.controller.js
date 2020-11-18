@@ -11,11 +11,11 @@ router.delete('/:_id', deleteUser);
 
 module.exports = router;
 
-function authenticateUser(req, res) { res.send("a user?")}
-function registerUser(req, res) {}
-function getCurrentUser(req, res) {}
-function updateUser(req, res) {}
-function deleteUser(req, res) {}
+function authenticateUser(req, res) { res.send(true)}
+function registerUser(req, res) {res.send(true)}
+function getCurrentUser(req, res) {res.send(true)}
+function updateUser(req, res) {res.send(true)}
+function deleteUser(req, res) {res.send(true)}
 
 /*
     HTTP Method Reference:
