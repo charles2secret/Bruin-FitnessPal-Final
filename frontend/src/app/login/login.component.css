@@ -40,9 +40,13 @@ h1 span {
 
 .hero-bg p {
     font-weight: bold;
-    margin: 0 1em 1em
+    margin: 0 1em 1em;
+    font-size: 1.2rem;
 }
-
+.form-container p {
+    font-weight: bold;
+    margin: 0 1em 1em;
+}
 .form-container {
     background-color: white;
     margin: 2em -1em 0;
