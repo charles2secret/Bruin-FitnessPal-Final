@@ -1,0 +1,56 @@
+.main{
+    text-align: center;
+
+}
+header{
+    
+    font-weight: bold;
+    font-size: large;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+}
+
+.form-container {
+    background-color: white;
+    margin: 2em -1em 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    
+    
+}
+
+label {
+    color: #2d7d98;
+    font-weight: bold;
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    
+    font-size: 1.2em;
+
+
+}
+
+input[type=submit] {
+    background-color: #F89104;
+    border: none;
+    width: 20%;
+    color:white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.5em;
+   
+    
+}
+input[type=reset] {
+    background-color: #F89104;
+    border: none;
+    width: 20%;
+    color:white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.5em;
+   
+    
+}
