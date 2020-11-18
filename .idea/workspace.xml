@@ -11,24 +11,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4825801-2d39-4543-bc27-a7d488761758" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/services/user.service.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controllers/users.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/entities/user.entity.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/services/user.service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README-BACK" beforeDir="false" afterPath="$PROJECT_DIR$/README-BACK" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/HISTORY.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/lib/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/cors/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/object-assign/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/object-assign/license" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/object-assign/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/object-assign/readme.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cors/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/CONTRIBUTING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cors/HISTORY.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/HISTORY.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cors/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cors/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cors/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/lib/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cors/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/object-assign/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/object-assign/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/object-assign/license" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/object-assign/license" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/object-assign/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/object-assign/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/object-assign/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/object-assign/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vary/HISTORY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vary/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vary/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vary/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vary/package.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +54,9 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -109,10 +114,15 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="469" y="225" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605529057019">
-      <screen x="0" y="23" width="1440" height="801" />
+    <state x="799" y="281" key="#Scopes" timestamp="1605686365416">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state x="799" y="281" key="#Scopes/0.23.1440.806@0.23.1440.806" timestamp="1605686365416" />
+    <state x="469" y="226" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605687118523">
+      <screen x="0" y="23" width="1440" height="804" />
     </state>
     <state x="469" y="225" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.801@0.23.1440.801" timestamp="1605529057019" />
+    <state x="469" y="226" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.804@0.23.1440.804" timestamp="1605687118523" />
     <state x="614" y="170" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605632122590">
       <screen x="0" y="23" width="1440" height="801" />
     </state>
@@ -133,5 +143,9 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state width="1313" height="201" key="GridCell.Tab.0.right/0.23.1440.801@0.23.1440.801" timestamp="1605631750790" />
+    <state x="768" y="188" key="run.anything.popup" timestamp="1605687785840">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="768" y="188" key="run.anything.popup/0.23.1440.808@0.23.1440.808" timestamp="1605687785840" />
   </component>
 </project>
