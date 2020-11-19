@@ -20,7 +20,7 @@ var service = {};
 service.authenticate = authenticate;
 service.getByName = getByName;
 service.getById = getById;
-service.create = create;
+service.register = register;
 service.update = update;
 service.delete = _delete;
 //add export functions here....
@@ -57,7 +57,7 @@ async function authenticate(userParam){
     }
 }
 
-async function create(userParam) {
+async function register(userParam) {
     let queryName = await userFactory.findByName(userParam.username);
     let queryId = await userFactory.findById(userParam.accountId);
     //if user not found in database

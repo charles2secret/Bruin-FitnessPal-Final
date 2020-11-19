@@ -42,7 +42,7 @@ async function authenticateUser(req, res) {
  */
 async function registerUser(req, res) {
     try {
-        let response = await userService.create(req.body);
+        let response = await userService.register(req.body);
         if (response === "successful registration") {
             res.sendStatus(200);
         }

@@ -1,5 +1,9 @@
-extends layout
+extends layout.pug
+include mixins/_thumbCard
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .album.py-5.bg-light
+    .container
+      .row
+        each user in users
+          +thumbCard(user)
