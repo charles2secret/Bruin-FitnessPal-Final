@@ -16,8 +16,4 @@ router.get("/", async (req, res) => {
     res.render("index", { users: query.data.results });
 });
 
-router.get("/docs", async (req, res)=> {
-
-});
-
 module.exports = router;
