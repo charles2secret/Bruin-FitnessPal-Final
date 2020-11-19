@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //TODO: make sure add to export module after writing your function
+//      and check comment below before start
 var userFactory = {}
 userFactory.findByName = findByName;
 userFactory.findById = findById;
@@ -10,6 +11,7 @@ userFactory.setEmail = setEmail;
 userFactory.setGender = setGender;
 userFactory.loginByName = loginByName;
 userFactory.loginById = loginById;
+//add export functions here....
 module.exports = userFactory;
 
 const userSchema = new Schema ({
@@ -34,6 +36,7 @@ const userSchema = new Schema ({
         },
         phone: {
             type: String,
+            default: "0000000000",
             match:/[\d]{10}/
         },
         address: {
@@ -50,83 +53,133 @@ const userSchema = new Schema ({
         type: String,
         enum: ['male','female','other']
     }
-    }
-);
-
+});
 const userModel = mongoose.model('User', userSchema);
 
-/*
-    please use async/await in es6 as oppose to Promise library such as Q
-    if you are comfortable with writing Promise function by hand, or
-    if you are adept at using Q/other promise library, then that's fine
+//===================================================================>
+/**
+ * standard error handler for subsequent functions
+ * it prints error message in detail in console
+ *
+ * @param {Error} err
+ * @param {String} function_name of the error happens
+ * @param {...string} args
+ * @return {userModel} a user instance of userModel
+ *      when err or user not found, user = null
+ */
+function HandleError (err, function_name, ...args) {
+    console.log("================user.entity.js================================");
+    console.log("internal error at function " + function_name);
+    console.log("input param for the error: ");
+    for (var i=1; i<args.length; i++) {
+        console.log(args[i]);
+    }
+    console.log("error message: " + err.message);
+    console.log("==============================================================")
+}
 
-    a general guide into Promise, async, await can be found here:
-    https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8#.w234uo7h3
-
-    notes: some say its a good practice for all functions to be async, if:
-    any function you call subsequently is async
-
-    I made all functions async, and so far nothing wrong (I only have basic understanding of
-    promise, so I might be wrong.
-
-    note!!! await basically stops the program until a Promise object is returned,
-    if you don't solve the Promise, then instead of your queryResult, an object of Promise
-    will pass to your parent function. Read mongoose API for query such as findOne() before
-    starts.
+/**
+ * finds user in mongodb by username
+ *
+ * @param {String} username
+ * @return {userModel} a user instance of userModel
+ *      when err or user not found, user = null
  */
 async function findByName(username) {
     try {
-        let result = await userModel.findOne({username: username}).exec();
-        if (result == null) {
+        let user = await userModel.findOne({username: username});
+        if (user == null) {
             console.log("unable to find user by username: " + username);
+            return user;
         }
-        return result;
+        console.log("successfully find user by username: " + username);
+        return user;
     } catch (err) {
+        HandleError(err, "findByName", "username: "+username);
         return null;
     }
 }
 
+/**
+ * finds user in mongodb by accountId
+ *
+ * @param {String} accountId
+ * @return {userModel} a user instance of userModel
+ *      when err or user not found, user = null
+ */
 async function findById(accountId) {
     try {
-        let result = await userModel.findOne({accountId: accountId}).exec();
-        if (result == null) {
+        let user = await userModel.findOne({accountId: accountId});
+        if (user == null) {
             console.log("unable to find user by accountId: " + accountId);
+            return user;
         }
-        return result;
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
     } catch (err) {
+        HandleError(err, "findById", "accountId: "+ accountId);
         return null;
     }
 }
 
+/**
+ *  logs in user by accountId
+ *
+ * @param {String} accountId
+ * @param {String}password
+ * @return {boolean} whether login is successful or not
+ *      * no user instance is returned under any circumstance *
+ */
 async function loginById(accountId, password) {
     try {
-        let result = await userModel.findOne(
-            {accountId: accountId, password:password}
-            ).exec();
-        if (result == null) {
+        let user = await userModel.findOne(
+            {accountId: accountId, password:password});
+        if (user == null) {
             console.log("unable to login user by accountId: " + accountId);
+            return false;
         }
-        return result;
+        console.log("successfully login user by accountId: " + accountId);
+        return true;
     } catch (err) {
-        return null;
+        HandleError(err, "loginById", "accountId: "+ accountId);
+        return false;
     }
 }
 
+/**
+ *  logs in user by username
+ *
+ * @param {String} username
+ * @param {String}password
+ * @return {boolean} whether login is successful or not
+ *      * no user instance is returned under any circumstance *
+ */
 async function loginByName(username, password) {
     try {
-        let result = await userModel.findOne(
-            {username:username, password:password}
-        ).exec();
-        if (result == null) {
+        let user = await userModel.findOne(
+            {username:username, password:password});
+        if (user == null) {
             console.log("unable to login user by username: " + username);
+            return false;
         }
-        return result;
+        console.log("successfully login user by username: " + username);
+        return true;
     } catch (err) {
-        return null;
+        HandleError(err, "loginByName", "username: " + username);
+        return false;
     }
 }
 
-
+/**
+ *  register user with 3 inputs
+ *
+ * @param {String} username
+ * @param {String} password
+ * @param {String} accountId
+ *
+ * @return {boolean} whether login is successful or not
+ *      * no user instance is returned under any circumstance *
+ */
 async function register(username, password, accountId) {
     try {
         const newUser = new userModel({
@@ -134,32 +187,58 @@ async function register(username, password, accountId) {
             password: password,
             accountId: accountId
         });
-        let saveUser = await newUser.save().exec(); //when fail its goes to catch
-        console.log(saveUser); //when success it print.
+        let saveUser = await newUser.save(); //when fail its goes to catch
+        if (saveUser == null) {
+            console.log("unable to register user:");
+            console.log(newUser);
+            return false;
+        }
+        console.log("successfully register new user.");
+        console.log(newUser);
         return true;
     } catch (err) {
+        HandleError(err, "register","username: " + username +
+            " password: " + password +
+            " id: " + accountId);
         return false;
     }
 }
 
+//TODO: setter functions, make sure to do DocBlock comment
+//      use console.log to log all operations to the database
 async function setEmail(accountId, email) {}
 async function setGender(accountId, email) {}
+async function setPhone(){}
+async function setAddress(){}
+async function setBirth(){}
 
+//TODO: create corresponding getter functions, make sure to do DocBlock comment
+//      use console.log to log all operations to the database
 
-//TODO: create more async function to help implement functions in user.service.js
-/*
-    user.entity.js directly communicates with the db
-    consider Java, you take in a string and then return the result
-    do not pass the entire Json request body (req.body) into entity layer
-    design your function using only the parameters you need to work with db
-    each function should only complete one task, for example:
+async function getEmail(accountId, email) {}
+async function getUserById(accountId) {}
+async function getUserByName(username) {}
+async function getGender(accountId, email) {}
+async function getPhone(){}
+async function getAddress(){}
+async function getBirth(){}
 
-    if user.service.js wants to register a new user, it needs to call:
-           userFactory.findByID (? already exist)
-           userFactory.findByName (?already exist)
-           return if already exist and notify caller the correct status
-           if not:
-                userFactory.create(username, password, accountID ....)
-                again do not pass in Json!!!
+/* TODO Notes:
+    1. user.entity.js is the direct communication layer for users to the database
+    2. do not pass any JSON (req.body) into this layer
+    3. write these functions like standard Java setters and getters.
+    4. each function should only implement one functionality
+    5. example:
+        user.service.js has a function registerUser(), and it calls:
+            findByID (check if ID already exist)
+            findByName (check if name already exist)
+            if username and accountId not found:
+                   register(user,pass,id,...)
+    6. please use async.await in ES6 as oppose to Promise library such as Q
+    7. if you are comfortable with Q or writing Promise function by hand, you can
+    8. guide to DocBlock comment
+    https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8#.w234uo7h3
+    10. make sure use try/catch or .then().catch() for error handling, please console.log instead of throw err
+        (this helps us to debug each others code)
  */
 
