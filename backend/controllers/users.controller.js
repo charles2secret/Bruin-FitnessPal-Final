@@ -21,12 +21,16 @@ module.exports = router;
     (other err as string means customized err code)
  */
 async function authenticateUser(req, res) {
-    let response = await userService.authenticate(req.body);
-    if (response === "successful login") {
-        res.sendStatus(200);
-    }
-    else {
-        res.sendStatus(400).send(response);
+    try {
+        let response = await userService.authenticate(req.body);
+        if (response === "successful login") {
+            res.send(true);
+        }
+        else {
+            res.send(response);
+        }
+    } catch (err) {
+        res.send(err);
     }
 }
 
@@ -37,12 +41,16 @@ async function authenticateUser(req, res) {
     response follows same format as function authenticate()
  */
 async function registerUser(req, res) {
-    let response = await userService.create(req.body);
-    if (response === "successful registration") {
-        res.sendStatus(200);
-    }
-    else {
-        res.sendStatus(400).send(response);
+    try {
+        let response = await userService.create(req.body);
+        if (response === "successful registration") {
+            res.sendStatus(200);
+        }
+        else {
+            res.send(response);
+        }
+    } catch (err) {
+        res.send(err);
     }
 }
 
@@ -58,3 +66,5 @@ function deleteUser(req, res) {res.send(true)}
     patch = update/modify
     delete = delete
  */
+
+//TODO:

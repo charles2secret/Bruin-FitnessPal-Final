@@ -1,11 +1,11 @@
 const config = require('./config.json');
-const bcrypt = require('bcryptjs');
-const userEntity = require('../entities/user.entity');
-const Q = require('q');
 const mongo = require('mongoose');
 const userFactory = require('../entities/user.entity');
+const bcrypt = require('bcryptjs');
 
+//TODO: make sure to read all TODOs before start
 const db = mongo.connect(config.url, {
+    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
@@ -15,21 +15,27 @@ const db = mongo.connect(config.url, {
     err => {console.log("DB Connection Failed")}
 );
 
+//TODO: make sure add to export module after writing your function
 var service = {};
-
 service.authenticate = authenticate;
 service.getByName = getByName;
 service.getById = getById;
 service.create = create;
 service.update = update;
 service.delete = _delete;
-
-
+//add export functions here....
 module.exports = service;
 
+/**
+ * authenticate if user meets login credential
+ * allows both login by accountId and username
+ *
+ * @param {JSON} userParam
+ * @return {userModel} a user instance of userModel
+ *      when err or user not found, user = null
+ */
 async function authenticate(userParam){
     try {
-        //if login via username
         let password = userParam.password;
         if (userParam.username) {
             let loginResult = await userFactory.loginByName(userParam.username, password);
@@ -52,7 +58,7 @@ async function authenticate(userParam){
 }
 
 async function create(userParam) {
-    let queryName =await userFactory.findByName(userParam.username);
+    let queryName = await userFactory.findByName(userParam.username);
     let queryId = await userFactory.findById(userParam.accountId);
     //if user not found in database
     //TODO: implement security feature on password (bcrypt)
