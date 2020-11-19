@@ -5,7 +5,7 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 150px;
 }
 
 .sidenav .mat-toolbar {
@@ -16,6 +16,9 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+.router-outlet {
+  background: rgba(0,0,0,.5);
 }
 
 

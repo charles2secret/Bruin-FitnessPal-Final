@@ -43,9 +43,10 @@ export class AppService {
     };
     return this.httpClient.post(`${this.uri}/issues`,issue);
   }
-  addIssue2(gender,username, password) {
+  addIssue2(gender,userID,username, password) {
     const issue = { 
       gender: gender,
+      userID: userID,
       username: username,
       password: password,
     };
