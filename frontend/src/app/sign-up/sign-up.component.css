@@ -85,7 +85,13 @@ html {
                 0 0 50px #03e9f4,
                 0 0 100px #03e9f4;
   }
-  
+  input[type=submit] {
+    background-color:white;
+    color:black;
+    border: none;
+    
+    
+}
   .signup-box a span {
     position: absolute;
     display: block;

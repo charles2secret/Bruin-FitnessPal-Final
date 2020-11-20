@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
    const target = event.target
    const username = target.querySelector('#username').value
    const password = target.querySelector('#password').value
-   this.appService.addIssue(username,password).subscribe((issue)=>{
+   
+   this.appService.loginUserByName(username,password).subscribe((issue)=>{
     
     if (username == "123") {
       alert("login success")
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
     else {
       alert("login failed")
     }
+    console.log(issue)
   })
-   console.log(username,password)
+   
  }
 }
