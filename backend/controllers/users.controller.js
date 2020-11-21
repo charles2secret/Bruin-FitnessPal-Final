@@ -54,9 +54,35 @@ async function registerUser(req, res) {
     }
 }
 
-function getCurrentUser(req, res) {res.send(true)}
-function updateUser(req, res) {res.send(true)}
-function deleteUser(req, res) {res.send(true)}
+/*
+    getCurrentUser(req,res):
+    send status 200 when query by ID is success
+    otherwise, send 400 with error code: response
+*/
+async function getCurrentUser(req, res) {
+    try {
+        let response = await userService.getByEither(req.body);
+        if (response === "successful query - id" || response === "successful query - name") {
+            res.sendStatus(200);
+        } else {
+            res.send(response);
+        }
+    } catch (err) {
+        res.send(err);
+    }
+}
+
+/*
+    updateUser(req,res):
+    send status 200 when update by query is success
+    otherwise, send 400 with error code: response
+*/
+async function updateUser(req, res) {
+}
+
+async function deleteUser(req, res) {
+
+}
 
 /*
     HTTP Method Reference:

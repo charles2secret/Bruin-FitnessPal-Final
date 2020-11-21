@@ -18,6 +18,7 @@ const db = mongo.connect(config.url, {
 //TODO: make sure add to export module after writing your function
 var service = {};
 service.authenticate = authenticate;
+service.getByEither = getByEither;
 service.getByName = getByName;
 service.getById = getById;
 service.register = register;
@@ -85,10 +86,38 @@ async function register(userParam) {
     }
 }
 
-function getById() {}
-function getByName() {}
-function update() {}
-function _delete() {}
+async function getById(userParam) {
+    let queryId = await userFactory.findById(userParam.accountId);
+    if (queryId == null) {
+        return "id DNE";
+    } else {
+        return "successful query - id";
+    }
+}
+
+async function getByName(userParam) {
+    let queryName = await userFactory.findByName(userParam.username);
+    if (queryName == null){
+        return "Name DNE";
+    } else {
+        return "successful query - name";
+    }
+}
+
+async function getByEither(userParam){
+    if (userParam.username) {
+        getByName(userParam);
+    } else {
+        getById(userParam);
+    }
+}
+
+async function update(userParam) {
+}
+
+async function _delete() {
+
+}
 
 //notes: why not just write all code in user.service.js?
 //       isn't that what this class is for? we already have a controller class...

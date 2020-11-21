@@ -204,13 +204,51 @@ async function register(username, password, accountId) {
     }
 }
 
+/**
+*  setEmail with 2 inputs
+*  
+*  @param {String} accountId
+*  @param {String} enail
+*
+*  @return {boolean} whether setEmail is successful or not
+*    * no user instace  is returned under any circumstance *
+*/
+async function setEmail(accountId, email) {
+    try {
+        const filter = {accountId: accountId};
+        const update = {'contact.email': email};
+        const options = {runValidators: true, upsert: true};
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find user with such accountId; failed to set email");
+            return false;
+        } else {
+            console.log("set email to " + email);
+            return true;
+        }
+    } catch(err) {
+        HandleError(err, "setEmail", "accountId: " + accountId +
+            "email: " + email);
+        return false;
+    }
+}
+
+
 //TODO: setter functions, make sure to do DocBlock comment
 //      use console.log to log all operations to the database
-async function setEmail(accountId, email) {}
-async function setGender(accountId, email) {}
-async function setPhone(){}
-async function setAddress(){}
-async function setBirth(){}
+
+// will finish all set functions tmr
+async function setGender(accountId, gender) {
+}
+
+async function setPhone(){
+}
+
+async function setAddress(){
+}
+
+async function setBirth(){
+}
 
 //TODO: create corresponding getter functions, make sure to do DocBlock comment
 //      use console.log to log all operations to the database
