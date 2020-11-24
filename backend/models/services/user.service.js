@@ -113,6 +113,7 @@ async function getByEither(userParam){
 }
 
 async function update(userParam) {
+    
 }
 
 async function _delete() {

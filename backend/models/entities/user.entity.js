@@ -13,6 +13,12 @@ userFactory.setPhone = setPhone;
 userFactory.setAddress = setAddress;
 userFactory.setBirth = setBirth;
 
+userFactory.getEmail = getEmail;
+userFactory.getGender= getGender;
+userFactory.getPhone= getPhone;
+userFactory.getAddress = getAddress;
+userFactory.getBirth= getBirth;
+
 userFactory.loginByName = loginByName;
 userFactory.loginById = loginById;
 //add export functions here....
@@ -354,16 +360,127 @@ async function setBirth(accountId, birth){
     }
 }
 
-//TODO: create corresponding getter functions, make sure to do DocBlock comment
-//      use console.log to log all operations to the database
+/**
+*  getEmail with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {Dictionary} {contact: { email : EMAIL}} email if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getEmail(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'contact.email -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getEmail", "accountId: "+accountId);
+        return null;
+    }
+}
 
-async function getEmail(accountId, email) {}
+// QUESTION: DUPLICATE OF findById?
 async function getUserById(accountId) {}
+
+
+// QUESTION: DUPLICATE OF findById?
 async function getUserByName(username) {}
-async function getGender(accountId, email) {}
-async function getPhone(){}
-async function getAddress(){}
-async function getBirth(){}
+
+/**
+*  getGender with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {set} gender: GENDER if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getGender(accountId) {
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'gender -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getGender", "accountId: "+accountId);
+        return null;
+    }
+}
+
+/**
+*  getPhone with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {Dictionary} {contact: {phone: PHONE}} if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getPhone(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'contact.phone -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getPhone", "accountId: "+accountId);
+        return null;
+    }
+}
+
+/**
+*  getAddress with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {Dictionary} {contact: {address: ADDRESS }} if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getAddress(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'contact.address -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getAddress", "accountId: "+accountId);
+        return null;
+    }
+}
+
+/**
+*  getBirth with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {dictionary} {birth: {year: YEAR, month: MONTH, day: DAY}} if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getBirth(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'birth -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getAddress", "accountId: "+accountId);
+        return null;
+    }
+}
 
 /* TODO Notes:
     1. user.entity.js is the direct communication layer for users to the database
