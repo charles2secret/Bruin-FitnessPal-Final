@@ -36,6 +36,22 @@ export class AppService {
     return this.httpClient.get(`${this.uri}/issues/${id}`);
   }
 
+  loginUserByName(username, password) {
+    const user = {
+      username: username,
+      password: password,
+    };
+    return this.httpClient.post(`${this.uri}/users/authenticate`, user);
+  }
+
+  loginUserById(accountId, password) {
+    const user = {
+      accountId: accountId,
+      password: password,
+    };
+    return this.httpClient.post(`${this.uri}/users/authenticate`,user);
+  }
+
   addIssue(username, password) {
     const issue = {
       username: username,
@@ -52,6 +68,16 @@ export class AppService {
     };
     return this.httpClient.post(`${this.uri}/issues`,issue);
   }
+  registerUser(name, pass, id, email, gender) {
+    const user = {
+      accountId: id,
+      password: pass,
+      username: name,
+      email: email,
+      gender: gender,
+    }
+    return this.httpClient.post(`${this.uri}/users/register`,user);
+  }
   updateIssue(id, title, responsible, description, severity) {
     const issue = {
       title: title,
@@ -61,7 +87,7 @@ export class AppService {
     };
     return this.httpClient.post(`${this.uri}/issue/${id}`,issue);
   }
-
+  
   deleteIssue(id) {
     return this.httpClient.get(`${this.uri}/issue/delete/${id}`);
   }

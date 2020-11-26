@@ -22,7 +22,7 @@ export class SignUpComponent implements OnInit {
     const username = target.querySelector('#username').value
     const password = target.querySelector('#password').value
     const userID = target.querySelector('#userID').value
-    this.appService.addIssue2(gender,userID,username,password).subscribe((issue)=>{
+    this.appService.registerUser(username,password,userID,email,gender).subscribe((issue)=>{
      
      if (gender == "male") {
        alert("login success")

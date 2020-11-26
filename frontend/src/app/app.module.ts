@@ -22,6 +22,7 @@ import { AppService } from './app.service';
 import {HttpClientModule} from '@angular/common/http';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FriendsComponent } from './friends/friends.component';
+import { PlanComponent } from './plan/plan.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FriendsComponent } from './friends/friends.component';
     NavigationPanelComponent,
     LoginComponent,
     SignUpComponent,
-    FriendsComponent
+    FriendsComponent,
+    PlanComponent
   ],
   imports: [
     BrowserModule,

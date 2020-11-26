@@ -2,10 +2,10 @@
     <div class="hero-bg">
         <section class="top"> 
             <header>
-                <a routerLink="/login">Bruin FitnessPal</a>
+                <a >Innovation and Inspiring</a>
             </header>
             <h1>
-                <span>Innovation and Inspiring</span> The Revolutionized Workout Experience.
+                <span></span> The Revolutionized Workout Experience.
             </h1>
 
             <p>Logging in your personal workout moments, and connecting with other users. </p>
@@ -14,9 +14,9 @@
                 <form (submit)="loginUser($event)">
                     <div class="sign-in">
                         <label for="username">Username/User ID</label>
-                        <input type="text" name="username" id="username" size=”15” maxlength=”30”>
+                        <input type="text" name="username" id="username" size=”15” maxlength=”30” required>
                         <label for="password">Password</label>
-                        <input type="text" name="password" id="password" size=”15” maxlength=”30”>
+                        <input type="password" name="password" id="password" size=”15” minlength="6"axlength=”20” required>
                         <p>Click the "sign in" button if you are ready</p>
                         <input type="submit" value="Sign in" href="#">
                         <p>If you haven't created an account yet, please click the "sign up" button below. </p>
