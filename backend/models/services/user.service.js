@@ -67,7 +67,7 @@ async function register(userParam) {
         let user = userParam.username;
         let pass = userParam.password;
         let id = userParam.accountId;
-        let token = userFactory.register(user, pass, id);
+        let token = await userFactory.register(user, pass, id);
         if (token) {
             await userFactory.setEmail(id, userParam.email);
             await userFactory.setGender(id, userParam.gender);

@@ -1,5 +1,5 @@
 const express = require('express');
-var router = express.Router();
+const router = require('express-promise-router')();
 const userService = require('../models/services/user.service');
 
 // routes
