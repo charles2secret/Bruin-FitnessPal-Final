@@ -86,6 +86,13 @@ async function register(userParam) {
     }
 }
 
+/**
+ * get user by accountId
+ *
+ * @param {JSON} userParam
+ * @return {userModel} a user instance of userModel
+ *      when err or user not found, user = null
+ */
 async function getById(userParam) {
     let queryId = await userFactory.findById(userParam.accountId);
     if (queryId == null) {
@@ -95,6 +102,13 @@ async function getById(userParam) {
     }
 }
 
+/**
+ * get user by username
+ *
+ * @param {JSON} userParam
+ * @return {userModel} a user instance of userModel
+ *      when err or user not found, user = null
+ */
 async function getByName(userParam) {
     let queryName = await userFactory.findByName(userParam.username);
     if (queryName == null){
@@ -104,6 +118,13 @@ async function getByName(userParam) {
     }
 }
 
+/**
+ * get user by username OR accountid
+ *
+ * @param {JSON} userParam
+ * @return {userModel} a user instance of userModel
+ *      when err or user not found, user = null
+ */
 async function getByEither(userParam){
     if (userParam.username) {
         getByName(userParam);
@@ -112,6 +133,13 @@ async function getByEither(userParam){
     }
 }
 
+/**
+ * update user by accountid
+ *
+ * @param {JSON} userParam
+ * @return {boolean} when a user is successfully found and updated
+ *      when err, user not found, or no update is valid, return false
+ */
 async function update(userParam){
     let updateEmail = await userFactory.setEmail(userParam.accountId, userParam.email);
     let updateGender = await userFactory.setGender(userParam.accountId, userParam.gender);
@@ -124,6 +152,13 @@ async function update(userParam){
 
 }
 
+/**
+ * delete user by accountid
+ *
+ * @param {JSON} userParam
+ * @return {boolean} when a user is successfully found and deleted
+ *      when err or user not found, return false
+ */
 async function _delete(userParam) {
     let del = await userFactory.delByID(userParam.accountId);
     if (!del){
