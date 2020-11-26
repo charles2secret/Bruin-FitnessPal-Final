@@ -6,11 +6,26 @@ const Schema = mongoose.Schema;
 var userFactory = {}
 userFactory.findByName = findByName;
 userFactory.findById = findById;
+
 userFactory.register = register;
+
 userFactory.setEmail = setEmail;
 userFactory.setGender = setGender;
+userFactory.setPhone = setPhone;
+userFactory.setAddress = setAddress;
+userFactory.setBirth = setBirth;
+
+userFactory.getEmail = getEmail;
+userFactory.getGender = getGender;
+userFactory.getPhone = getPhone;
+userFactory.getAddress = getAddress;
+userFactory.getBirth = getBirth;
+
+userFactory.delByID = delByID;
+
 userFactory.loginByName = loginByName;
 userFactory.loginById = loginById;
+
 //add export functions here....
 module.exports = userFactory;
 
@@ -204,24 +219,314 @@ async function register(username, password, accountId) {
     }
 }
 
-//TODO: setter functions, make sure to do DocBlock comment
-//      use console.log to log all operations to the database
-async function setEmail(accountId, email) {}
-async function setGender(accountId, email) {}
-async function setPhone(){}
-async function setAddress(){}
-async function setBirth(){}
+/**
+*  setEmail with 2 inputs
+*  
+*  @param {String} accountId
+*  @param {String} enail
+*
+*  @return {boolean} whether setEmail is successful or not
+*    * no user instace  is returned under any circumstance *
+*/
+async function setEmail(accountId, email) {
+    try {
+        if (email==null){
+            console.log("cannot set email to null; please provide a valid email");
+            return;
+        }
+        const filter = {accountId: accountId};
+        const update = {'contact.email': email};
+        const options = {runValidators: true, upsert: true};
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find user with such accountId; failed to set email");
+            return false;
+        } else {
+            console.log("set email to " + email);
+            return true;
+        }
+    } catch(err) {
+        HandleError(err, "setEmail", "accountId: " + accountId +
+            "email: " + email);
+        return false;
+    }
+}
 
-//TODO: create corresponding getter functions, make sure to do DocBlock comment
-//      use console.log to log all operations to the database
+/**
+*  setEmail with 2 inputs
+*  
+*  @param {String} accountId
+*  @param {String} gender
+*
+*  @return {boolean} whether setGender is successful or not
+*    * no user instace  is returned under any circumstance *
+*/
+async function setGender(accountId, gender) {
+    try {
+        if (gender==null){
+            console.log("cannot set gender to null; please provide a valid gender");
+            return;
+        }
+        const filter = {accountId: accountId};
+        const update = {gender: gender};
+        const options = {runValidators: true, upsert: true};
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find user with such accountId; failed to set gender");
+            return false;
+        } else {
+            console.log("set gender to " + gender);
+            return true;
+        }
+    } catch(err) {
+        HandleError(err, "setGender", "accountId: " + accountId +
+            "gender: " + gender);
+        return false;
+    }
+}
 
-async function getEmail(accountId, email) {}
-async function getUserById(accountId) {}
-async function getUserByName(username) {}
-async function getGender(accountId, email) {}
-async function getPhone(){}
-async function getAddress(){}
-async function getBirth(){}
+/**
+*  setPhone with 2 inputs
+*  
+*  @param {String} accountId
+*  @param {String} phone
+*
+*  @return {boolean} whether setPhone is successful or not
+*    * no user instace is returned under any circumstance *
+*/
+async function setPhone(accountId, phone){
+    try {
+        if (phone==null){
+            console.log("cannot set phone to null; please provide a valid phone");
+            return;
+        }
+        const filter = {accountId: accountId};
+        const update = {'contact.phone': phone};
+        const options = {runValidators: true, upsert: true};
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find user with such accountId; failed to set phone");
+            return false;
+        } else {
+            console.log("set phone to " + phone);
+            return true;
+        }
+    } catch(err) {
+        HandleError(err, "setPhone", "accountId: " + accountId +
+            "phone: " + phone);
+        return false;
+    }
+}
+
+/**
+*  setAddress with 2 inputs
+*  
+*  @param {String} accountId
+*  @param {String} address
+*
+*  @return {boolean} whether setAddress is successful or not
+*    * no user instace is returned under any circumstance *
+*/
+async function setAddress(accountId, address){
+    try {
+        if (address==null){
+            console.log("cannot set address to null; please provide a valid address");
+            return;
+        }
+        const filter = {accountId: accountId};
+        const update = {'contact.address': address};
+        const options = {runValidators: true, upsert: true};
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find user with such accountId; failed to set address");
+            return false;
+        } else {
+            console.log("set address to " + address);
+            return true;
+        }
+    } catch(err) {
+        HandleError(err, "setAddress", "accountId: " + accountId +
+            "address: " + address);
+        return false;
+    }
+
+}
+
+/**
+*  setBirth with 2 inputs
+*  
+*  @param {String} accountId
+*  @param {String} birth
+*
+*  @return {boolean} whether setBirth is successful or not
+*    * no user instace is returned under any circumstance *
+*/
+async function setBirth(accountId, birth){
+    try {
+        if (birth==null){
+            console.log("cannot set birth to null; please provide a valid birth");
+            return;
+        }
+        const filter = {accountId: accountId};
+        const options = {runValidators: true, upsert: true};
+        var update = {};
+        if (birth.day) update['birth.day'] = birth.day;
+        if (birth.month) update['birth.month'] = birth.month;
+        if (birth.year) update['birth.year'] = birth.year;
+
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find user with such accountId; failed to set birth");
+            return false;
+        } else {
+            console.log("set birth to " + birth);
+            return true;
+        }
+    } catch(err) {
+        HandleError(err, "setBirth", "accountId: " + accountId +
+            "birth: " + birth);
+        return false;
+    }
+}
+
+/**
+*  getEmail with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {Dictionary} {contact: { email : EMAIL}} email if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getEmail(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'contact.email -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getEmail", "accountId: "+accountId);
+        return null;
+    }
+}
+
+/**
+*  getGender with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {set} gender: GENDER if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getGender(accountId) {
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'gender -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getGender", "accountId: "+accountId);
+        return null;
+    }
+}
+
+/**
+*  getPhone with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {Dictionary} {contact: {phone: PHONE}} if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getPhone(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'contact.phone -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getPhone", "accountId: "+accountId);
+        return null;
+    }
+}
+
+/**
+*  getAddress with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {Dictionary} {contact: {address: ADDRESS }} if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getAddress(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'contact.address -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getAddress", "accountId: "+accountId);
+        return null;
+    }
+}
+
+/**
+*  getBirth with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {dictionary} {birth: {year: YEAR, month: MONTH, day: DAY}} if query userModel by accountId is successful
+*    return null if query is unsuccessful or field is not filled/ DNE for userModel
+*/
+async function getBirth(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId},  'birth -_id');
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getAddress", "accountId: "+accountId);
+        return null;
+    }
+}
+
+/**
+*  deleteByName with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {boolean} if delete userModel by accountId is successful
+*    return null if query is unsuccessful 
+*/
+async function delByID(accountId){
+    try {
+        let user = await userModel.findOneAndDelete({accountId: accountId});
+        if (user == null) {
+            console.log("unable to delete user by accountId: " + accountId);
+            return false;
+        }
+        console.log("successfully delete user by accountId: " + accountId);
+        return true;
+    } catch (err) {
+        HandleError(err, "deleteByName", "accountId: "+accountId);
+        return false;
+    }
+    return false;
+}
 
 /* TODO Notes:
     1. user.entity.js is the direct communication layer for users to the database
