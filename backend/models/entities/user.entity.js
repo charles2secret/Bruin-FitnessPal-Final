@@ -6,7 +6,9 @@ const Schema = mongoose.Schema;
 var userFactory = {}
 userFactory.findByName = findByName;
 userFactory.findById = findById;
+
 userFactory.register = register;
+
 userFactory.setEmail = setEmail;
 userFactory.setGender = setGender;
 userFactory.setPhone = setPhone;
@@ -14,13 +16,16 @@ userFactory.setAddress = setAddress;
 userFactory.setBirth = setBirth;
 
 userFactory.getEmail = getEmail;
-userFactory.getGender= getGender;
-userFactory.getPhone= getPhone;
+userFactory.getGender = getGender;
+userFactory.getPhone = getPhone;
 userFactory.getAddress = getAddress;
-userFactory.getBirth= getBirth;
+userFactory.getBirth = getBirth;
+
+userFactory.delByID = delByID;
 
 userFactory.loginByName = loginByName;
 userFactory.loginById = loginById;
+
 //add export functions here....
 module.exports = userFactory;
 
@@ -225,6 +230,10 @@ async function register(username, password, accountId) {
 */
 async function setEmail(accountId, email) {
     try {
+        if (email==null){
+            console.log("cannot set email to null; please provide a valid email");
+            return;
+        }
         const filter = {accountId: accountId};
         const update = {'contact.email': email};
         const options = {runValidators: true, upsert: true};
@@ -254,6 +263,10 @@ async function setEmail(accountId, email) {
 */
 async function setGender(accountId, gender) {
     try {
+        if (gender==null){
+            console.log("cannot set gender to null; please provide a valid gender");
+            return;
+        }
         const filter = {accountId: accountId};
         const update = {gender: gender};
         const options = {runValidators: true, upsert: true};
@@ -283,6 +296,10 @@ async function setGender(accountId, gender) {
 */
 async function setPhone(accountId, phone){
     try {
+        if (phone==null){
+            console.log("cannot set phone to null; please provide a valid phone");
+            return;
+        }
         const filter = {accountId: accountId};
         const update = {'contact.phone': phone};
         const options = {runValidators: true, upsert: true};
@@ -312,6 +329,10 @@ async function setPhone(accountId, phone){
 */
 async function setAddress(accountId, address){
     try {
+        if (address==null){
+            console.log("cannot set address to null; please provide a valid address");
+            return;
+        }
         const filter = {accountId: accountId};
         const update = {'contact.address': address};
         const options = {runValidators: true, upsert: true};
@@ -342,9 +363,17 @@ async function setAddress(accountId, address){
 */
 async function setBirth(accountId, birth){
     try {
+        if (birth==null){
+            console.log("cannot set birth to null; please provide a valid birth");
+            return;
+        }
         const filter = {accountId: accountId};
-        const update = {birth: birth};
         const options = {runValidators: true, upsert: true};
+        var update = {};
+        if (birth.day) update['birth.day'] = birth.day;
+        if (birth.month) update['birth.month'] = birth.month;
+        if (birth.year) update['birth.year'] = birth.year;
+
         let user = await userModel.updateOne(filter, {$set: update}, options);
         if (user == null){
             console.log("unable to find user with such accountId; failed to set birth");
@@ -382,13 +411,6 @@ async function getEmail(accountId){
         return null;
     }
 }
-
-// QUESTION: DUPLICATE OF findById?
-async function getUserById(accountId) {}
-
-
-// QUESTION: DUPLICATE OF findById?
-async function getUserByName(username) {}
 
 /**
 *  getGender with 1 input
@@ -480,6 +502,30 @@ async function getBirth(accountId){
         HandleError(err, "getAddress", "accountId: "+accountId);
         return null;
     }
+}
+
+/**
+*  deleteByName with 1 input
+*  
+*  @param {String} accountId
+*
+*  @return {boolean} if delete userModel by accountId is successful
+*    return null if query is unsuccessful 
+*/
+async function delByID(accountId){
+    try {
+        let user = await userModel.findOneAndDelete({accountId: accountId});
+        if (user == null) {
+            console.log("unable to delete user by accountId: " + accountId);
+            return false;
+        }
+        console.log("successfully delete user by accountId: " + accountId);
+        return true;
+    } catch (err) {
+        HandleError(err, "deleteByName", "accountId: "+accountId);
+        return false;
+    }
+    return false;
 }
 
 /* TODO Notes:

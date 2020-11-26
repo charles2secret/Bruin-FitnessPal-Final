@@ -112,12 +112,26 @@ async function getByEither(userParam){
     }
 }
 
-async function update(userParam) {
-    
+async function update(userParam){
+    let updateEmail = await userFactory.setEmail(userParam.accountId, userParam.email);
+    let updateGender = await userFactory.setGender(userParam.accountId, userParam.gender);
+    let updatPhone = await userFactory.setPhone(userParam.accountId, userParam.phone);
+    let updatetAddress = await userFactory.setAddress(userParam.accountId, userParam.address);
+    let updateBirth = await userFactory.setBirth(userParam.accountId, userParam.birth);
+
+    if (updateEmail || updateGender || updatPhone || updatetAddress || updateBirth) return "successful";
+    else return "update failed";
+
 }
 
-async function _delete() {
-
+async function _delete(userParam) {
+    let del = await userFactory.delByID(userParam.accountId);
+    if (!del){
+        return "del failed";
+    } else {
+        return "successful";
+    }
+    return "u suck";
 }
 
 //notes: why not just write all code in user.service.js?

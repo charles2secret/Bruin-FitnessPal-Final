@@ -78,10 +78,34 @@ async function getCurrentUser(req, res) {
     otherwise, send 400 with error code: response
 */
 async function updateUser(req, res) {
+    try {
+        let response = await userService.update(req.body);
+        if (response === "successful") {
+            res.sendStatus(200);
+        } else {
+            res.send(response);
+        }
+    } catch (err) {
+        res.send(err);
+    }
 }
 
+/*
+    deleteUser(req,res):
+    send status 200 when delete by accountId is success
+    otherwise, send 400 with error code: response
+*/
 async function deleteUser(req, res) {
-
+    try {
+        let response = await userService.delete(req.body);
+        if (response === "successful") {
+            res.sendStatus(200);
+        } else {
+            res.send(response);
+        }
+    } catch (err) {
+        res.send(err);
+    }
 }
 
 /*
