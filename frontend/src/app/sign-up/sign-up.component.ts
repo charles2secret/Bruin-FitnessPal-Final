@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from "../app.service";
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -7,7 +8,7 @@ import { AppService } from "../app.service";
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService,private router: Router) { }
 
   ngOnInit() {
 
@@ -22,16 +23,16 @@ export class SignUpComponent implements OnInit {
     const username = target.querySelector('#username').value
     const password = target.querySelector('#password').value
     const userID = target.querySelector('#userID').value
-    this.appService.registerUser(username,password,userID,email,gender).subscribe((issue)=>{
+    this.appService.registerUser(username,password,userID,email,gender).subscribe((data:any)=>{
      
-     if (gender == "male") {
-       alert("login success")
-     }
-     else {
-       alert("login failed")
-     }
+      if (data.status === "X102") {
+        this.router.navigate(['login'])
+      }
+      else if (data.status === "X002"){
+        alert("signup failed")
+      }
    })
-    console.log(gender,email,username,password)
+    console.log(username,password,userID,email,gender)
   }
 }
 

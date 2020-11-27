@@ -52,22 +52,7 @@ export class AppService {
     return this.httpClient.post(`${this.uri}/users/authenticate`,user);
   }
 
-  addIssue(username, password) {
-    const issue = {
-      username: username,
-      password: password,
-    };
-    return this.httpClient.post(`${this.uri}/issues`,issue);
-  }
-  addIssue2(gender,userID,username, password) {
-    const issue = { 
-      gender: gender,
-      userID: userID,
-      username: username,
-      password: password,
-    };
-    return this.httpClient.post(`${this.uri}/issues`,issue);
-  }
+  
   registerUser(name, pass, id, email, gender) {
     const user = {
       accountId: id,

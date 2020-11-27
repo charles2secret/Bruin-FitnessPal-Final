@@ -14,17 +14,17 @@ export class DashboardHomeComponent {
       if (matches) {
         return [
           { title: 'Daily Workout', cols: 2, rows: 1 },
-          { title: 'Workout Plan', cols: 2, rows: 1 },
-          { title: 'Card 3', cols: 2, rows: 1 },
-          { title: 'Card 4', cols: 2, rows: 1 }
+          { title: 'Calories', cols: 2, rows: 1 },
+          { title: 'Diet', cols: 2, rows: 1 },
+          { title: 'Health', cols: 2, rows: 1 }
         ];
       }
 
       return [
         { title: 'Daily Workout', cols: 2, rows: 1 },
-        { title: 'Workout Plan', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
+        { title: 'Calories', cols: 1, rows: 1 },
+        { title: 'Diet', cols: 1, rows: 2 },
+        { title: 'Health', cols: 1, rows: 1 }
       ];
     })
   );

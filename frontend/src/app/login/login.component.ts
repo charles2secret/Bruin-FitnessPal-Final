@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //connect to backend
 import { AppService } from "../app.service";
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,7 +9,7 @@ import { AppService } from "../app.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService,private router: Router) { }
 
   /*
   ngOnInit(): void {
@@ -26,15 +27,16 @@ export class LoginComponent implements OnInit {
    const username = target.querySelector('#username').value
    const password = target.querySelector('#password').value
    
-   this.appService.loginUserByName(username,password).subscribe((issue)=>{
+   this.appService.loginUserByName(username,password).subscribe((data:any)=>{
     
-    if (username == "123") {
-      alert("login success")
+    if (data.status === "X102") {
+      this.router.navigate(['home'])
     }
-    else {
+    else if (data.status === "X002"){
+      
       alert("login failed")
     }
-    console.log(issue)
+    console.log(data)
   })
    
  }
