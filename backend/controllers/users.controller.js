@@ -8,29 +8,41 @@ router.post('/register', registerUser);
 router.get('/current', getCurrentUser);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
-
 module.exports = router;
 
 /*
-    authenticateUser(req, res)
-    this is a multi-purpose login function
-    can login user both by accountId and username
-    response = successful login will render code 200
-    otherwise, print err message to 400
-    (Bad request means internal error)
-    (other err as string means customized err code)
+    status code
+    Xabc
+    a = 0 or 1, 1 for success http request
+    b = 0 or 1, i for if return value (besides Error) is included
+    c = 1 or 2 or 3 or 4
+        GET
+        PUT (register, add new, etc)
+        POST (update)
+        DELETE
  */
+
 async function authenticateUser(req, res) {
     try {
         let response = await userService.authenticate(req.body);
         if (response === "successful login") {
-            res.send(true);
+            res.send({
+                status: "X103"
+            });
         }
         else {
-            res.send(response);
+            res.send({
+                status: "X003",
+                message: response
+            }
+            );
         }
     } catch (err) {
-        res.send(err);
+        res.send({
+                status: "X003",
+                message: err
+            }
+        );
     }
 }
 
@@ -117,4 +129,3 @@ async function deleteUser(req, res) {
     delete = delete
  */
 
-//TODO:

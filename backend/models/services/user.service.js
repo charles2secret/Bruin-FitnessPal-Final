@@ -1,6 +1,7 @@
 const config = require('./config.json');
 const mongo = require('mongoose');
 const userFactory = require('../entities/user.entity');
+const diaryFactory = require('../entities/diary.entity')
 const bcrypt = require('bcryptjs');
 
 //TODO: make sure to read all TODOs before start
@@ -43,14 +44,17 @@ async function authenticate(userParam){
             if (loginResult) {
                 return "successful login";
             }
-            return "wrong username password combination"
+            return "wrong username and password combination";
         }
-        else {
+        else if (userParam.accountId) {
             let loginResult = await userFactory.loginById(userParam.accountId, password);
             if (loginResult) {
                 return "successful login";
             }
-            return "wrong username password combination"
+            return "wrong accountId and password combination";
+        }
+        else {
+            return "accountId or username is not given";
         }
 
     } catch (err) {
@@ -69,6 +73,7 @@ async function register(userParam) {
         let id = userParam.accountId;
         let token = await userFactory.register(user, pass, id);
         if (token) {
+            diaryFactory.createDiary(id);
             await userFactory.setEmail(id, userParam.email);
             await userFactory.setGender(id, userParam.gender);
             return "successful registration";
@@ -82,7 +87,7 @@ async function register(userParam) {
         return "duplicate username";
     }
     else {
-        return "duplicate accountID";
+        return "duplicate accountId";
     }
 }
 
