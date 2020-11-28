@@ -148,3 +148,37 @@ function createDiary(accountId) {
     });
     userDiary.save();
 }
+
+/*TODO:
+    we don't need to have delete feature unless frontend has such feature
+    create simply creates an empty diary at a given date
+    recordXXXX will:
+        1. if date not given, first create a diary
+        2. if date is given, record it to that diary
+    3. add them to diaryFactory and exports
+ */
+
+//setters:
+function createFoodDiary(accountId, date){}
+function recordFood(accountId, date, food){}
+function createActivityDiary(accountId, date){}
+function recordActivity(accountId, date, food){}
+function createWaterDiary(accountId, date){}
+function recordWater(accountId, date, food){}
+function createWeightDiary(accountId, date){}
+function recordWeight(accountId, date, food){}
+function createSleepDiary(accountId, date){}
+function recordSleep(accountId, date, food){}
+
+//getters: returns an object of specific category
+//         should still return an object with default field if:
+//         no record is found for that specific day
+function getFoodRecord(accountId, date){}
+function getActivityRecord(accountId, date){}
+function getWaterRecord(accountId, date){}
+function getWeightRecord(accountId, date){}
+function getSleepRecord(accountId, date){}
+//TODO: this should check if the overall diary associated with accountId
+//      is found in the database
+function findDiary(accountId) {}
+
