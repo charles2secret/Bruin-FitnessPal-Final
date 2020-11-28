@@ -230,7 +230,7 @@ async function register(username, password, accountId) {
 */
 async function setEmail(accountId, email) {
     try {
-        if (email==null){
+        if (email==null || accountId==null){
             console.log("cannot set email to null; please provide a valid email");
             return;
         }
@@ -263,7 +263,7 @@ async function setEmail(accountId, email) {
 */
 async function setGender(accountId, gender) {
     try {
-        if (gender==null){
+        if (gender==null || accountId==null){
             console.log("cannot set gender to null; please provide a valid gender");
             return;
         }
@@ -296,7 +296,7 @@ async function setGender(accountId, gender) {
 */
 async function setPhone(accountId, phone){
     try {
-        if (phone==null){
+        if (phone==null || accountId==null){
             console.log("cannot set phone to null; please provide a valid phone");
             return;
         }
@@ -329,7 +329,7 @@ async function setPhone(accountId, phone){
 */
 async function setAddress(accountId, address){
     try {
-        if (address==null){
+        if (address==null || accountId==null){
             console.log("cannot set address to null; please provide a valid address");
             return;
         }
@@ -363,8 +363,8 @@ async function setAddress(accountId, address){
 */
 async function setBirth(accountId, birth){
     try {
-        if (birth==null){
-            console.log("cannot set birth to null; please provide a valid birth");
+        if (birth==null || accountId==null){
+            console.log("birth input is empty or id input is empty");
             return;
         }
         const filter = {accountId: accountId};

@@ -143,7 +143,7 @@ async function getEmail(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                email: response
+                email: response.contact.email
             });
         } else {
             res.send({
@@ -165,7 +165,7 @@ async function getPhone(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                phone: response
+                phone: response.contact.phone
             });
         } else {
             res.send({
@@ -187,7 +187,7 @@ async function getBirth(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                birth : response
+                birth: response.contact.birth
             });
         } else {
             res.send({
@@ -209,7 +209,7 @@ async function getGender(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                gender: response
+                gender: response.contact.gender
             });
         } else {
             res.send({
@@ -231,7 +231,7 @@ async function getAddress(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                address: response
+                address: response.contact.address
             });
         } else {
             res.send({
