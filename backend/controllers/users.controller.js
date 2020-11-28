@@ -1,13 +1,17 @@
-const express = require('express');
 const router = require('express-promise-router')();
 const userService = require('../models/services/user.service');
 
 // routes
 router.post('/authenticate', authenticateUser);
 router.post('/register', registerUser);
-router.get('/current', getCurrentUser);
-router.put('/:_id', updateUser);
-router.delete('/:_id', deleteUser);
+router.get('/get', getUser);
+router.get('/email', getEmail);
+router.get('/phone', getPhone);
+router.get('/gender', getGender);
+router.get('/address', getAddress);
+router.get('/birth', getBirth);
+router.put('/update', updateUser);
+router.delete('/delete', deleteUser);
 
 
 module.exports = router;
@@ -69,7 +73,7 @@ async function registerUser(req, res) {
 }
 
 
-async function getCurrentUser(req, res) {
+async function getUser(req, res) {
     try {
         let response = await userService.getByEither(req.body);
         if (response === "successful query - id" || response === "successful query - name") {
@@ -116,7 +120,9 @@ async function deleteUser(req, res) {
     try {
         let response = await userService.delete(req.body);
         if (response === "successful") {
-            res.sendStatus(200);
+            res.send({
+                status: "X104"
+            });
         } else {
             res.send({
                 status: "X004",
@@ -126,6 +132,116 @@ async function deleteUser(req, res) {
     } catch (err) {
         res.send({
             status: "X004",
+            message: err
+        });
+    }
+}
+
+async function getEmail(req, res) {
+    try {
+        let response = await userService.getEmail(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                email: response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
+
+async function getPhone(req, res) {
+    try {
+        let response = await userService.getPhone(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                phone: response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
+
+async function getBirth(req, res) {
+    try {
+        let response = await userService.getBirth(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                birth : response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
+
+async function getGender(req, res) {
+    try {
+        let response = await userService.getGender(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                gender: response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
+
+async function getAddress(req, res) {
+    try {
+        let response = await userService.getAddress(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                address: response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
             message: err
         });
     }

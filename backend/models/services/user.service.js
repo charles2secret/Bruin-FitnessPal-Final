@@ -21,6 +21,11 @@ service.authenticate = authenticate;
 service.getByEither = getByEither;
 service.getByName = getByName;
 service.getById = getById;
+service.getPhone = getPhone;
+service.getAddress = getAddress;
+service.getGender = getGender;
+service.getEmail = getEmail;
+service.getBirth = getBirth;
 service.register = register;
 service.update = update;
 service.delete = _delete;
@@ -170,5 +175,50 @@ async function _delete(userParam) {
     } else {
         return "successful";
     }
-    return "u suck";
 }
+
+async function getBirth(userParam) {
+    let birth = await userFactory.getBirth(userParam.accountId);
+    if (birth) {
+        return birth;
+    } else {
+        return null;
+    }
+}
+
+async function getPhone(userParam) {
+    let phone = await userFactory.getPhone(userParam.accountId);
+    if (phone) {
+        return phone;
+    } else {
+        return null;
+    }
+}
+
+async function getEmail(userParam) {
+    let email = await userFactory.getEmail(userParam.accountId);
+    if (email) {
+        return email
+    } else {
+        return null;
+    }
+}
+
+async function getAddress(userParam) {
+    let address = await userFactory.getAddress(userParam.accountId);
+    if (address) {
+        return address;
+    } else {
+        return null;
+    }
+}
+
+async function getGender(userParam) {
+    let gender = await userFactory.getGender(userParam.accountId);
+    if (gender) {
+        return gender;
+    } else {
+        return null;
+    }
+}
+

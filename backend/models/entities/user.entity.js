@@ -223,7 +223,7 @@ async function register(username, password, accountId) {
 *  setEmail with 2 inputs
 *  
 *  @param {String} accountId
-*  @param {String} enail
+*  @param {String} email
 *
 *  @return {boolean} whether setEmail is successful or not
 *    * no user instace  is returned under any circumstance *

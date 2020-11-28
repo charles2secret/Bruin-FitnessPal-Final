@@ -1,5 +1,3 @@
-var express = require('express');
-//var router = express.Router();
 const router = require('express-promise-router')();
 const axios = require("axios");
 
