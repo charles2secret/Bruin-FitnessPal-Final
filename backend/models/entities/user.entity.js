@@ -528,22 +528,4 @@ async function delByID(accountId){
     return false;
 }
 
-/* TODO Notes:
-    1. user.entity.js is the direct communication layer for users to the database
-    2. do not pass any JSON (req.body) into this layer
-    3. write these functions like standard Java setters and getters.
-    4. each function should only implement one functionality
-    5. example:
-        user.service.js has a function registerUser(), and it calls:
-            findByID (check if ID already exist)
-            findByName (check if name already exist)
-            if username and accountId not found:
-                   register(user,pass,id,...)
-    6. please use async.await in ES6 as oppose to Promise library such as Q
-    7. if you are comfortable with Q or writing Promise function by hand, you can
-    8. guide to DocBlock comment
-    https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8#.w234uo7h3
-    10. make sure use try/catch or .then().catch() for error handling, please console.log instead of throw err
-        (this helps us to debug each others code)
- */
 

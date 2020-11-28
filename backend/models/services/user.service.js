@@ -4,7 +4,6 @@ const userFactory = require('../entities/user.entity');
 const diaryFactory = require('../entities/diary.entity')
 const bcrypt = require('bcryptjs');
 
-//TODO: make sure to read all TODOs before start
 const db = mongo.connect(config.url, {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -173,22 +172,3 @@ async function _delete(userParam) {
     }
     return "u suck";
 }
-
-//notes: why not just write all code in user.service.js?
-//       isn't that what this class is for? we already have a controller class...
-/*
-    well traditionally, model layer actually handles all the request with model
-    so user.service is really *not* another layer of controller,
-    it mixes or utilizes variety of functions in entity to fulfill request from
-    the controller class.
-
-    This is in fact MVC 2 (MVC + S) where service is another layer inside the model
- */
-
-//TODO: read TODO in user.entity.js first
-//  1. write function update(), _delete() (be sure to use async if possible)
-//  2. implement any functions you may need in user.entity.js
-//  3. implement controller function in users.controller.js
-//  4. test three functions together for bugs, correctness, robustness before push
-
-
