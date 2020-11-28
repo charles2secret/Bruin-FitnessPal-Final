@@ -23,6 +23,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FriendsComponent } from './friends/friends.component';
 import { PlanComponent } from './plan/plan.component';
+import { FormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PlanComponent } from './plan/plan.component';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    HttpClientModule // new module for AppService
+    HttpClientModule, // new module for AppService
+    FormsModule
   ],
   // add service class to providers
   providers: [AppService],

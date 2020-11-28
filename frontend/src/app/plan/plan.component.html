@@ -4,6 +4,18 @@
   <button mat-menu-item>Day</button>
 </mat-menu>
 
+<table>
+  <tr>
+    <th>Time</th> <th>Event</th> <th>Location</th>
+  </tr>
+  <tr>
+    <td>12</td> <td><input type="text" [(ngModel)]="event"/></td> <td>gym</td>
+  </tr>
+  <tr>
+    {{event}}
+  </tr>
+</table>
 
+<button (click)="enter()">Enter</button>
 
 
