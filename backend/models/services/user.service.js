@@ -105,9 +105,10 @@ async function register(userParam) {
 async function getById(userParam) {
     let queryId = await userFactory.findById(userParam.accountId);
     if (queryId == null) {
-        return "id DNE";
+        return null;
     } else {
-        return "successful query - id";
+        let user = await userFactory.getUserById(userParam.accountId);
+        return user;
     }
 }
 
@@ -121,9 +122,10 @@ async function getById(userParam) {
 async function getByName(userParam) {
     let queryName = await userFactory.findByName(userParam.username);
     if (queryName == null){
-        return "Name DNE";
+        return null;
     } else {
-        return "successful query - name";
+        let user = await userFactory.getUserByName(userParam.username);
+        return user;
     }
 }
 
@@ -136,9 +138,9 @@ async function getByName(userParam) {
  */
 async function getByEither(userParam){
     if (userParam.username) {
-        getByName(userParam);
+        return getByName(userParam);
     } else {
-        getById(userParam);
+        return getById(userParam);
     }
 }
 

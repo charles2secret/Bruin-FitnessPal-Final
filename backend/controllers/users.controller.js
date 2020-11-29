@@ -76,10 +76,10 @@ async function registerUser(req, res) {
 async function getUser(req, res) {
     try {
         let response = await userService.getByEither(req.body);
-        if (response === "successful query - id" || response === "successful query - name") {
+        if (response) {
             res.send({
                 status: "X111",
-                //TODO:need to send a JSON that represents user
+                user: response
             });
         } else {
             res.send({
@@ -143,7 +143,7 @@ async function getEmail(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                email: response.contact.email
+                user: response
             });
         } else {
             res.send({
@@ -165,7 +165,7 @@ async function getPhone(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                phone: response.contact.phone
+                user: response
             });
         } else {
             res.send({
@@ -187,7 +187,7 @@ async function getBirth(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                birth: response.contact.birth
+                user: response
             });
         } else {
             res.send({
@@ -209,7 +209,7 @@ async function getGender(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                gender: response.contact.gender
+                user: response
             });
         } else {
             res.send({
@@ -231,7 +231,7 @@ async function getAddress(req, res) {
         if (response) {
             res.send({
                 status: "X111",
-                address: response.contact.address
+                user: response
             });
         } else {
             res.send({

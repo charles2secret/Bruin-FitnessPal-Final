@@ -20,6 +20,8 @@ userFactory.getGender = getGender;
 userFactory.getPhone = getPhone;
 userFactory.getAddress = getAddress;
 userFactory.getBirth = getBirth;
+userFactory.getUserById = getUserById;
+userFactory.getUserByName = getUserByName;
 
 userFactory.delByID = delByID;
 
@@ -499,7 +501,37 @@ async function getBirth(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getAddress", "accountId: "+accountId);
+        HandleError(err, "getBirth", "accountId: "+accountId);
+        return null;
+    }
+}
+
+async function getUserById(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId});
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        HandleError(err, "getUserById", "accountId: "+accountId);
+        return null;
+    }
+}
+
+async function getUserByName(username){
+    try {
+        let user = await userModel.findOne({username:username});
+        if (user == null) {
+            console.log("unable to find user by username: " + username);
+            return user;
+        }
+        console.log("successfully find user by username: " + username);
+        return user;
+    } catch (err) {
+        HandleError(err, "getUserByName", "username "+ username);
         return null;
     }
 }
@@ -525,7 +557,6 @@ async function delByID(accountId){
         HandleError(err, "deleteByName", "accountId: "+accountId);
         return false;
     }
-    return false;
 }
 
 
