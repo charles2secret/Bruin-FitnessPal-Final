@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//TODO: make sure add to export module after writing your function
-//      and check comment below before start
+
 var userFactory = {}
 userFactory.findByName = findByName;
 userFactory.findById = findById;
-
 userFactory.register = register;
+userFactory.loginByName = loginByName;
+userFactory.loginById = loginById;
 
 userFactory.setEmail = setEmail;
 userFactory.setGender = setGender;
 userFactory.setPhone = setPhone;
 userFactory.setAddress = setAddress;
 userFactory.setBirth = setBirth;
+userFactory.setUsername = setUsername;
+userFactory.setPassword = setPassword;
 
 userFactory.getEmail = getEmail;
 userFactory.getGender = getGender;
@@ -24,12 +26,8 @@ userFactory.getUserById = getUserById;
 userFactory.getUserByName = getUserByName;
 
 userFactory.delByID = delByID;
-
-userFactory.loginByName = loginByName;
-userFactory.loginById = loginById;
-
-//add export functions here....
 module.exports = userFactory;
+
 
 const userSchema = new Schema ({
     username: { type: String, required: true, unique: true},
@@ -73,9 +71,9 @@ const userSchema = new Schema ({
 });
 const userModel = mongoose.model('User', userSchema);
 
-//===================================================================>
+
 /**
- * standard error handler for subsequent functions
+ * standard error handler for local functions
  * it prints error message in detail in console
  *
  * @param {Error} err
@@ -94,6 +92,7 @@ function HandleError (err, function_name, ...args) {
     console.log("error message: " + err.message);
     console.log("==============================================================")
 }
+
 
 /**
  * finds user in mongodb by username
@@ -117,6 +116,7 @@ async function findByName(username) {
     }
 }
 
+
 /**
  * finds user in mongodb by accountId
  *
@@ -139,13 +139,13 @@ async function findById(accountId) {
     }
 }
 
+
 /**
  *  logs in user by accountId
  *
  * @param {String} accountId
  * @param {String}password
  * @return {boolean} whether login is successful or not
- *      * no user instance is returned under any circumstance *
  */
 async function loginById(accountId, password) {
     try {
@@ -163,13 +163,13 @@ async function loginById(accountId, password) {
     }
 }
 
+
 /**
  *  logs in user by username
  *
  * @param {String} username
  * @param {String}password
  * @return {boolean} whether login is successful or not
- *      * no user instance is returned under any circumstance *
  */
 async function loginByName(username, password) {
     try {
@@ -187,6 +187,7 @@ async function loginByName(username, password) {
     }
 }
 
+
 /**
  *  register user with 3 inputs
  *
@@ -195,7 +196,6 @@ async function loginByName(username, password) {
  * @param {String} accountId
  *
  * @return {boolean} whether login is successful or not
- *      * no user instance is returned under any circumstance *
  */
 async function register(username, password, accountId) {
     try {
@@ -221,6 +221,7 @@ async function register(username, password, accountId) {
     }
 }
 
+
 /**
 *  setEmail with 2 inputs
 *  
@@ -228,7 +229,6 @@ async function register(username, password, accountId) {
 *  @param {String} email
 *
 *  @return {boolean} whether setEmail is successful or not
-*    * no user instace  is returned under any circumstance *
 */
 async function setEmail(accountId, email) {
     try {
@@ -254,14 +254,14 @@ async function setEmail(accountId, email) {
     }
 }
 
+
 /**
-*  setEmail with 2 inputs
+*  setGender with 2 inputs
 *  
 *  @param {String} accountId
 *  @param {String} gender
 *
 *  @return {boolean} whether setGender is successful or not
-*    * no user instace  is returned under any circumstance *
 */
 async function setGender(accountId, gender) {
     try {
@@ -286,6 +286,73 @@ async function setGender(accountId, gender) {
         return false;
     }
 }
+
+
+/**
+ *  setUsername with 2 inputs
+ *
+ *  @param {String} accountId
+ *  @param {String} username
+ *
+ *  @return {boolean} whether setUsername is successful or not
+ */
+async function setUsername(accountId, username) {
+    try {
+        if (username==null || accountId==null){
+            console.log("cannot set username to null or accountId is not given");
+            return;
+        }
+        const filter = {accountId: accountId};
+        const update = {username:username};
+        const options = {runValidators: true, upsert: true};
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find id and username combination");
+            return false;
+        } else {
+            console.log("set username to " + username);
+            return true;
+        }
+    } catch(err) {
+        HandleError(err, "setUsername", "accountId: " + accountId +
+            "username: " + username);
+        return false;
+    }
+}
+
+
+/**
+ *  setPassword with 2 inputs
+ *
+ *  @param {String} accountId
+ *  @param {String} password
+ *
+ *  @return {boolean} whether setPassword is successful or not
+ */
+async function setPassword(accountId, password) {
+    try {
+        if (password==null || accountId==null){
+            console.log("cannot set password to null or accountId is not given");
+            return;
+        }
+        const filter = {accountId: accountId};
+        const update = {password:password};
+        const options = {runValidators: true, upsert: true};
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find password and username combination");
+            return false;
+        } else {
+            console.log("set password to " + password);
+            return true;
+        }
+    } catch(err) {
+        HandleError(err, "setPassword", "accountId: " + accountId +
+            "password: " + password);
+        return false;
+    }
+}
+
 
 /**
 *  setPhone with 2 inputs
@@ -320,6 +387,7 @@ async function setPhone(accountId, phone){
     }
 }
 
+
 /**
 *  setAddress with 2 inputs
 *  
@@ -353,6 +421,7 @@ async function setAddress(accountId, address){
     }
 
 }
+
 
 /**
 *  setBirth with 2 inputs
@@ -391,6 +460,7 @@ async function setBirth(accountId, birth){
     }
 }
 
+
 /**
 *  getEmail with 1 input
 *  
@@ -413,6 +483,7 @@ async function getEmail(accountId){
         return null;
     }
 }
+
 
 /**
 *  getGender with 1 input
@@ -437,6 +508,7 @@ async function getGender(accountId) {
     }
 }
 
+
 /**
 *  getPhone with 1 input
 *  
@@ -459,6 +531,7 @@ async function getPhone(accountId){
         return null;
     }
 }
+
 
 /**
 *  getAddress with 1 input
@@ -483,6 +556,7 @@ async function getAddress(accountId){
     }
 }
 
+
 /**
 *  getBirth with 1 input
 *  
@@ -506,6 +580,13 @@ async function getBirth(accountId){
     }
 }
 
+/**
+ *  getUserById with 1 input
+ *
+ *  @param {String} accountId
+ *
+ *  @return {object}
+ */
 async function getUserById(accountId){
     try {
         let user = await userModel.findOne({accountId: accountId});
@@ -521,6 +602,14 @@ async function getUserById(accountId){
     }
 }
 
+
+/**
+ *  getUserById with 1 input
+ *
+ *  @param {String} username
+ *
+ *  @return {object}
+ */
 async function getUserByName(username){
     try {
         let user = await userModel.findOne({username:username});
@@ -535,6 +624,7 @@ async function getUserByName(username){
         return null;
     }
 }
+
 
 /**
 *  deleteByName with 1 input

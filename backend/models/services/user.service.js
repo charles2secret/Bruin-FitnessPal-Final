@@ -4,6 +4,7 @@ const userFactory = require('../entities/user.entity');
 const diaryFactory = require('../entities/diary.entity')
 const bcrypt = require('bcryptjs');
 
+
 const db = mongo.connect(config.url, {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -15,7 +16,7 @@ const db = mongo.connect(config.url, {
     err => {console.log("DB Connection Failed")}
 );
 
-//TODO: make sure add to export module after writing your function
+
 var service = {};
 service.authenticate = authenticate;
 service.getByEither = getByEither;
@@ -29,17 +30,9 @@ service.getBirth = getBirth;
 service.register = register;
 service.update = update;
 service.delete = _delete;
-//add export functions here....
 module.exports = service;
 
-/**
- * authenticate if user meets login credential
- * allows both login by accountId and username
- *
- * @param {JSON} userParam
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
+
 async function authenticate(userParam){
     try {
         let password = userParam.password;
@@ -65,6 +58,7 @@ async function authenticate(userParam){
         return err;
     }
 }
+
 
 async function register(userParam) {
     let queryName = await userFactory.findByName(userParam.username);
@@ -95,13 +89,7 @@ async function register(userParam) {
     }
 }
 
-/**
- * get user by accountId
- *
- * @param {JSON} userParam
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
+
 async function getById(userParam) {
     let queryId = await userFactory.findById(userParam.accountId);
     if (queryId == null) {
@@ -112,13 +100,7 @@ async function getById(userParam) {
     }
 }
 
-/**
- * get user by username
- *
- * @param {JSON} userParam
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
+
 async function getByName(userParam) {
     let queryName = await userFactory.findByName(userParam.username);
     if (queryName == null){
@@ -129,13 +111,7 @@ async function getByName(userParam) {
     }
 }
 
-/**
- * get user by username OR accountid
- *
- * @param {JSON} userParam
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
+
 async function getByEither(userParam){
     if (userParam.username) {
         return getByName(userParam);
@@ -144,32 +120,24 @@ async function getByEither(userParam){
     }
 }
 
-/**
- * update user by accountid
- *
- * @param {JSON} userParam
- * @return {boolean} when a user is successfully found and updated
- *      when err, user not found, or no update is valid, return false
- */
+
 async function update(userParam){
     let updateEmail = await userFactory.setEmail(userParam.accountId, userParam.email);
     let updateGender = await userFactory.setGender(userParam.accountId, userParam.gender);
     let updatPhone = await userFactory.setPhone(userParam.accountId, userParam.phone);
     let updatetAddress = await userFactory.setAddress(userParam.accountId, userParam.address);
     let updateBirth = await userFactory.setBirth(userParam.accountId, userParam.birth);
+    let updatePassword = await userFactory.setPassword(userParam.accountId, userParam.password);
+    let updateUsername = await userFactory.setUsername(userParam.accountId, userParam.username);
 
-    if (updateEmail || updateGender || updatPhone || updatetAddress || updateBirth) return "successful";
+    if (updateEmail || updateGender || updatPhone ||
+        updateUsername || updatetAddress || updateBirth || updatePassword)
+        return "successful";
     else return "update failed";
 
 }
 
-/**
- * delete user by accountid
- *
- * @param {JSON} userParam
- * @return {boolean} when a user is successfully found and deleted
- *      when err or user not found, return false
- */
+
 async function _delete(userParam) {
     let del = await userFactory.delByID(userParam.accountId);
     if (!del){
@@ -178,6 +146,7 @@ async function _delete(userParam) {
         return "successful";
     }
 }
+
 
 async function getBirth(userParam) {
     let birth = await userFactory.getBirth(userParam.accountId);
@@ -197,6 +166,7 @@ async function getPhone(userParam) {
     }
 }
 
+
 async function getEmail(userParam) {
     let email = await userFactory.getEmail(userParam.accountId);
     if (email) {
@@ -214,6 +184,7 @@ async function getAddress(userParam) {
         return null;
     }
 }
+
 
 async function getGender(userParam) {
     let gender = await userFactory.getGender(userParam.accountId);

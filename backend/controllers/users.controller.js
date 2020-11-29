@@ -1,8 +1,9 @@
 const router = require('express-promise-router')();
 const userService = require('../models/services/user.service');
 
+
 // routes
-router.post('/authenticate', authenticateUser);
+router.post('/login', loginUser);
 router.post('/register', registerUser);
 router.get('/get', getUser);
 router.get('/email', getEmail);
@@ -12,23 +13,10 @@ router.get('/address', getAddress);
 router.get('/birth', getBirth);
 router.put('/update', updateUser);
 router.delete('/delete', deleteUser);
-
-
 module.exports = router;
 
-/*
-    status code
-    Xabc
-    a = 0 or 1, 1 for success http request
-    b = 0 or 1, i for if return value (besides Error) is included
-    c = 1 or 2 or 3 or 4
-        GET
-        PUT (register, add new, etc)
-        POST (update)
-        DELETE
- */
 
-async function authenticateUser(req, res) {
+async function loginUser(req, res) {
     try {
         let response = await userService.authenticate(req.body);
         if (response === "successful login") {
@@ -49,6 +37,7 @@ async function authenticateUser(req, res) {
             });
     }
 }
+
 
 async function registerUser(req, res) {
     try {
@@ -95,6 +84,7 @@ async function getUser(req, res) {
     }
 }
 
+
 async function updateUser(req, res) {
     try {
         let response = await userService.update(req.body);
@@ -116,6 +106,7 @@ async function updateUser(req, res) {
     }
 }
 
+
 async function deleteUser(req, res) {
     try {
         let response = await userService.delete(req.body);
@@ -136,6 +127,7 @@ async function deleteUser(req, res) {
         });
     }
 }
+
 
 async function getEmail(req, res) {
     try {
@@ -159,6 +151,7 @@ async function getEmail(req, res) {
     }
 }
 
+
 async function getPhone(req, res) {
     try {
         let response = await userService.getPhone(req.body);
@@ -180,6 +173,7 @@ async function getPhone(req, res) {
         });
     }
 }
+
 
 async function getBirth(req, res) {
     try {
@@ -203,6 +197,7 @@ async function getBirth(req, res) {
     }
 }
 
+
 async function getGender(req, res) {
     try {
         let response = await userService.getGender(req.body);
@@ -224,6 +219,7 @@ async function getGender(req, res) {
         });
     }
 }
+
 
 async function getAddress(req, res) {
     try {
