@@ -13,7 +13,8 @@ const routes: Routes = [
   { path:'navigate', component:NavigationPanelComponent},
   { path:'signUp', component: SignUpComponent},
   { path:'friends', component: FriendsComponent},
-  { path:'plan', component: PlanComponent}
+  { path:'plan', component: PlanComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full',}
 ];
 
 @NgModule({
