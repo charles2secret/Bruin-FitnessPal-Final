@@ -200,7 +200,16 @@ function getSleepRecord(accountId, date){}
 function findDiary(accountId) {}
 
 
-//TODO: functions for activity diary: return True or False
+//TODO: =========== below are finished functions ====================
+
+
+/**
+ * check if a diary is exist for date: date
+ *
+ * @param {String} accountId
+ * @param {String} date
+ * @return {Boolean} whether a diary exists
+ */
 async function containActivityDiary(accountId, date) {
     try {
         let response = await diaryModel.findOne({accountId:accountId});
@@ -217,6 +226,14 @@ async function containActivityDiary(accountId, date) {
     }
 }
 
+
+/**
+ * create a new diary by date, this should not be invoked
+ * without prior calling to containActivityDiary
+ * @param {String} accountId
+ * @param {String} date
+ * @return {Boolean} successful creation of diary or not
+ */
 async function createActivityDiary(accountId, date) {
     try {
         let response = await diaryModel.findOne({accountId:accountId});
@@ -229,6 +246,14 @@ async function createActivityDiary(accountId, date) {
     }
 }
 
+/**
+ * put an activity into specific diary
+ * this should not be invoked alone, see functions above
+ * @param {String} accountId
+ * @param {String} date
+ * @param {JSON} activity
+ * @return {Boolean} successful creation of diary or not
+ */
 async function putActivityRecord(accountId, date, activity) {
     try {
         let response = await diaryModel.findOne({accountId:accountId});

@@ -29,9 +29,11 @@ service.getFoodRecord = getFoodRecord;
 service.getHealthRecord = getHealthRecord;
 
 service.putActivityRecord = putActivityRecord;
-/*
+
 service.putFoodRecord = putFoodRecord;
 service.putHealthRecord = putHealthRecord;
+
+/*
 
 service.deleteActivityRecord =deleteActivityRecord;
 service.deleteFoodRecord = deleteFoodRecord;
@@ -60,36 +62,62 @@ async function createNewDiary(userParam) {
      */
 }
 
-//TODO: same as before, they accept input as req.body
-//      which has: String date, and others...
-//      get record of a given date
+//TODO: finish setter first.....
 async function getActivityRecord() {}
 async function getFoodRecord() {}
-//TODO: given a specific date, this should return an object including:
-//      water log, weight log, sleep log
-async function getHealthRecord() {
+async function getHealthRecord() {}
+
+
+
+/**
+ * record diet, if diary does not exist, create one
+ *
+ * @param {JSON} RecordParam
+ * @return {String} a message to diary.controller.js
+ */
+async function putFoodRecord(RecordParam) {
     /*
-        water = diary.entity.js.getWaterRecord(Date)
-        weight...
-        sleep...
-
-        //HealthRecord should be JSON
-        HealthRecord = {some processing to put things together}
-
-        if (err)
-            ...
-        else
-            return HealthRecord
+       TODO:
+        1. check if food diary exist by calling
+            diaryFactory.containFoodDiary(....)
+        2. if not
+            diaryFactory.createFoodDiary(....)
+        3. then add food log
+            diaryFactory.putFoodRecord(id, date, food)
+        food should be JSON
      */
 }
 
-/*TODO
-    record is a JSON, other field should align with the db
-    use Transaction single we are dealing with multiple access to db
-    1. check if a diary of specific date is in db,
-    2. if not, create one
-    3. put an activity into that diary
 
+async function putHealthRecord(RecordParam) {
+    /*
+       TODO:
+        1. check what health record we need to put
+            e.g. RecordParam {
+                weightDiary ....
+            }
+        in this case, only weight diary needs to be updated
+        2. before update check if the specific diary exists or not
+        //..same as step 1 and 2 in putFoodRecord
+        3. add diary
+            diaryFactory.putWeightDiary(xxxx)
+
+       TODO:
+        note:
+        weightDiary: override old weight if exists
+        waterDiary: add the input value to waterDiary.dailyWaterConsumed
+        sleep: override old sleep time if exists
+     */
+}
+
+
+//TODO: =========== below are finished functions ====================
+
+/**
+ * record activity, if diary does not exist, create one
+ *
+ * @param {JSON} RecordParam
+ * @return {String} a message to diary.controller.js
  */
 async function putActivityRecord(RecordParam) {
     const session = await mongo.startSession();
