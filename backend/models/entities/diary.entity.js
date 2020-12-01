@@ -32,11 +32,9 @@ const foodSchema = new Schema({
         type: String,
         required: true,
         num:["breakfast",
-            "morning snack",
             "lunch",
-            "afternoon snack",
             "dinner",
-            "after dinner"]},
+            "snack"]},
     totalFat: {type: Number, default: -1},
     totalProtein: {type: Number, default: -1},
     totalCarbs: {type: Number, default: -1},
@@ -69,9 +67,7 @@ const activitySchema = new Schema({
         num:["morning",
             "noon",
             "afternoon",
-            "afternoon snack",
-            "dinner",
-            "after dinner"]},
+            "evening"]},
 });
 
 const activityDiarySchema = new Schema({
@@ -80,7 +76,7 @@ const activityDiarySchema = new Schema({
         type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
-    dailyCalorieConsumed: {default: 0, type: Number},
+    dailyCalorieBurned: {default: 0, type: Number},
     activity: [activitySchema]
 });
 
@@ -281,7 +277,7 @@ async function putActivityRecord(accountId, date, activity) {
         for (let i=0; i<response.activityDiary.length; i++) {
             if (response.activityDiary[i].date === date) {
                 response.activityDiary[i].activity.push(activity);
-                response.activityDiary[i].dailyCalorieConsumed +=
+                response.activityDiary[i].dailyCalorieBurned +=
                     activity.calorieBurned;
                 let status = await response.save();
                 return true;

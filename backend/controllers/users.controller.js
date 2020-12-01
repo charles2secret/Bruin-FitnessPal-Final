@@ -5,14 +5,16 @@ const userService = require('../models/services/user.service');
 // routes
 router.post('/login', loginUser);
 router.post('/register', registerUser);
-router.get('/get', getUser);
+router.get('/current', getUser);
+router.put('/current', updateUser);
+router.delete('/current', deleteUser);
+
 router.get('/email', getEmail);
 router.get('/phone', getPhone);
 router.get('/gender', getGender);
 router.get('/address', getAddress);
 router.get('/birth', getBirth);
-router.put('/update', updateUser);
-router.delete('/delete', deleteUser);
+
 module.exports = router;
 
 
