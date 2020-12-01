@@ -5,8 +5,6 @@
  * @param {Error} err
  * @param {String} function_name of the error happens
  * @param {...string} args
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
  */
 
 module.exports = {

@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const util = require('./utilFunc.js');
 const Schema = mongoose.Schema;
 
-
 var userFactory = {}
 userFactory.findByName = findByName;
 userFactory.findById = findById;

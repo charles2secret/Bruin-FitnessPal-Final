@@ -1,4 +1,5 @@
 const diaryFactory = require('../entities/diary.entity')
+const util = require('../entities/utilFunc')
 const config = require('./config.json');
 const mongo = require('mongoose');
 
@@ -52,6 +53,7 @@ async function createNewDiary(userParam) {
         } 
         return "failed";
     } catch (err){
+        util.HandleError(err,"diary.service.js", "createNewDiary");
         return err;
     }
 
@@ -62,11 +64,8 @@ async function createNewDiary(userParam) {
 }
 
 //TODO: finish setter first.....
-async function getActivityRecord() {}
 async function getFoodRecord() {}
 async function getHealthRecord() {}
-
-
 
 /**
  * record diet, if diary does not exist, create one
@@ -113,19 +112,44 @@ async function putHealthRecord(RecordParam) {
 //TODO: =========== below are finished functions ====================
 
 /**
+ * return an activity diary by date to controller
+ *
+ * @param {JSON} RecordParam
+ * @return {JSON} activity diary is null if not found
+ */
+async function getActivityRecord(RecordParam) {
+    try {
+        let id = RecordParam.accountId;
+        let date = RecordParam.date;
+        let status = await diaryFactory.containActivityDiary(id, date);
+        if(!status) {
+            console.log("no diary is found, return null");
+            return null;
+        }
+        let diaries = await diaryFactory.getActivityDiary(id, date);
+        if (diaries.length === 0) {
+            console.log("diary is found, but no activity recorded yet");
+            return null;
+        }
+        return diaries;
+    } catch (err) {
+        util.HandleError(err,"diary.service.js", "getActivityRecord");
+        return null;
+    }
+}
+
+
+/**
  * record activity, if diary does not exist, create one
  *
  * @param {JSON} RecordParam
  * @return {String} a message to diary.controller.js
  */
 async function putActivityRecord(RecordParam) {
-    const session = await mongo.startSession();
     try {
-        session.startTransaction();
         let id = RecordParam.accountId;
         let date = RecordParam.date;
         let activity = RecordParam.activity;
-        console.log(date);
         let status = await diaryFactory.containActivityDiary(id, date);
         if (!status) {
             let result = await diaryFactory.createActivityDiary(id, date);
@@ -137,12 +161,9 @@ async function putActivityRecord(RecordParam) {
         if (!result) {
             throw new Error("activity diary found but failed to insert new activity");
         }
-        await session.commitTransaction()
-        session.endSession()
         return "Activity Successfully Logged";
     } catch(err) {
-        await session.abortTransaction()
-        session.endSession()
+        util.HandleError(err,"diary.service.js","putActivityRecord");
         return err;
     }
 }

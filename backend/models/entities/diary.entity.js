@@ -20,6 +20,7 @@ diaryFactory.createDiary = createDiary;
 diaryFactory.containActivityDiary = containActivityDiary;
 diaryFactory.createActivityDiary = createActivityDiary;
 diaryFactory.putActivityRecord = putActivityRecord;
+diaryFactory.getActivityDiary = getActivityDiary;
 
 //add export functions here....
 module.exports = diaryFactory;
@@ -45,8 +46,7 @@ const foodSchema = new Schema({
 
 const foodDiarySchema = new Schema({
     date: {
-        // unique: true,
-        // required: true, 
+        required: true,
         type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
@@ -76,8 +76,7 @@ const activitySchema = new Schema({
 
 const activityDiarySchema = new Schema({
     date: {
-        // unique: true,
-        // required: true, 
+        required: true,
         type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
@@ -88,8 +87,7 @@ const activityDiarySchema = new Schema({
 
 const waterDiarySchema = new Schema({
     date: {
-        // unique: true,
-        // required: true, 
+        required: true,
         type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
@@ -100,8 +98,7 @@ const waterDiarySchema = new Schema({
 //      type conversion (kg/lbs) and days without record
 const weightDiarySchema = new Schema({
     date: {
-        // unique: true,
-        // required: true, 
+        required: true,
         type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
@@ -111,8 +108,7 @@ const weightDiarySchema = new Schema({
 //TODO: sleepTime is in minutes, 540min = 9hrs
 const sleepDiarySchema = new Schema({
     date: {
-        // unique: true,
-        // required: true, 
+        required: true,
         type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
@@ -133,11 +129,11 @@ const diarySchema = new Schema ({
     foodDiary: [foodDiarySchema],
     activityDiary: [activityDiarySchema],
     waterDiary: [waterDiarySchema],
-    weightDairy: [weightDiarySchema],
+    weightDiary: [weightDiarySchema],
     sleepDiary: [sleepDiarySchema]
 });
 
-const diaryModel = mongoose.model('Dairy',diarySchema);
+const diaryModel = mongoose.model('Diary',diarySchema);
 
 /*
     TODO:simple function, not done yet
@@ -191,16 +187,41 @@ function createSleepDiary(accountId, date){}
 function recordSleep(accountId, date, food){}
 
 //setter
-function getFoodRecord(accountId, date){}
-function getActivityRecord(accountId, date){}
-function getWaterRecord(accountId, date){}
-function getWeightRecord(accountId, date){}
-function getSleepRecord(accountId, date){}
+function getFoodDiary(accountId, date){}
+
+function getWaterDiary(accountId, date){}
+function getWeightDiary(accountId, date){}
+function getSleepdiary(accountId, date){}
 
 function findDiary(accountId) {}
 
 
+
+
 //TODO: =========== below are finished functions ====================
+
+/**
+ * get activity record by date
+ *
+ * @param {String} accountId
+ * @param {String} date
+ * @return {JSON} diary is null if not found
+ */
+async function getActivityDiary(accountId, date){
+    try {
+        let response = await diaryModel.findOne({accountId:accountId});
+        let diaries =  response.activityDiary;
+        for (let i=0; i<diaries.length; i++) {
+            if (diaries[i].date === date) {
+                return diaries[i];
+            }
+        }
+        return null;
+    } catch (err) {
+        util.HandleError(err, "diary.entity.js", "getActivityDiary");
+        return null;
+    }
+}
 
 
 /**
@@ -221,7 +242,7 @@ async function containActivityDiary(accountId, date) {
         }
         return false;
     } catch (err) {
-        util.HandleError(err);
+        util.HandleError(err, "diary.entity.js", "containActivityDiary");
         return false;
     }
 }
@@ -241,7 +262,7 @@ async function createActivityDiary(accountId, date) {
         await response.save();
         return true;
     } catch (err) {
-        util.HandleError(err);
+        util.HandleError(err, "diary.entity.js","createActivityDiary");
         return false;
     }
 }
@@ -268,7 +289,7 @@ async function putActivityRecord(accountId, date, activity) {
         }
         return false;
     } catch (err) {
-        util.HandleError(err);
+        util.HandleError(err, "diary.entity.js", "putActivityRecord");
         return false;
     }
 }
