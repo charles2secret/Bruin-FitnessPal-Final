@@ -1,33 +1,33 @@
 const mongoose = require('mongoose');
+const util = require('./utilFunc.js');
 const Schema = mongoose.Schema;
 
-//TODO: make sure add to export module after writing your function
-//      and check comment below before start
 var userFactory = {}
 userFactory.findByName = findByName;
 userFactory.findById = findById;
-
 userFactory.register = register;
+userFactory.loginByName = loginByName;
+userFactory.loginById = loginById;
 
 userFactory.setEmail = setEmail;
 userFactory.setGender = setGender;
 userFactory.setPhone = setPhone;
 userFactory.setAddress = setAddress;
 userFactory.setBirth = setBirth;
+userFactory.setUsername = setUsername;
+userFactory.setPassword = setPassword;
 
 userFactory.getEmail = getEmail;
 userFactory.getGender = getGender;
 userFactory.getPhone = getPhone;
 userFactory.getAddress = getAddress;
 userFactory.getBirth = getBirth;
+userFactory.getUserById = getUserById;
+userFactory.getUserByName = getUserByName;
 
 userFactory.delByID = delByID;
-
-userFactory.loginByName = loginByName;
-userFactory.loginById = loginById;
-
-//add export functions here....
 module.exports = userFactory;
+
 
 const userSchema = new Schema ({
     username: { type: String, required: true, unique: true},
@@ -71,28 +71,6 @@ const userSchema = new Schema ({
 });
 const userModel = mongoose.model('User', userSchema);
 
-//===================================================================>
-/**
- * standard error handler for subsequent functions
- * it prints error message in detail in console
- *
- * @param {Error} err
- * @param {String} function_name of the error happens
- * @param {...string} args
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
-function HandleError (err, function_name, ...args) {
-    console.log("================user.entity.js================================");
-    console.log("internal error at function " + function_name);
-    console.log("input param for the error: ");
-    for (var i=1; i<args.length; i++) {
-        console.log(args[i]);
-    }
-    console.log("error message: " + err.message);
-    console.log("==============================================================")
-}
-
 /**
  * finds user in mongodb by username
  *
@@ -110,10 +88,11 @@ async function findByName(username) {
         console.log("successfully find user by username: " + username);
         return user;
     } catch (err) {
-        HandleError(err, "findByName", "username: "+username);
+        util.HandleError(err, "user.entity.js", "findByName", "username: "+username);
         return null;
     }
 }
+
 
 /**
  * finds user in mongodb by accountId
@@ -132,10 +111,11 @@ async function findById(accountId) {
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "findById", "accountId: "+ accountId);
+        util.HandleError(err, "user.entity.js", "findById", "accountId: "+ accountId);
         return null;
     }
 }
+
 
 /**
  *  logs in user by accountId
@@ -143,7 +123,6 @@ async function findById(accountId) {
  * @param {String} accountId
  * @param {String}password
  * @return {boolean} whether login is successful or not
- *      * no user instance is returned under any circumstance *
  */
 async function loginById(accountId, password) {
     try {
@@ -156,10 +135,11 @@ async function loginById(accountId, password) {
         console.log("successfully login user by accountId: " + accountId);
         return true;
     } catch (err) {
-        HandleError(err, "loginById", "accountId: "+ accountId);
+        util.HandleError(err, "user.entity.js", "loginById", "accountId: "+ accountId);
         return false;
     }
 }
+
 
 /**
  *  logs in user by username
@@ -167,7 +147,6 @@ async function loginById(accountId, password) {
  * @param {String} username
  * @param {String}password
  * @return {boolean} whether login is successful or not
- *      * no user instance is returned under any circumstance *
  */
 async function loginByName(username, password) {
     try {
@@ -180,10 +159,11 @@ async function loginByName(username, password) {
         console.log("successfully login user by username: " + username);
         return true;
     } catch (err) {
-        HandleError(err, "loginByName", "username: " + username);
+        util.HandleError(err, "user.entity.js", "loginByName", "username: " + username);
         return false;
     }
 }
+
 
 /**
  *  register user with 3 inputs
@@ -193,7 +173,6 @@ async function loginByName(username, password) {
  * @param {String} accountId
  *
  * @return {boolean} whether login is successful or not
- *      * no user instance is returned under any circumstance *
  */
 async function register(username, password, accountId) {
     try {
@@ -212,25 +191,25 @@ async function register(username, password, accountId) {
         console.log(newUser);
         return true;
     } catch (err) {
-        HandleError(err, "register","username: " + username +
+        util.HandleError(err, "user.entity.js", "register","username: " + username +
             " password: " + password +
             " id: " + accountId);
         return false;
     }
 }
 
+
 /**
 *  setEmail with 2 inputs
 *  
 *  @param {String} accountId
-*  @param {String} enail
+*  @param {String} email
 *
 *  @return {boolean} whether setEmail is successful or not
-*    * no user instace  is returned under any circumstance *
 */
 async function setEmail(accountId, email) {
     try {
-        if (email==null){
+        if (email==null || accountId==null){
             console.log("cannot set email to null; please provide a valid email");
             return;
         }
@@ -246,24 +225,24 @@ async function setEmail(accountId, email) {
             return true;
         }
     } catch(err) {
-        HandleError(err, "setEmail", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setEmail", "accountId: " + accountId +
             "email: " + email);
         return false;
     }
 }
 
+
 /**
-*  setEmail with 2 inputs
+*  setGender with 2 inputs
 *  
 *  @param {String} accountId
 *  @param {String} gender
 *
 *  @return {boolean} whether setGender is successful or not
-*    * no user instace  is returned under any circumstance *
 */
 async function setGender(accountId, gender) {
     try {
-        if (gender==null){
+        if (gender==null || accountId==null){
             console.log("cannot set gender to null; please provide a valid gender");
             return;
         }
@@ -279,11 +258,78 @@ async function setGender(accountId, gender) {
             return true;
         }
     } catch(err) {
-        HandleError(err, "setGender", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setGender", "accountId: " + accountId +
             "gender: " + gender);
         return false;
     }
 }
+
+
+/**
+ *  setUsername with 2 inputs
+ *
+ *  @param {String} accountId
+ *  @param {String} username
+ *
+ *  @return {boolean} whether setUsername is successful or not
+ */
+async function setUsername(accountId, username) {
+    try {
+        if (username==null || accountId==null){
+            console.log("cannot set username to null or accountId is not given");
+            return;
+        }
+        const filter = {accountId: accountId};
+        const update = {username:username};
+        const options = {runValidators: true, upsert: true};
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find id and username combination");
+            return false;
+        } else {
+            console.log("set username to " + username);
+            return true;
+        }
+    } catch(err) {
+        util.HandleError(err, "user.entity.js", "setUsername", "accountId: " + accountId +
+            "username: " + username);
+        return false;
+    }
+}
+
+
+/**
+ *  setPassword with 2 inputs
+ *
+ *  @param {String} accountId
+ *  @param {String} password
+ *
+ *  @return {boolean} whether setPassword is successful or not
+ */
+async function setPassword(accountId, password) {
+    try {
+        if (password==null || accountId==null){
+            console.log("cannot set password to null or accountId is not given");
+            return;
+        }
+        const filter = {accountId: accountId};
+        const update = {password:password};
+        const options = {runValidators: true, upsert: true};
+        let user = await userModel.updateOne(filter, {$set: update}, options);
+        if (user == null){
+            console.log("unable to find password and username combination");
+            return false;
+        } else {
+            console.log("set password to " + password);
+            return true;
+        }
+    } catch(err) {
+        util.HandleError(err, "user.entity.js", "setPassword", "accountId: " + accountId +
+            "password: " + password);
+        return false;
+    }
+}
+
 
 /**
 *  setPhone with 2 inputs
@@ -296,7 +342,7 @@ async function setGender(accountId, gender) {
 */
 async function setPhone(accountId, phone){
     try {
-        if (phone==null){
+        if (phone==null || accountId==null){
             console.log("cannot set phone to null; please provide a valid phone");
             return;
         }
@@ -312,11 +358,12 @@ async function setPhone(accountId, phone){
             return true;
         }
     } catch(err) {
-        HandleError(err, "setPhone", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setPhone", "accountId: " + accountId +
             "phone: " + phone);
         return false;
     }
 }
+
 
 /**
 *  setAddress with 2 inputs
@@ -329,7 +376,7 @@ async function setPhone(accountId, phone){
 */
 async function setAddress(accountId, address){
     try {
-        if (address==null){
+        if (address==null || accountId==null){
             console.log("cannot set address to null; please provide a valid address");
             return;
         }
@@ -345,12 +392,13 @@ async function setAddress(accountId, address){
             return true;
         }
     } catch(err) {
-        HandleError(err, "setAddress", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setAddress", "accountId: " + accountId +
             "address: " + address);
         return false;
     }
 
 }
+
 
 /**
 *  setBirth with 2 inputs
@@ -363,8 +411,8 @@ async function setAddress(accountId, address){
 */
 async function setBirth(accountId, birth){
     try {
-        if (birth==null){
-            console.log("cannot set birth to null; please provide a valid birth");
+        if (birth==null || accountId==null){
+            console.log("birth input is empty or id input is empty");
             return;
         }
         const filter = {accountId: accountId};
@@ -383,11 +431,12 @@ async function setBirth(accountId, birth){
             return true;
         }
     } catch(err) {
-        HandleError(err, "setBirth", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setBirth", "accountId: " + accountId +
             "birth: " + birth);
         return false;
     }
 }
+
 
 /**
 *  getEmail with 1 input
@@ -407,10 +456,11 @@ async function getEmail(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getEmail", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getEmail", "accountId: "+accountId);
         return null;
     }
 }
+
 
 /**
 *  getGender with 1 input
@@ -430,10 +480,11 @@ async function getGender(accountId) {
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getGender", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getGender", "accountId: "+accountId);
         return null;
     }
 }
+
 
 /**
 *  getPhone with 1 input
@@ -453,10 +504,11 @@ async function getPhone(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getPhone", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getPhone", "accountId: "+accountId);
         return null;
     }
 }
+
 
 /**
 *  getAddress with 1 input
@@ -476,10 +528,11 @@ async function getAddress(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getAddress", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getAddress", "accountId: "+accountId);
         return null;
     }
 }
+
 
 /**
 *  getBirth with 1 input
@@ -499,10 +552,56 @@ async function getBirth(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getAddress", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getBirth", "accountId: "+accountId);
         return null;
     }
 }
+
+/**
+ *  getUserById with 1 input
+ *
+ *  @param {String} accountId
+ *
+ *  @return {object}
+ */
+async function getUserById(accountId){
+    try {
+        let user = await userModel.findOne({accountId: accountId});
+        if (user == null) {
+            console.log("unable to find user by accountId: " + accountId);
+            return user;
+        }
+        console.log("successfully find user by accountId: " + accountId);
+        return user;
+    } catch (err) {
+        util.HandleError(err, "user.entity.js", "getUserById", "accountId: "+accountId);
+        return null;
+    }
+}
+
+
+/**
+ *  getUserById with 1 input
+ *
+ *  @param {String} username
+ *
+ *  @return {object}
+ */
+async function getUserByName(username){
+    try {
+        let user = await userModel.findOne({username:username});
+        if (user == null) {
+            console.log("unable to find user by username: " + username);
+            return user;
+        }
+        console.log("successfully find user by username: " + username);
+        return user;
+    } catch (err) {
+        util.HandleError(err, "user.entity.js", "getUserByName", "username "+ username);
+        return null;
+    }
+}
+
 
 /**
 *  deleteByName with 1 input
@@ -522,28 +621,9 @@ async function delByID(accountId){
         console.log("successfully delete user by accountId: " + accountId);
         return true;
     } catch (err) {
-        HandleError(err, "deleteByName", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "deleteByName", "accountId: "+accountId);
         return false;
     }
-    return false;
 }
 
-/* TODO Notes:
-    1. user.entity.js is the direct communication layer for users to the database
-    2. do not pass any JSON (req.body) into this layer
-    3. write these functions like standard Java setters and getters.
-    4. each function should only implement one functionality
-    5. example:
-        user.service.js has a function registerUser(), and it calls:
-            findByID (check if ID already exist)
-            findByName (check if name already exist)
-            if username and accountId not found:
-                   register(user,pass,id,...)
-    6. please use async.await in ES6 as oppose to Promise library such as Q
-    7. if you are comfortable with Q or writing Promise function by hand, you can
-    8. guide to DocBlock comment
-    https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8#.w234uo7h3
-    10. make sure use try/catch or .then().catch() for error handling, please console.log instead of throw err
-        (this helps us to debug each others code)
- */
 

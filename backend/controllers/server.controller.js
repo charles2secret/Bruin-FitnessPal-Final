@@ -1,15 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const router = require('express-promise-router')();
 const axios = require("axios");
-
-/* GET home page. */
-/*
-router.get('/', function(req, res, next) {
-    res.render('index',{ title: 'express'});
-});
-
-
- */
 
 router.get("/", async (req, res) => {
     const query = await axios.get("https://randomuser.me/api/?results=9");
