@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const util = require('./utilFunc.js');
 const Schema = mongoose.Schema;
 
 //TODO: make sure add to export module after writing your function
@@ -41,8 +42,9 @@ const foodSchema = new Schema({
 
 const foodDiarySchema = new Schema({
     date: {
-        unique: true,
-        required: true, type: String,
+        // unique: true,
+        // required: true, 
+        type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
     dailyCalorieConsumed: {default: 0, type: Number},
@@ -71,8 +73,9 @@ const activitySchema = new Schema({
 
 const activityDiarySchema = new Schema({
     date: {
-        unique: true,
-        required: true, type: String,
+        // unique: true,
+        // required: true, 
+        type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
     dailyCalorieConsumed: {default: 0, type: Number},
@@ -82,8 +85,9 @@ const activityDiarySchema = new Schema({
 
 const waterDiarySchema = new Schema({
     date: {
-        unique: true,
-        required: true, type: String,
+        // unique: true,
+        // required: true, 
+        type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
     dailyWaterConsumed: {default: 0, type: Number}
@@ -93,8 +97,9 @@ const waterDiarySchema = new Schema({
 //      type conversion (kg/lbs) and days without record
 const weightDiarySchema = new Schema({
     date: {
-        unique: true,
-        required: true, type: String,
+        // unique: true,
+        // required: true, 
+        type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
     weight: {type: String, default: "no record for today"}
@@ -103,8 +108,9 @@ const weightDiarySchema = new Schema({
 //TODO: sleepTime is in minutes, 540min = 9hrs
 const sleepDiarySchema = new Schema({
     date: {
-        unique: true,
-        required: true, type: String,
+        // unique: true,
+        // required: true, 
+        type: String,
         match:/^\d{4}-\d{2}-\d{2}$/
     },
     sleepTime: {type: Number, default: 540}
@@ -135,18 +141,19 @@ const diaryModel = mongoose.model('Dairy',diarySchema);
      please register a newUser and check mongo atlas
      to see how my dataSchema works
  */
-function createDiary(accountId) {
-    const userDiary = new diaryModel({
-        accountId: accountId
-    });
-    userDiary.foodDiary.push({
-        date: "2020-10-10"
-    });
-    userDiary.foodDiary[0].food.push({
-        foodName: "hambuger",
-        timeOfDay: "breakfast"
-    });
-    userDiary.save();
+async function createDiary(accountId) {
+    try{
+        const newDiary = new diaryModel({accountId: accountId});
+        let userDiary = await newDiary.save();
+        if (userDiary==null){
+            console.log("unable to create Diary for user: ", userDiary);
+            return false;
+        }
+        return true;
+    } catch(err){
+        util.HandleError(err, "diary.entity.js", "createDiary","accountId: " + accountId);
+        return false;
+    }
 }
 
 /*TODO:

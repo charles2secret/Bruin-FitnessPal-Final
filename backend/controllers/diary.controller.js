@@ -2,15 +2,36 @@ const diaryService = require('../models/services/diary.service')
 const router = require('express-promise-router')();
 
 // routes:
-router.get('/health', getHealthRecord)
+router.get('/health', getHealthRecord);
+router.post('/newDiary', newDiary);
 
 module.exports = router;
 
-function getHealthRecord(req, res) {
+async function getHealthRecord(req, res) {
     diaryService.getHealthRecord()
     //.......
 }
 
+async function newDiary(req, res){
+  try{
+    response = await diaryService.createNewDiary(req.body);
+    if (response === "success"){
+      res.send({
+        status: "X103"
+      })
+    } else {
+      res.sebd({
+        status: "X003",
+        message: response
+      })
+    }
+  } catch(err){
+    res.send({
+      status: "X003",
+      message: err      
+    })
+  }
+}
 
 /*
    TODO: referring to GroupMe discussion, there will be 4 panels:

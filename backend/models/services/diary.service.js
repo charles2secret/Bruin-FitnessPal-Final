@@ -8,6 +8,9 @@ const mongo = require('mongoose');
  */
 
 var service = {};
+
+service.createNewDiary = createNewDiary;
+
 service.getActivityRecord = getActivityRecord;
 service.getFoodRecord = getFoodRecord;
 service.getHealthRecord = getHealthRecord;
@@ -16,7 +19,17 @@ module.exports = service;
 
 //TODO: feel free to change function name....
 //      don't forget to use async
-function createDiary(accountId) {
+async function createNewDiary(userParam) {
+    try {
+        let diary = diaryFactory.createDiary(userParam.accountId);
+        if (diary){
+            return "success";
+        } 
+        return "failed";
+    } catch (err){
+        return err;
+    }
+
     /*
         if diary exists, return some kind of error
         if doesn't, call functions in diary.entity.js
@@ -26,11 +39,11 @@ function createDiary(accountId) {
 //TODO: same as before, they accept input as req.body
 //      which has: String date, and others...
 //      get record of a given date
-function getActivityRecord() {}
-function getFoodRecord() {}
+async function getActivityRecord() {}
+async function getFoodRecord() {}
 //TODO: given a specific date, this should return an object including:
 //      water log, weight log, sleep log
-function getHealthRecord() {
+async function getHealthRecord() {
     /*
         water = diary.entity.js.getWaterRecord(Date)
         weight...

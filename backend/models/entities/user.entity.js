@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const util = require('./utilFunc.js');
 const Schema = mongoose.Schema;
 
 
@@ -71,29 +72,6 @@ const userSchema = new Schema ({
 });
 const userModel = mongoose.model('User', userSchema);
 
-
-/**
- * standard error handler for local functions
- * it prints error message in detail in console
- *
- * @param {Error} err
- * @param {String} function_name of the error happens
- * @param {...string} args
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
-function HandleError (err, function_name, ...args) {
-    console.log("================user.entity.js================================");
-    console.log("internal error at function " + function_name);
-    console.log("input param for the error: ");
-    for (var i=1; i<args.length; i++) {
-        console.log(args[i]);
-    }
-    console.log("error message: " + err.message);
-    console.log("==============================================================")
-}
-
-
 /**
  * finds user in mongodb by username
  *
@@ -111,7 +89,7 @@ async function findByName(username) {
         console.log("successfully find user by username: " + username);
         return user;
     } catch (err) {
-        HandleError(err, "findByName", "username: "+username);
+        util.HandleError(err, "user.entity.js", "findByName", "username: "+username);
         return null;
     }
 }
@@ -134,7 +112,7 @@ async function findById(accountId) {
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "findById", "accountId: "+ accountId);
+        util.HandleError(err, "user.entity.js", "findById", "accountId: "+ accountId);
         return null;
     }
 }
@@ -158,7 +136,7 @@ async function loginById(accountId, password) {
         console.log("successfully login user by accountId: " + accountId);
         return true;
     } catch (err) {
-        HandleError(err, "loginById", "accountId: "+ accountId);
+        util.HandleError(err, "user.entity.js", "loginById", "accountId: "+ accountId);
         return false;
     }
 }
@@ -182,7 +160,7 @@ async function loginByName(username, password) {
         console.log("successfully login user by username: " + username);
         return true;
     } catch (err) {
-        HandleError(err, "loginByName", "username: " + username);
+        util.HandleError(err, "user.entity.js", "loginByName", "username: " + username);
         return false;
     }
 }
@@ -214,7 +192,7 @@ async function register(username, password, accountId) {
         console.log(newUser);
         return true;
     } catch (err) {
-        HandleError(err, "register","username: " + username +
+        util.HandleError(err, "user.entity.js", "register","username: " + username +
             " password: " + password +
             " id: " + accountId);
         return false;
@@ -248,7 +226,7 @@ async function setEmail(accountId, email) {
             return true;
         }
     } catch(err) {
-        HandleError(err, "setEmail", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setEmail", "accountId: " + accountId +
             "email: " + email);
         return false;
     }
@@ -281,7 +259,7 @@ async function setGender(accountId, gender) {
             return true;
         }
     } catch(err) {
-        HandleError(err, "setGender", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setGender", "accountId: " + accountId +
             "gender: " + gender);
         return false;
     }
@@ -314,7 +292,7 @@ async function setUsername(accountId, username) {
             return true;
         }
     } catch(err) {
-        HandleError(err, "setUsername", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setUsername", "accountId: " + accountId +
             "username: " + username);
         return false;
     }
@@ -347,7 +325,7 @@ async function setPassword(accountId, password) {
             return true;
         }
     } catch(err) {
-        HandleError(err, "setPassword", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setPassword", "accountId: " + accountId +
             "password: " + password);
         return false;
     }
@@ -381,7 +359,7 @@ async function setPhone(accountId, phone){
             return true;
         }
     } catch(err) {
-        HandleError(err, "setPhone", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setPhone", "accountId: " + accountId +
             "phone: " + phone);
         return false;
     }
@@ -415,7 +393,7 @@ async function setAddress(accountId, address){
             return true;
         }
     } catch(err) {
-        HandleError(err, "setAddress", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setAddress", "accountId: " + accountId +
             "address: " + address);
         return false;
     }
@@ -454,7 +432,7 @@ async function setBirth(accountId, birth){
             return true;
         }
     } catch(err) {
-        HandleError(err, "setBirth", "accountId: " + accountId +
+        util.HandleError(err, "user.entity.js", "setBirth", "accountId: " + accountId +
             "birth: " + birth);
         return false;
     }
@@ -479,7 +457,7 @@ async function getEmail(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getEmail", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getEmail", "accountId: "+accountId);
         return null;
     }
 }
@@ -503,7 +481,7 @@ async function getGender(accountId) {
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getGender", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getGender", "accountId: "+accountId);
         return null;
     }
 }
@@ -527,7 +505,7 @@ async function getPhone(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getPhone", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getPhone", "accountId: "+accountId);
         return null;
     }
 }
@@ -551,7 +529,7 @@ async function getAddress(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getAddress", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getAddress", "accountId: "+accountId);
         return null;
     }
 }
@@ -575,7 +553,7 @@ async function getBirth(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getBirth", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getBirth", "accountId: "+accountId);
         return null;
     }
 }
@@ -597,7 +575,7 @@ async function getUserById(accountId){
         console.log("successfully find user by accountId: " + accountId);
         return user;
     } catch (err) {
-        HandleError(err, "getUserById", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "getUserById", "accountId: "+accountId);
         return null;
     }
 }
@@ -620,7 +598,7 @@ async function getUserByName(username){
         console.log("successfully find user by username: " + username);
         return user;
     } catch (err) {
-        HandleError(err, "getUserByName", "username "+ username);
+        util.HandleError(err, "user.entity.js", "getUserByName", "username "+ username);
         return null;
     }
 }
@@ -644,7 +622,7 @@ async function delByID(accountId){
         console.log("successfully delete user by accountId: " + accountId);
         return true;
     } catch (err) {
-        HandleError(err, "deleteByName", "accountId: "+accountId);
+        util.HandleError(err, "user.entity.js", "deleteByName", "accountId: "+accountId);
         return false;
     }
 }
