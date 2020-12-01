@@ -1,5 +1,4 @@
 const diaryFactory = require('../entities/diary.entity')
-
 const config = require('./config.json');
 const mongo = require('mongoose');
 
@@ -10,7 +9,7 @@ const db = mongo.connect(config.url, {
     keepAlive: true,
     keepAliveInitialDelay: 300000
 }).then(
-    () => {console.log("MongoDB Running")},
+    () => {console.log("MongoDB Running at diary.service.js")},
     err => {console.log("DB Connection Failed")}
 );
 

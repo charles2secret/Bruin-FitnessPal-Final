@@ -2,6 +2,19 @@ const userFactory = require('../entities/user.entity');
 const diaryFactory = require('../entities/diary.entity')
 const bcrypt = require('bcryptjs');
 
+const config = require('./config.json');
+const mongo = require('mongoose');
+
+const db = mongo.connect(config.url, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    keepAlive: true,
+    keepAliveInitialDelay: 300000
+}).then(
+    () => {console.log("MongoDB Running at user.service.js")},
+    err => {console.log("DB Connection Failed")}
+);
 
 
 var service = {};
