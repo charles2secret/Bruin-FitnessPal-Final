@@ -1,20 +1,7 @@
-const config = require('./config.json');
-const mongo = require('mongoose');
 const userFactory = require('../entities/user.entity');
 const diaryFactory = require('../entities/diary.entity')
 const bcrypt = require('bcryptjs');
 
-
-const db = mongo.connect(config.url, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    keepAlive: true,
-    keepAliveInitialDelay: 300000
-}).then(
-    () => {console.log("MongoDB Running")},
-    err => {console.log("DB Connection Failed")}
-);
 
 
 var service = {};
@@ -70,6 +57,7 @@ async function register(userParam) {
         let pass = userParam.password;
         let id = userParam.accountId;
         let token = await userFactory.register(user, pass, id);
+        //TODO: createDiary()
         if (token) {
             diaryFactory.createDiary(id);
             await userFactory.setEmail(id, userParam.email);

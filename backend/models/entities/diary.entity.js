@@ -17,6 +17,9 @@ const Schema = mongoose.Schema;
  */
 var diaryFactory = {}
 diaryFactory.createDiary = createDiary;
+diaryFactory.containActivityDiary = containActivityDiary;
+diaryFactory.createActivityDiary = createActivityDiary;
+diaryFactory.putActivityRecord = putActivityRecord;
 
 //add export functions here....
 module.exports = diaryFactory;
@@ -33,11 +36,11 @@ const foodSchema = new Schema({
             "afternoon snack",
             "dinner",
             "after dinner"]},
-    totalFat: {type: Number},
-    totalProtein: {type: Number},
-    totalCarbs: {type: Number},
-    totalSodium: {type: Number},
-    totalFiber: {type: Number},
+    totalFat: {type: Number, default: -1},
+    totalProtein: {type: Number, default: -1},
+    totalCarbs: {type: Number, default: -1},
+    totalSodium: {type: Number, default: -1},
+    totalFiber: {type: Number, default: -1}
 });
 
 const foodDiarySchema = new Schema({
@@ -62,10 +65,10 @@ const activitySchema = new Schema({
     duration: {type: Number, required: true}, //in minutes
     timeOfDay: {
         type: String,
-        required: true, //TODO: check with frontend
-        num:["breakfast",
-            "morning snack",
-            "lunch",
+        //required: true, //TODO: check with frontend
+        num:["morning",
+            "noon",
+            "afternoon",
             "afternoon snack",
             "dinner",
             "after dinner"]},
@@ -143,7 +146,18 @@ const diaryModel = mongoose.model('Dairy',diarySchema);
  */
 async function createDiary(accountId) {
     try{
-        const newDiary = new diaryModel({accountId: accountId});
+        const newDiary = new diaryModel({
+            accountId: accountId,
+            activityDiary:[{
+               date: "1998-02-02",
+               activity: [{
+                   activityName: "running!",
+                   activityType: "cardio",
+                   calorieBurned: 300,
+                   duration: 60
+            }]
+            }]
+        });
         let userDiary = await newDiary.save();
         if (userDiary==null){
             console.log("unable to create Diary for user: ", userDiary);
@@ -168,7 +182,6 @@ async function createDiary(accountId) {
 //setters:
 function createFoodDiary(accountId, date){}
 function recordFood(accountId, date, food){}
-function createActivityDiary(accountId, date){}
 function recordActivity(accountId, date, food){}
 function createWaterDiary(accountId, date){}
 function recordWater(accountId, date, food){}
@@ -177,15 +190,63 @@ function recordWeight(accountId, date, food){}
 function createSleepDiary(accountId, date){}
 function recordSleep(accountId, date, food){}
 
-//getters: returns an object of specific category
-//         should still return an object with default field if:
-//         no record is found for that specific day
+//setter
 function getFoodRecord(accountId, date){}
 function getActivityRecord(accountId, date){}
 function getWaterRecord(accountId, date){}
 function getWeightRecord(accountId, date){}
 function getSleepRecord(accountId, date){}
-//TODO: this should check if the overall diary associated with accountId
-//      is found in the database
+
 function findDiary(accountId) {}
+
+
+//TODO: functions for activity diary: return True or False
+async function containActivityDiary(accountId, date) {
+    try {
+        let response = await diaryModel.findOne({accountId:accountId});
+        let activityDiary = response.activityDiary;
+        for (let i=0; i<activityDiary.length; i++) {
+            if (activityDiary[i].date === date) {
+                return true;
+            }
+        }
+        return false;
+    } catch (err) {
+        util.HandleError(err);
+        return false;
+    }
+}
+
+async function createActivityDiary(accountId, date) {
+    try {
+        let response = await diaryModel.findOne({accountId:accountId});
+        response.activityDiary.push({date: date});
+        await response.save();
+        return true;
+    } catch (err) {
+        util.HandleError(err);
+        return false;
+    }
+}
+
+async function putActivityRecord(accountId, date, activity) {
+    try {
+        let response = await diaryModel.findOne({accountId:accountId});
+        for (let i=0; i<response.activityDiary.length; i++) {
+            if (response.activityDiary[i].date === date) {
+                response.activityDiary[i].activity.push(activity);
+                response.activityDiary[i].dailyCalorieConsumed +=
+                    activity.calorieBurned;
+                let status = await response.save();
+                return true;
+            }
+        }
+        return false;
+    } catch (err) {
+        util.HandleError(err);
+        return false;
+    }
+}
+
+
 
