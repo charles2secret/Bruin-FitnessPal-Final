@@ -21,9 +21,6 @@ const db = mongo.connect(config.url, {
  */
 
 var service = {};
-
-service.createNewDiary = createNewDiary;
-
 service.getActivityRecord = getActivityRecord;
 service.getFoodRecord = getFoodRecord;
 service.getHealthRecord = getHealthRecord;
@@ -34,45 +31,17 @@ service.putFoodRecord = putFoodRecord;
 service.putHealthRecord = putHealthRecord;
 
 /*
-
 service.deleteActivityRecord =deleteActivityRecord;
 service.deleteFoodRecord = deleteFoodRecord;
 service.deleteHealthRecord = deleteHealthRecord;
-
  */
 
 module.exports = service;
 
 
-//TODO: feel free to change function name....
-async function createNewDiary(userParam) {
-    try {
-        let diary = diaryFactory.createDiary(userParam.accountId);
-        if (diary){
-            return "success";
-        } 
-        return "failed";
-    } catch (err){
-        util.HandleError(err,"diary.service.js", "createNewDiary");
-        return err;
-    }
-
-    /*
-        if diary exists, return some kind of error
-        if doesn't, call functions in diary.entity.js
-     */
-}
-
 //TODO: finish setter first.....
 async function getFoodRecord() {}
 async function getHealthRecord() {}
-
-/**
- * record diet, if diary does not exist, create one
- *
- * @param {JSON} RecordParam
- * @return {String} a message to diary.controller.js
- */
 async function putFoodRecord(RecordParam) {
     /*
        TODO:
@@ -85,8 +54,6 @@ async function putFoodRecord(RecordParam) {
         food should be JSON
      */
 }
-
-
 async function putHealthRecord(RecordParam) {
     /*
        TODO:
@@ -110,6 +77,7 @@ async function putHealthRecord(RecordParam) {
 
 
 //TODO: =========== below are finished functions ====================
+
 
 /**
  * return an activity diary by date to controller
