@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //connect to backend
 import { AppService } from "../app.service";
 import { Router } from '@angular/router';
+import { NotifierService } from '../notifier.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private appService: AppService, private router: Router) { }
+  constructor(private appService: AppService, private router: Router,private notifierService:NotifierService) { }
 
 
   ngOnInit() {
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
       }
       else if (data.status === "X003") {
         if (message !== "X103") {
-          alert(data.message)
+          this.notifierService.showNotification(data.message,'ok')
         }
       }
 
