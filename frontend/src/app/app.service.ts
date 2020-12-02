@@ -27,21 +27,37 @@ export class AppService {
   constructor(private httpClient: HttpClient) { }
 
   uri = 'http://localhost:3000';
-
+  private accountId;
+  setAccountId (tempAccountId){
+    this.accountId=tempAccountId;
+  }
+  getAccountId (){
+    return this.accountId;
+  }
   getIssues() {
     return this.httpClient.get(`${this.uri}/issues`);
   }
   // tslint:disable-next-line:typedef
-  getIssueById(id) {
-    return this.httpClient.get(`${this.uri}/issues/${id}`);
+  getUserById(accountId,password) {
+    const user = {
+      accountId: accountId,
+      password: password,
+    };
+    return this.httpClient.post(`${this.uri}/users/current`,user);
   }
-
+  getUserByName(username,password) {
+    const user = {
+      username: username,
+      password: password,
+    };
+    return this.httpClient.post(`${this.uri}/users/current`,user);
+  }
   loginUserByName(username, password) {
     const user = {
       username: username,
       password: password,
     };
-    return this.httpClient.post(`${this.uri}/users/authenticate`, user);
+    return this.httpClient.post(`${this.uri}/users/login`, user);
   }
 
   loginUserById(accountId, password) {
@@ -49,24 +65,7 @@ export class AppService {
       accountId: accountId,
       password: password,
     };
-    return this.httpClient.post(`${this.uri}/users/authenticate`,user);
-  }
-
-  addIssue(username, password) {
-    const issue = {
-      username: username,
-      password: password,
-    };
-    return this.httpClient.post(`${this.uri}/issues`,issue);
-  }
-  addIssue2(gender,userID,username, password) {
-    const issue = { 
-      gender: gender,
-      userID: userID,
-      username: username,
-      password: password,
-    };
-    return this.httpClient.post(`${this.uri}/issues`,issue);
+    return this.httpClient.post(`${this.uri}/users/login`,user);
   }
   registerUser(name, pass, id, email, gender) {
     const user = {
@@ -77,6 +76,15 @@ export class AppService {
       gender: gender,
     }
     return this.httpClient.post(`${this.uri}/users/register`,user);
+  }
+
+  putActivity(id,date,activityName,activityType,calorieBurned,duration,timeOfDay){
+      const _activity = {
+        accountId:id,
+        date: date,
+        activity:{activityName,activityType,calorieBurned,duration,timeOfDay},
+      }
+      return this.httpClient.put(`${this.uri}/diaries/activity`,_activity);
   }
   updateIssue(id, title, responsible, description, severity) {
     const issue = {

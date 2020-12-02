@@ -1,20 +1,106 @@
-<div class="grid-container">
+<body>
 
-  <body>
-    <h1 class="mat-h1">Activity Tracker</h1>
-    <mat-grid-list cols="2" rowHeight="350px">
-      <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-        <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title>
-              {{card.title}}
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-            <div>Card Content Here</div>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </body>
-</div>
+  <div class="main-content">
+    <h1>Fitness Tracker</h1>
+    <p>Logging in your everyday life!</p>
+    <div class="panel-wrapper">
+      <div class="panel-head">
+        Daily Activities
+      </div>
+      <div class="panel-body">
+        <form (submit)="loginActivity($event)">
+          <div class="Activity">
+            <label for="date">Date</label>
+            <input type="date" name="date" id="date"  required>
+            <label for="activityName">Activity Name</label>
+            <input type="text" name="activityName" id="activityName" size=”15” maxlength=”30” required>
+            <label for="type">Type</label>
+            <input type="text" name="type" id="type" size=”15” maxlength=”20” placeholder="cardio/weight-training"
+              required>
+            <label for="duration">Duraction</label>
+            <input type="number" name="duration" id="duration" min="0" max="1440" placeholder="mins" required>
+            <label for="calories">Calories</label>
+            <input type="number" name="calories" id="calories" min="0" max="10000" placeholder="cals" required>
+            <label for="timeOfDay">Time of the day</label>
+            <input type="text" name="timeOfDay" id="timeOfDay" size=”15” maxlength=”30” placeholder="morning/noon/afternoon/evening"required>
+
+            <p>Click the "log" button if you are ready</p>
+            <input type="submit" value="Log" href="#">
+            <p> Choose a date to check </p>
+          </div>
+          <input type="button" value="Check" routerLink="#">
+        </form>
+      </div>
+    </div>
+    <div class="panel-wrapper">
+      <div class="panel-head">
+        Calories
+      </div>
+      <div class="panel-body">
+        <form (submit)="loginCalories($event)">
+          <div class="Calories">
+
+            <label for="consumption">Consumption</label>
+            <input type="number" name="consumption" id="consumption" min="0" max="10000" placeholder="cals" required>
+            <label for="burned">Burned</label>
+            <input type="number" name="burned" id="burned" min="0" max="10000" placeholder="cals" required>
+            <label for="metabolism">Metabolism </label>
+            <input type="number" name="metabolism" id="metabolism" min="0" max="10000" required>
+
+            <p>Click the "log" button if you are ready</p>
+            <input type="submit" value="Log" href="#">
+            <p>Choose a date to check </p>
+          </div>
+          <input type="button" value="Check" routerLink="#">
+        </form>
+      </div>
+    </div>
+    <div class="panel-wrapper">
+      <div class="panel-head">
+        Health
+      </div>
+      <div class="panel-body">
+        <form (submit)="loginHealth($event)">
+          <div class="Health">
+            <label for="water">Water Consumed</label>
+            <input type="number" name="water" id="water" min="0" max="100000" placeholder="ml" required>
+            <label for="weight">Weight</label>
+            <input type="number" name="weight" id="weight" min="0" max="300" placeholder="kg" required>
+            <label for="sleep">Sleep</label>
+            <input type="number" name="sleep" id="sleep" min="0" max="24" placeholder="hrs" required>
+
+            <p>Click the "log" button if you are ready</p>
+            <input type="submit" value="Log" href="#">
+            <p>Choose a date to check </p>
+          </div>
+          <input type="button" value="Check" routerLink="#">
+        </form>
+      </div>
+    </div>
+    <div class="panel-wrapper">
+      <div class="panel-head">
+        Diet
+      </div>
+      <div class="panel-body">
+        <form (submit)="loginDiet($event)">
+          <div class="Diet">
+            <label for="when">When?</label>
+            <input type="text" name="when" id="when" minlength="5" maxlength="9" size="25"
+              placeholder="breakfast/lunch/dinner/snack" required>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" maxlength="30" size="25" required>
+            <label for="clories">Calories</label>
+            <input type="number" name="calories" id="weight" min="0" max="10000" placeholder="cals" required>
+            <label for="amount">Amount</label>
+            <input type="number" name="amount" id="amount" min="0" max="10000" placeholder="g" required>
+
+            <p>Click the "log" button if you are ready</p>
+            <input type="submit" value="Log" href="#">
+            <p>Choose a date to check </p>
+          </div>
+          <input type="button" value="Check" routerLink="#">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

@@ -15,7 +15,9 @@ import { NavigationPanelComponent } from './navigation-panel/navigation-panel.co
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './login/login.component';
+
 
 // for communicating with backend using HttpClient
 import { AppService } from './app.service';
@@ -23,6 +25,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FriendsComponent } from './friends/friends.component';
 import { PlanComponent } from './plan/plan.component';
+import { FormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
@@ -47,7 +50,9 @@ import { PlanComponent } from './plan/plan.component';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    HttpClientModule // new module for AppService
+    HttpClientModule, // new module for AppService
+    FormsModule,
+    MatSnackBarModule
   ],
   // add service class to providers
   providers: [AppService],

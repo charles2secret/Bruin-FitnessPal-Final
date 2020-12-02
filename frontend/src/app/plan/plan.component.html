@@ -4,6 +4,45 @@
   <button mat-menu-item>Day</button>
 </mat-menu>
 
+<div *ngIf="!editMode; then viewBlock else editBlock"></div> 
+
+<ng-template #viewBlock>
+  
+  <table>
+    <tr>
+      <th>Time</th>
+      <th>Activity</th>
+      <th>Location</th>
+    </tr>
+    <tr *ngFor="let event of events">
+      <td>{{event.Time}}</td>
+      <td>{{event.Activity}}</td>
+    </tr>
+  </table>
+  <button (click)="editBut()">Edit</button>
+</ng-template>
+
+<ng-template #editBlock>
+  <table>
+    <tr>
+      <th>Time</th>
+      <th>Event</th>
+      <th>Location</th>
+    </tr>
+    <tr *ngFor="let tevent of tevents">
+      <td>{{tevent.Time}}</td>
+      <td><input type="text" [(ngModel)]="tevent.Activity"/></td>
+    </tr>
+  </table>
+  <button (click)="saveBut()">Save</button>
+  <button (click)="cancelBut()">Cancel</button>
+</ng-template>
 
 
+<!--
+<button (click)="test()">test</button>
 
+<input type="text" [(ngModel)]="event"/>
+
+<button (click)="enter()">Enter</button>
+-->
