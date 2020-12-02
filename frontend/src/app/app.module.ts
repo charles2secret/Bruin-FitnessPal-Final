@@ -15,7 +15,9 @@ import { NavigationPanelComponent } from './navigation-panel/navigation-panel.co
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './login/login.component';
+
 
 // for communicating with backend using HttpClient
 import { AppService } from './app.service';
@@ -49,7 +51,8 @@ import { FormsModule } from '@angular/forms';
     MatSidenavModule,
     MatListModule,
     HttpClientModule, // new module for AppService
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   // add service class to providers
   providers: [AppService],

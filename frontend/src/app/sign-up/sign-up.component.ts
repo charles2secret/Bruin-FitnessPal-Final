@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from "../app.service";
 import { Router } from '@angular/router';
+import { NotifierService } from '../notifier.service';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(private appService: AppService,private router: Router) { }
+  constructor(private appService: AppService,private router: Router,private notifierService:NotifierService) { }
 
   ngOnInit() {
 
@@ -29,10 +30,10 @@ export class SignUpComponent implements OnInit {
         this.router.navigate(['login'])
       }
       else if (data.status === "X003"){
-        alert(data.message)
+        this.notifierService.showNotification(data.message,'ok')
       }
    })
-    console.log(username,password,userID,email,gender)
+    
   }
 }
 
