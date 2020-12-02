@@ -21,12 +21,12 @@ const db = mongo.connect(config.url, {
  */
 
 var service = {};
+
 service.getActivityRecord = getActivityRecord;
 service.getFoodRecord = getFoodRecord;
 service.getHealthRecord = getHealthRecord;
 
 service.putActivityRecord = putActivityRecord;
-
 service.putFoodRecord = putFoodRecord;
 service.putHealthRecord = putHealthRecord;
 
@@ -38,46 +38,153 @@ service.deleteHealthRecord = deleteHealthRecord;
 
 module.exports = service;
 
+/**
+ * return a food diary by date to controller
+ *
+ * @param {JSON} RecordParam
+ * @return {JSON} activity diary is null if not found
+ */
+async function getFoodRecord(RecordParam) {
+    try {
+        let id = RecordParam.accountId;
+        let date = RecordParam.date;
+        let status = await diaryFactory.containFoodDiary(id, date);
+        if(!status) {
+            console.log("no food diary is found, return null");
+            return null;
+        }
+        let diaries = await diaryFactory.getFoodDiary(id, date);
+        if (diaries.length === 0) {
+            console.log("food diary is found, but no food recorded yet");
+            return null;
+        }
+        return diaries;
+    } catch (err) {
+        util.HandleError(err,"diary.service.js", "getActivityRecord");
+        return null;
+    }
+}
 
-//TODO: finish setter first.....
-async function getFoodRecord() {}
-async function getHealthRecord() {}
+/**
+ * record food, if food diary does not exist, create one
+ *
+ * @param {JSON} RecordParam
+ * @return {String} a message to diary.controller.js
+ */
 async function putFoodRecord(RecordParam) {
-    /*
-       TODO:
-        1. check if food diary exist by calling
-            diaryFactory.containFoodDiary(....)
-        2. if not
-            diaryFactory.createFoodDiary(....)
-        3. then add food log
-            diaryFactory.putFoodRecord(id, date, food)
-        food should be JSON
-     */
-}
-async function putHealthRecord(RecordParam) {
-    /*
-       TODO:
-        1. check what health record we need to put
-            e.g. RecordParam {
-                weightDiary ....
+    try{
+        let id = RecordParam.accountId;
+        let date = RecordParam.date;
+        let food = RecordParam.food;
+        let status = await diaryFactory.containFoodDiary(id, date);
+        if (!status) {
+            let result = await diaryFactory.createFoodDiary(id, date);
+            if (!result) {
+                throw new Error("food diary doesn't exist but failed during creation; accountId might not be in the databse");
             }
-        in this case, only weight diary needs to be updated
-        2. before update check if the specific diary exists or not
-        //..same as step 1 and 2 in putFoodRecord
-        3. add diary
-            diaryFactory.putWeightDiary(xxxx)
+        }
+        let result = await diaryFactory.putFoodRecord(id, date, food);
+        if (!result) {
+            throw new Error("food diary found but failed to insert new food");
+        }
+        return "Food Successfully Logged";
+    } catch(err){
+        util.HandleError(err,"diary.service.js","putFoodRecord");
+        return err;
+    }
+}
 
-       TODO:
-        note:
-        weightDiary: override old weight if exists
-        waterDiary: add the input value to waterDiary.dailyWaterConsumed
-        sleep: override old sleep time if exists
-     */
+/**
+ *
+ * @param {JSON} RecordParam
+ * @ return a {JSON} of water, weight, and sleep object by date to controller
+ *       null if not found
+ */
+async function getHealthRecord(RecordParam) {
+    try {
+        let id = RecordParam.accountId;
+        let date = RecordParam.date;
+
+        let statusWater = await diaryFactory.containWaterDiary(id, date);
+        let statusWeight = await diaryFactory.containWeightDiary(id, date);
+        let statusSleep = await diaryFactory.containSleepDiary(id, date);
+
+        if(statusWater == statusWeight && statusWeight == statusSleep && statusSleep == null) {
+            console.log("no health diary is found, return null");
+            return null;
+        }
+
+        let waterDiary = await diaryFactory.getWaterDiary(id, date);
+        let weightDiary = await diaryFactory.getWeightDiary(id, date);
+        let sleepDiary = await diaryFactory.getSleepDiary(id, date);
+
+        return {waterDiary, weightDiary, sleepDiary};
+    } catch (err) {
+        util.HandleError(err,"diary.service.js", "getHealthRecord");
+        return null;
+    }
 }
 
 
-//TODO: =========== below are finished functions ====================
+/**
+ * record health (water, sleep, and weight);
+ *     if any of those diary does not exist, create one
+ *
+ * @param {JSON} RecordParam
+ * @return {String} a message to diary.controller.js
+ */
+async function putHealthRecord(RecordParam) {
+    try{
+        let id = RecordParam.accountId;
+        let date = RecordParam.date;
+        let water = RecordParam.water;
+        let sleep = RecordParam.sleep;
+        let weight = RecordParam.weight;
 
+        let resultWater = false;
+        let resultSleep = false;
+        let resultWeight = false;
+
+        if (water!= null){
+            let statusWater = await diaryFactory.containWaterDiary(id, date);
+            if (!statusWater){
+                resultWater = await diaryFactory.createWaterDiary(id, date);
+                if (!resultWater) throw new Error("water diary doesn't exist but failed during creation; accountId might not be in the databse");
+            }
+            resultWater = await diaryFactory.putWaterRecord(id, date, water);
+            if (!resultWater) throw new Error("water diary found but failed to insert new water");
+        }
+
+        if (sleep!= null){
+            let statusSleep = await diaryFactory.containSleepDiary(id, date);
+            if (!statusSleep){
+                resultSleep = await diaryFactory.createSleepDiary(id, date);
+                if (!resultSleep) throw new Error("sleep diary doesn't exist but failed during creation; accountId might not be in the databse");
+            }
+            resultSleep = await diaryFactory.putSleepRecord(id, date, sleep);
+            if (!resultSleep) throw new Error("sleep diary found but failed to insert new sleep");
+        }
+
+        if (weight!= null){
+            let statusWeight = await diaryFactory.containWeightDiary(id, date);
+            if (!statusWeight){
+                resultWeight = await diaryFactory.createWeightDiary(id, date);
+                if (!resultWeight) throw new Error("weight diary doesn't exist but failed during creation; accountId might not be in the databse");
+            }
+            resultWeight = await diaryFactory.putWeightRecord(id, date, weight);
+            if (!resultWeight) throw new Error("weight diary found but failed to insert new weight");
+        }
+
+        const waterPut = (water == null || resultWater);
+        const sleepPut = (sleep == null || resultSleep);
+        const weightPut = (weight == null || resultWeight);
+
+        if (waterPut && sleepPut && weightPut) return "Health Successfully Logged";
+    } catch(err){
+        util.HandleError(err,"diary.service.js","putHealthRecord");
+        return err;
+    }
+}
 
 /**
  * return an activity diary by date to controller

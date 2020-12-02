@@ -417,7 +417,7 @@ async function putWaterRecord(accountId, date, water) {
         let response = await diaryModel.findOne({accountId:accountId});
         for (let i=0; i<response.waterDiary.length; i++) {
             if (response.waterDiary[i].date === date) {
-                response.waterDiary[i].dailyWaterConsumed += water.dailyWaterConsumed;
+                response.waterDiary[i].dailyWaterConsumed += water;
                 let status = await response.save();
                 return true;
             }
