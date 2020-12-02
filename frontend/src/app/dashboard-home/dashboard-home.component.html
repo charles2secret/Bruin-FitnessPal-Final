@@ -13,7 +13,7 @@
               <label for="activityName">Activity Name</label>
               <input type="text" name="activityName" id="activityName" size=”15” maxlength=”30” required>
               <label for="type">Type</label>
-              <input type="text" name="type" id="type" size=”15” maxlength=”20” required>
+              <input type="text" name="type" id="type" size=”15” maxlength=”20” placeholder="cardio/weight-training"required>
               <label for="duration">Duraction</label>
               <input type="number" name="duration" id="duration" min="0" max="1440" placeholder="mins" required>
               <label for="calories">Calories</label>
@@ -80,7 +80,7 @@
         <form (submit)="loginDiet($event)">
           <div class="Diet">
               <label for="when">When?</label>
-              <input type="text" name="when" id="when" minlength="5" maxlength="9" size="25"placeholder="Breakfast/lunch/dinner/snack"required>
+              <input type="text" name="when" id="when" minlength="5" maxlength="9" size="25"placeholder="breakfast/lunch/dinner/snack"required>
               <label for="name">Name</label>
               <input type="text" name="name" id="name" maxlength="30" size="25"required>
               <label for="clories">Calories</label>

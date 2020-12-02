@@ -20,6 +20,14 @@ export class DashboardHomeComponent implements OnInit {
   }
   
   loginActivity(event: any){
+    event.preventDefault()
+    const target = event.target
+    const activityName = target.querySelector('#activityName').value
+    const type = target.querySelector('#type').value
+    const duration = target.querySelector('#duration').value
+    const calories = target.querySelector('#calories').value
+    console.log(activityName,type,duration,calories)
+
   }
   loginCalories(event: any){
   }

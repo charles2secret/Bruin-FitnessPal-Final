@@ -27,13 +27,22 @@ export class AppService {
   constructor(private httpClient: HttpClient) { }
 
   uri = 'http://localhost:3000';
-
+  private accountId;
+  setAccountId (tempAccountId){
+    this.accountId=tempAccountId;
+  }
+  getAccountId (){
+    return this.accountId;
+  }
   getIssues() {
     return this.httpClient.get(`${this.uri}/issues`);
   }
   // tslint:disable-next-line:typedef
-  getIssueById(id) {
-    return this.httpClient.get(`${this.uri}/issues/${id}`);
+  getUserById(username) {
+    const user = {
+      username: username,
+    };
+    return this.httpClient.get(`${this.uri}/users/current`,user);
   }
 
   loginUserByName(username, password) {
@@ -51,8 +60,6 @@ export class AppService {
     };
     return this.httpClient.post(`${this.uri}/users/login`,user);
   }
-
-  
   registerUser(name, pass, id, email, gender) {
     const user = {
       accountId: id,
@@ -62,6 +69,15 @@ export class AppService {
       gender: gender,
     }
     return this.httpClient.post(`${this.uri}/users/register`,user);
+  }
+
+  putActivity(id,date,activity){
+      const _activity = {
+        accountId:id,
+        date: date,
+        activity: activity,
+      }
+      return this.httpClient.put(`${this.uri}/diary/activity`,_activity);
   }
   updateIssue(id, title, responsible, description, severity) {
     const issue = {
