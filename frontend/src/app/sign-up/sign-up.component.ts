@@ -25,11 +25,11 @@ export class SignUpComponent implements OnInit {
     const userID = target.querySelector('#userID').value
     this.appService.registerUser(username,password,userID,email,gender).subscribe((data:any)=>{
      
-      if (data.status === "X102") {
+      if (data.status === "X103") {
         this.router.navigate(['login'])
       }
-      else if (data.status === "X002"){
-        alert("signup failed")
+      else if (data.status === "X003"){
+        alert(data.message)
       }
    })
     console.log(username,password,userID,email,gender)

@@ -41,7 +41,7 @@ export class AppService {
       username: username,
       password: password,
     };
-    return this.httpClient.post(`${this.uri}/users/authenticate`, user);
+    return this.httpClient.post(`${this.uri}/users/login`, user);
   }
 
   loginUserById(accountId, password) {
@@ -49,7 +49,7 @@ export class AppService {
       accountId: accountId,
       password: password,
     };
-    return this.httpClient.post(`${this.uri}/users/authenticate`,user);
+    return this.httpClient.post(`${this.uri}/users/login`,user);
   }
 
   
