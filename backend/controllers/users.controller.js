@@ -5,7 +5,8 @@ const userService = require('../models/services/user.service');
 // routes
 router.post('/login', loginUser);
 router.post('/register', registerUser);
-router.get('/current', getUser);
+//TODO: this post was get
+router.post('/current', getUser);
 router.put('/current', updateUser);
 router.delete('/current', deleteUser);
 
