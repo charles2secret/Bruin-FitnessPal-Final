@@ -14,15 +14,14 @@ router.delete('/food', deleteFoodRecord);
 
 module.exports = router;
 
-//TODO: do this two first
-
-async function putHealthRecord(req, res) {
-}
-
-async function putFoodRecord(req, res) {
-}
+//TODO: finish as much as you can
+async function putHealthRecord(req, res) {}
+async function putFoodRecord(req, res) {}
+async function getFoodRecord(req, res) {}
+async function getHealthRecord(req, res) {}
 
 
+//TODO: ==================== finished functions below ====================
 async function putActivityRecord(req, res) {
     try {
         let response = await diaryService.putActivityRecord(req.body);
@@ -67,51 +66,5 @@ async function getActivityRecord(req, res) {
             message: err
         })
     }
-    //.......
 }
 
-
-async function getHealthRecord(req, res) {
-
-    //.......
-}
-
-
-async function getFoodRecord(req, res) {
-    //.......
-}
-
-
-async function deleteHealthRecord(req, res) {
-
-}
-
-async function deleteActivityRecord(req, res) {
-
-}
-
-async function deleteFoodRecord(req, res) {
-
-
-}
-
-async function newDiary(req, res) {
-    try {
-        response = await diaryService.createNewDiary(req.body);
-        if (response === "success") {
-            res.send({
-                status: "X103"
-            })
-        } else {
-            res.send({
-                status: "X003",
-                message: response
-            })
-        }
-    } catch (err) {
-        res.send({
-            status: "X003",
-            message: err
-        })
-    }
-}

@@ -2,27 +2,12 @@ const mongoose = require('mongoose');
 const util = require('./utilFunc.js');
 const Schema = mongoose.Schema;
 
-//TODO: make sure add to export module after writing your function
-//      and check comment below before start
-// userDiary.save()
-// ref:
-// https://mongoosejs.com/docs/subdocs.html
-
-/* TODO:
-    general design pattern:
-    (if your design is faster, let me know)
-    1. dairies (with unique id)  has arrays of foodDiaries
-    2. -> foodDiaries (with unique date) has arrays of food
-    3. -> food (single food) with calorie, timeOfDay, etc
- */
 var diaryFactory = {}
 diaryFactory.createDiary = createDiary;
 diaryFactory.containActivityDiary = containActivityDiary;
 diaryFactory.createActivityDiary = createActivityDiary;
 diaryFactory.putActivityRecord = putActivityRecord;
 diaryFactory.getActivityDiary = getActivityDiary;
-
-//add export functions here....
 module.exports = diaryFactory;
 
 const foodSchema = new Schema({
@@ -90,8 +75,7 @@ const waterDiarySchema = new Schema({
     dailyWaterConsumed: {default: 0, type: Number}
 });
 
-//TODO: weight is string because I don't want to deal with
-//      type conversion (kg/lbs) and days without record
+
 const weightDiarySchema = new Schema({
     date: {
         required: true,
@@ -101,7 +85,7 @@ const weightDiarySchema = new Schema({
     weight: {type: String, default: "no record for today"}
 });
 
-//TODO: sleepTime is in minutes, 540min = 9hrs
+
 const sleepDiarySchema = new Schema({
     date: {
         required: true,
@@ -131,28 +115,50 @@ const diarySchema = new Schema ({
 
 const diaryModel = mongoose.model('Diary',diarySchema);
 
-/*
-    TODO:simple function, not done yet
-     please register a newUser and check mongo atlas
-     to see how my dataSchema works
+
+//TODO: CRUD for food diary
+function containFoodDiary(accountId, date) {}
+function createFoodDiary(accountId, date) {}
+function getFoodDiary(accountId, date) {}
+function putFoodRecord(accountId, date, food) {}
+
+//TODO: CRUD for sleep diary
+//  once this is done, the last two are just copy&paste work
+//  putSleep and putWeight override old value
+//  putWater adds to water consumption
+function containSleepDiary(accountId, date) {}
+function createSleepDiary(accountId, date) {}
+function getSleepDiary(accountId, date) {}
+function putSleepRecord(accountId, date) {}
+
+//TODO: CRUD for weight diary
+function containWeightDiary(accountId, date) {}
+function createWeightDiary(accountId, date) {}
+function getWeightDiary(accountId, date) {}
+function putWeightRecord(accountId, date) {}
+
+//TODO: CRUD for water diary
+function containWaterDiary(accountId, date) {}
+function createWaterDiary(accountId, date) {}
+function getWaterDiary(accountId, date) {}
+function putWaterRecord(accountId, date) {}
+
+
+//TODO: =========== below are finished functions ====================
+
+
+/**
+ * create a diary by accountId
+ *
+ * @param {String} accountId
+ * @return {Boolean} status of creation
  */
 async function createDiary(accountId) {
     try{
-        const newDiary = new diaryModel({
-            accountId: accountId,
-            activityDiary:[{
-               date: "1998-02-02",
-               activity: [{
-                   activityName: "running!",
-                   activityType: "cardio",
-                   calorieBurned: 300,
-                   duration: 60
-            }]
-            }]
-        });
+        const newDiary = new diaryModel({accountId: accountId});
         let userDiary = await newDiary.save();
-        if (userDiary==null){
-            console.log("unable to create Diary for user: ", userDiary);
+        if (userDiary == null){
+            console.log("unable to create Diary for user: ", accountId);
             return false;
         }
         return true;
@@ -162,39 +168,6 @@ async function createDiary(accountId) {
     }
 }
 
-/*TODO:
-    we don't need to have delete feature unless frontend has such feature
-    create simply creates an empty diary at a given date
-    recordXXXX will:
-        1. if date not given, first create a diary
-        2. if date is given, record it to that diary
-    3. add them to diaryFactory and exports
- */
-
-//setters:
-function createFoodDiary(accountId, date){}
-function recordFood(accountId, date, food){}
-function recordActivity(accountId, date, food){}
-function createWaterDiary(accountId, date){}
-function recordWater(accountId, date, food){}
-function createWeightDiary(accountId, date){}
-function recordWeight(accountId, date, food){}
-function createSleepDiary(accountId, date){}
-function recordSleep(accountId, date, food){}
-
-//setter
-function getFoodDiary(accountId, date){}
-
-function getWaterDiary(accountId, date){}
-function getWeightDiary(accountId, date){}
-function getSleepdiary(accountId, date){}
-
-function findDiary(accountId) {}
-
-
-
-
-//TODO: =========== below are finished functions ====================
 
 /**
  * get activity record by date
@@ -262,6 +235,7 @@ async function createActivityDiary(accountId, date) {
         return false;
     }
 }
+
 
 /**
  * put an activity into specific diary
