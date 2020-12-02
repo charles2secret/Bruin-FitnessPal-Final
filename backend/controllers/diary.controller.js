@@ -2,27 +2,32 @@ const diaryService = require('../models/services/diary.service')
 const router = require('express-promise-router')();
 
 // routes:
-router.get('/health', getHealthRecord);
-router.get('/activity', getActivityRecord);
-router.get('/diet', getFoodRecord);
+//TODO: post = get, because I did not figure out
+//      how to send json while using httpClient.get
+//      so to make life eaiser... use post....
+router.post('/health', getHealthRecord);
+router.post('/activity', getActivityRecord);
+router.post('/diet', getFoodRecord);
 router.put('/health', putHealthRecord);
 router.put('/activity', putActivityRecord);
 router.put('/food/put', putFoodRecord);
+/*
 router.delete('/health', deleteHealthRecord);
 router.delete('/activity', deleteActivityRecord);
 router.delete('/food', deleteFoodRecord);
 
+
+ */
 module.exports = router;
 
-//TODO: do this two first
-
-async function putHealthRecord(req, res) {
-}
-
-async function putFoodRecord(req, res) {
-}
+//TODO: finish as much as you can
+async function putHealthRecord(req, res) {}
+async function putFoodRecord(req, res) {}
+async function getFoodRecord(req, res) {}
+async function getHealthRecord(req, res) {}
 
 
+//TODO: ==================== finished functions below ====================
 async function putActivityRecord(req, res) {
     try {
         let response = await diaryService.putActivityRecord(req.body);
@@ -67,51 +72,5 @@ async function getActivityRecord(req, res) {
             message: err
         })
     }
-    //.......
 }
 
-
-async function getHealthRecord(req, res) {
-
-    //.......
-}
-
-
-async function getFoodRecord(req, res) {
-    //.......
-}
-
-
-async function deleteHealthRecord(req, res) {
-
-}
-
-async function deleteActivityRecord(req, res) {
-
-}
-
-async function deleteFoodRecord(req, res) {
-
-
-}
-
-async function newDiary(req, res) {
-    try {
-        response = await diaryService.createNewDiary(req.body);
-        if (response === "success") {
-            res.send({
-                status: "X103"
-            })
-        } else {
-            res.send({
-                status: "X003",
-                message: response
-            })
-        }
-    } catch (err) {
-        res.send({
-            status: "X003",
-            message: err
-        })
-    }
-}

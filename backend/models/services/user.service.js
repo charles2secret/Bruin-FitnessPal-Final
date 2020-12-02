@@ -72,7 +72,7 @@ async function register(userParam) {
         let token = await userFactory.register(user, pass, id);
         //TODO: createDiary()
         if (token) {
-            diaryFactory.createDiary(id);
+            await diaryFactory.createDiary(id);
             await userFactory.setEmail(id, userParam.email);
             await userFactory.setGender(id, userParam.gender);
             return "successful registration";
