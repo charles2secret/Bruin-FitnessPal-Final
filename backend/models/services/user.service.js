@@ -1,9 +1,10 @@
-const config = require('./config.json');
-const mongo = require('mongoose');
 const userFactory = require('../entities/user.entity');
+const diaryFactory = require('../entities/diary.entity')
 const bcrypt = require('bcryptjs');
 
-//TODO: make sure to read all TODOs before start
+const config = require('./config.json');
+const mongo = require('mongoose');
+
 const db = mongo.connect(config.url, {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -11,30 +12,27 @@ const db = mongo.connect(config.url, {
     keepAlive: true,
     keepAliveInitialDelay: 300000
 }).then(
-    () => {console.log("MongoDB Running")},
+    () => {console.log("MongoDB Running at user.service.js")},
     err => {console.log("DB Connection Failed")}
 );
 
-//TODO: make sure add to export module after writing your function
+
 var service = {};
 service.authenticate = authenticate;
 service.getByEither = getByEither;
 service.getByName = getByName;
 service.getById = getById;
+service.getPhone = getPhone;
+service.getAddress = getAddress;
+service.getGender = getGender;
+service.getEmail = getEmail;
+service.getBirth = getBirth;
 service.register = register;
 service.update = update;
 service.delete = _delete;
-//add export functions here....
 module.exports = service;
 
-/**
- * authenticate if user meets login credential
- * allows both login by accountId and username
- *
- * @param {JSON} userParam
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
+
 async function authenticate(userParam){
     try {
         let password = userParam.password;
@@ -43,20 +41,24 @@ async function authenticate(userParam){
             if (loginResult) {
                 return "successful login";
             }
-            return "wrong username password combination"
+            return "wrong username and password combination";
         }
-        else {
+        else if (userParam.accountId) {
             let loginResult = await userFactory.loginById(userParam.accountId, password);
             if (loginResult) {
                 return "successful login";
             }
-            return "wrong username password combination"
+            return "wrong accountId and password combination";
+        }
+        else {
+            return "accountId or username is not given";
         }
 
     } catch (err) {
         return err;
     }
 }
+
 
 async function register(userParam) {
     let queryName = await userFactory.findByName(userParam.username);
@@ -67,8 +69,10 @@ async function register(userParam) {
         let user = userParam.username;
         let pass = userParam.password;
         let id = userParam.accountId;
-        let token = userFactory.register(user, pass, id);
+        let token = await userFactory.register(user, pass, id);
+        //TODO: createDiary()
         if (token) {
+            diaryFactory.createDiary(id);
             await userFactory.setEmail(id, userParam.email);
             await userFactory.setGender(id, userParam.gender);
             return "successful registration";
@@ -82,83 +86,59 @@ async function register(userParam) {
         return "duplicate username";
     }
     else {
-        return "duplicate accountID";
+        return "duplicate accountId";
     }
 }
 
-/**
- * get user by accountId
- *
- * @param {JSON} userParam
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
+
 async function getById(userParam) {
     let queryId = await userFactory.findById(userParam.accountId);
     if (queryId == null) {
-        return "id DNE";
+        return null;
     } else {
-        return "successful query - id";
+        let user = await userFactory.getUserById(userParam.accountId);
+        return user;
     }
 }
 
-/**
- * get user by username
- *
- * @param {JSON} userParam
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
+
 async function getByName(userParam) {
     let queryName = await userFactory.findByName(userParam.username);
     if (queryName == null){
-        return "Name DNE";
+        return null;
     } else {
-        return "successful query - name";
+        let user = await userFactory.getUserByName(userParam.username);
+        return user;
     }
 }
 
-/**
- * get user by username OR accountid
- *
- * @param {JSON} userParam
- * @return {userModel} a user instance of userModel
- *      when err or user not found, user = null
- */
+
 async function getByEither(userParam){
     if (userParam.username) {
-        getByName(userParam);
+        return getByName(userParam);
     } else {
-        getById(userParam);
+        return getById(userParam);
     }
 }
 
-/**
- * update user by accountid
- *
- * @param {JSON} userParam
- * @return {boolean} when a user is successfully found and updated
- *      when err, user not found, or no update is valid, return false
- */
+
 async function update(userParam){
     let updateEmail = await userFactory.setEmail(userParam.accountId, userParam.email);
     let updateGender = await userFactory.setGender(userParam.accountId, userParam.gender);
     let updatPhone = await userFactory.setPhone(userParam.accountId, userParam.phone);
     let updatetAddress = await userFactory.setAddress(userParam.accountId, userParam.address);
     let updateBirth = await userFactory.setBirth(userParam.accountId, userParam.birth);
+    let updatePassword = await userFactory.setPassword(userParam.accountId, userParam.password);
+    let updateUsername = await userFactory.setUsername(userParam.accountId, userParam.username);
 
-    if (updateEmail || updateGender || updatPhone || updatetAddress || updateBirth) return "successful";
+    if (updateEmail || updateGender || updatPhone ||
+        updateUsername || updatetAddress || updateBirth || updatePassword)
+        return "successful";
     else return "update failed";
 
 }
 
-/**
- * delete user by accountid
- *
- * @param {JSON} userParam
- * @return {boolean} when a user is successfully found and deleted
- *      when err or user not found, return false
- */
+
 async function _delete(userParam) {
     let del = await userFactory.delByID(userParam.accountId);
     if (!del){
@@ -166,24 +146,53 @@ async function _delete(userParam) {
     } else {
         return "successful";
     }
-    return "u suck";
 }
 
-//notes: why not just write all code in user.service.js?
-//       isn't that what this class is for? we already have a controller class...
-/*
-    well traditionally, model layer actually handles all the request with model
-    so user.service is really *not* another layer of controller,
-    it mixes or utilizes variety of functions in entity to fulfill request from
-    the controller class.
 
-    This is in fact MVC 2 (MVC + S) where service is another layer inside the model
- */
+async function getBirth(userParam) {
+    let birth = await userFactory.getBirth(userParam.accountId);
+    if (birth) {
+        return birth;
+    } else {
+        return null;
+    }
+}
 
-//TODO: read TODO in user.entity.js first
-//  1. write function update(), _delete() (be sure to use async if possible)
-//  2. implement any functions you may need in user.entity.js
-//  3. implement controller function in users.controller.js
-//  4. test three functions together for bugs, correctness, robustness before push
+async function getPhone(userParam) {
+    let phone = await userFactory.getPhone(userParam.accountId);
+    if (phone) {
+        return phone;
+    } else {
+        return null;
+    }
+}
 
+
+async function getEmail(userParam) {
+    let email = await userFactory.getEmail(userParam.accountId);
+    if (email) {
+        return email
+    } else {
+        return null;
+    }
+}
+
+async function getAddress(userParam) {
+    let address = await userFactory.getAddress(userParam.accountId);
+    if (address) {
+        return address;
+    } else {
+        return null;
+    }
+}
+
+
+async function getGender(userParam) {
+    let gender = await userFactory.getGender(userParam.accountId);
+    if (gender) {
+        return gender;
+    } else {
+        return null;
+    }
+}
 

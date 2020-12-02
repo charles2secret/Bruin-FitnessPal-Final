@@ -11,27 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4825801-2d39-4543-bc27-a7d488761758" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/controllers/users.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/entities/user.entity.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/services/user.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cors/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/CONTRIBUTING.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cors/HISTORY.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/HISTORY.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cors/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cors/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cors/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/lib/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cors/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/cors/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/object-assign/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/object-assign/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/object-assign/license" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/object-assign/license" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/object-assign/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/object-assign/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/object-assign/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/object-assign/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/vary/HISTORY.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/vary/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/vary/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/vary/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/vary/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/users.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/users.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/services/user.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -59,6 +41,7 @@
     <option name="sortByType" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />

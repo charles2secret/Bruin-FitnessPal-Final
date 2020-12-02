@@ -1,120 +1,246 @@
-const express = require('express');
-var router = express.Router();
+const router = require('express-promise-router')();
 const userService = require('../models/services/user.service');
 
+
 // routes
-router.post('/authenticate', authenticateUser);
+router.post('/login', loginUser);
 router.post('/register', registerUser);
-router.get('/current', getCurrentUser);
-router.put('/:_id', updateUser);
-router.delete('/:_id', deleteUser);
+router.get('/current', getUser);
+router.put('/current', updateUser);
+router.delete('/current', deleteUser);
+
+router.get('/email', getEmail);
+router.get('/phone', getPhone);
+router.get('/gender', getGender);
+router.get('/address', getAddress);
+router.get('/birth', getBirth);
 
 module.exports = router;
 
-/*
-    authenticateUser(req, res)
-    this is a multi-purpose login function
-    can login user both by accountId and username
-    response = successful login will render code 200
-    otherwise, print err message to 400
-    (Bad request means internal error)
-    (other err as string means customized err code)
- */
-async function authenticateUser(req, res) {
+
+async function loginUser(req, res) {
     try {
         let response = await userService.authenticate(req.body);
         if (response === "successful login") {
-            res.send(true);
+            res.send({
+                status: "X103"
+            });
         }
         else {
-            res.send(response);
+            res.send({
+                status: "X003",
+                message: response
+            });
         }
     } catch (err) {
-        res.send(err);
+        res.send({
+                status: "X003",
+                message: err
+            });
     }
 }
 
-/*
-    registerUser(req, res):
-    send status 200 when registration success
-    otherwise, send 400 with error code: response
-    response follows same format as function authenticate()
- */
+
 async function registerUser(req, res) {
     try {
         let response = await userService.register(req.body);
         if (response === "successful registration") {
-            res.sendStatus(200);
+            res.send({
+                status: "X103"
+            });
         }
         else {
-            res.send(response);
+            res.send({
+                status: "X003",
+                message: response
+            });
         }
     } catch (err) {
-        res.send(err);
+        res.send({
+            status: "X003",
+            message: err
+        });
     }
 }
 
-/*
-    getCurrentUser(req,res):
-    send status 200 when query by ID is success
-    otherwise, send 400 with error code: response
-*/
-async function getCurrentUser(req, res) {
+
+async function getUser(req, res) {
     try {
         let response = await userService.getByEither(req.body);
-        if (response === "successful query - id" || response === "successful query - name") {
-            res.sendStatus(200);
+        if (response) {
+            res.send({
+                status: "X111",
+                user: response
+            });
         } else {
-            res.send(response);
+            res.send({
+                status: "X001",
+                message: response
+            });
         }
     } catch (err) {
-        res.send(err);
+        res.send({
+            status: "X001",
+            message: err
+        });
     }
 }
 
-/*
-    updateUser(req,res):
-    send status 200 when update by query is success
-    otherwise, send 400 with error code: response
-*/
+
 async function updateUser(req, res) {
     try {
         let response = await userService.update(req.body);
         if (response === "successful") {
-            res.sendStatus(200);
+            res.send({
+                status: "X102"
+            })
         } else {
-            res.send(response);
+            res.send({
+                status: "X002",
+                message: response
+            });
         }
     } catch (err) {
-        res.send(err);
+        res.send({
+            status: "X002",
+            message: response
+        });
     }
 }
 
-/*
-    deleteUser(req,res):
-    send status 200 when delete by accountId is success
-    otherwise, send 400 with error code: response
-*/
+
 async function deleteUser(req, res) {
     try {
         let response = await userService.delete(req.body);
         if (response === "successful") {
-            res.sendStatus(200);
+            res.send({
+                status: "X104"
+            });
         } else {
-            res.send(response);
+            res.send({
+                status: "X004",
+                message: response
+            });
         }
     } catch (err) {
-        res.send(err);
+        res.send({
+            status: "X004",
+            message: err
+        });
     }
 }
 
-/*
-    HTTP Method Reference:
-    post = create/send
-    get = read
-    put = update/replace
-    patch = update/modify
-    delete = delete
- */
 
-//TODO:
+async function getEmail(req, res) {
+    try {
+        let response = await userService.getEmail(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                user: response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
+
+
+async function getPhone(req, res) {
+    try {
+        let response = await userService.getPhone(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                user: response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
+
+
+async function getBirth(req, res) {
+    try {
+        let response = await userService.getBirth(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                user: response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
+
+
+async function getGender(req, res) {
+    try {
+        let response = await userService.getGender(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                user: response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
+
+
+async function getAddress(req, res) {
+    try {
+        let response = await userService.getAddress(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                user: response
+            });
+        } else {
+            res.send({
+                status: "X001",
+                message: response
+            });
+        }
+    } catch(err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
