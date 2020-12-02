@@ -38,13 +38,20 @@ export class AppService {
     return this.httpClient.get(`${this.uri}/issues`);
   }
   // tslint:disable-next-line:typedef
-  getUserById(username) {
+  getUserById(accountId,password) {
+    const user = {
+      accountId: accountId,
+      password: password,
+    };
+    return this.httpClient.post(`${this.uri}/users/current`,user);
+  }
+  getUserByName(username,password) {
     const user = {
       username: username,
+      password: password,
     };
-    return this.httpClient.get(`${this.uri}/users/current`,user);
+    return this.httpClient.post(`${this.uri}/users/current`,user);
   }
-
   loginUserByName(username, password) {
     const user = {
       username: username,
@@ -71,13 +78,13 @@ export class AppService {
     return this.httpClient.post(`${this.uri}/users/register`,user);
   }
 
-  putActivity(id,date,activity){
+  putActivity(id,date,activityName,activityType,calorieBurned,duration,timeOfDay){
       const _activity = {
         accountId:id,
         date: date,
-        activity: activity,
+        activity:{activityName,activityType,calorieBurned,duration,timeOfDay},
       }
-      return this.httpClient.put(`${this.uri}/diary/activity`,_activity);
+      return this.httpClient.put(`${this.uri}/diaries/activity`,_activity);
   }
   updateIssue(id, title, responsible, description, severity) {
     const issue = {

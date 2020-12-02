@@ -22,12 +22,15 @@ export class DashboardHomeComponent implements OnInit {
   loginActivity(event: any){
     event.preventDefault()
     const target = event.target
+    const date = target.querySelector('#date').value
     const activityName = target.querySelector('#activityName').value
     const type = target.querySelector('#type').value
     const duration = target.querySelector('#duration').value
     const calories = target.querySelector('#calories').value
-    console.log(activityName,type,duration,calories)
-
+    const timeOfDay = target.querySelector('#timeOfDay').value
+    this.appService.putActivity(this.appService.getAccountId(),date,activityName,type,calories,duration,timeOfDay).subscribe((data:any)=>{
+        console.log(this.appService.getAccountId(),date,activityName,type,calories,duration,timeOfDay)
+    })
   }
   loginCalories(event: any){
   }
