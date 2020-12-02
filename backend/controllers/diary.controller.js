@@ -2,16 +2,22 @@ const diaryService = require('../models/services/diary.service')
 const router = require('express-promise-router')();
 
 // routes:
-router.get('/health', getHealthRecord);
-router.get('/activity', getActivityRecord);
-router.get('/diet', getFoodRecord);
+//TODO: post = get, because I did not figure out
+//      how to send json while using httpClient.get
+//      so to make life eaiser... use post....
+router.post('/health', getHealthRecord);
+router.post('/activity', getActivityRecord);
+router.post('/diet', getFoodRecord);
 router.put('/health', putHealthRecord);
 router.put('/activity', putActivityRecord);
 router.put('/food/put', putFoodRecord);
+/*
 router.delete('/health', deleteHealthRecord);
 router.delete('/activity', deleteActivityRecord);
 router.delete('/food', deleteFoodRecord);
 
+
+ */
 module.exports = router;
 
 //TODO: finish as much as you can
