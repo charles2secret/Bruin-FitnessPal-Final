@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 //connect to backend
 import { AppService } from "../app.service";
 import { Router } from '@angular/router';
+import { NotifierService } from '../notifier.service';
 @Component({
   selector: 'app-dashboard-home',
   templateUrl: './dashboard-home.component.html',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardHomeComponent implements OnInit {
 
-  constructor(private appService: AppService,private router: Router) { }
+  constructor(private appService: AppService,private router: Router,private notifierService:NotifierService) { }
 
  
   ngOnInit() {
@@ -31,6 +32,21 @@ export class DashboardHomeComponent implements OnInit {
     this.appService.putActivity(this.appService.getAccountId(),date,activityName,type,calories,duration,timeOfDay).subscribe((data:any)=>{
         console.log(this.appService.getAccountId(),date,activityName,type,calories,duration,timeOfDay)
     })
+  }
+  checkActivity(event:any){
+    event.preventDefault()
+    const target = event.target
+    const date = target.querySelector('#date').value
+    this.appService.getActivity(this.appService.getAccountId(),date).subscribe((data:any)=>{
+      if(data.status==="X111"){
+        console.log(data.activityDiary)
+      }
+      else{
+        this.notifierService.showNotification(data.message,'ok')
+      }
+    }
+
+    )
   }
   loginCalories(event: any){
   }

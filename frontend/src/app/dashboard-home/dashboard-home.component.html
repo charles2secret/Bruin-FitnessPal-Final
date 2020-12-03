@@ -11,7 +11,7 @@
         <form (submit)="loginActivity($event)">
           <div class="Activity">
             <label for="date">Date</label>
-            <input type="date" name="date" id="date"  required>
+            <input type="date" name="date" id="date" required>
             <label for="activityName">Activity Name</label>
             <input type="text" name="activityName" id="activityName" size=”15” maxlength=”30” required>
             <label for="type">Type</label>
@@ -22,13 +22,19 @@
             <label for="calories">Calories</label>
             <input type="number" name="calories" id="calories" min="0" max="10000" placeholder="cals" required>
             <label for="timeOfDay">Time of the day</label>
-            <input type="text" name="timeOfDay" id="timeOfDay" size=”15” maxlength=”30” placeholder="morning/noon/afternoon/evening"required>
+            <input type="text" name="timeOfDay" id="timeOfDay" size=”15” maxlength=”30”
+              placeholder="morning/noon/afternoon/evening" required>
 
-            <p>Click the "log" button if you are ready</p>
+            <p></p>
             <input type="submit" value="Log" href="#">
-            <p> Choose a date to check </p>
+
           </div>
-          <input type="button" value="Check" routerLink="#">
+        </form>
+        <form (submit)="checkActivity($event)">
+          <label for="date">Date</label>
+          <input type="date" name="date" id="date" required>
+          <p> </p>
+          <input type="submit" value="Check" >
         </form>
       </div>
     </div>
