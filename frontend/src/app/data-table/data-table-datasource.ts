@@ -20,7 +20,13 @@ export interface DataTableItem {
 
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: DataTableItem[] = [];
+const EXAMPLE_DATA: DataTableItem[] = [{
+  activityName: "hello?",
+  activityType: "cardio",
+  duration: 30,
+  calorieBurned: 1000,
+  timeOfDay: "noon"
+}];
 
 /**
  * Data source for the DataTable view. This class should
@@ -45,6 +51,7 @@ export class DataTableDataSource extends DataSource<DataTableItem> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<DataTableItem[]> {
+    this.data = this.obj;
     const dataMutations = [
       observableOf(this.data),
       // @ts-ignore

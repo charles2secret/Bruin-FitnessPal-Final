@@ -26,7 +26,6 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     // @ts-ignore
     let request: DataTableItem[] = [];
-    console.log("1")
     this.appService.getActivity("michael jackson", "2008-10-01").subscribe((obj: any) => {
       console.log(obj.activityDiary.activity)
       for (let i = 0; i < obj.activityDiary.activity.length; i++) {

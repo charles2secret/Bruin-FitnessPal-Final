@@ -33,7 +33,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <mat-paginator #paginator
-      [length]="dataSource?.data.length"
+      [length]="dataSource?.data?.length"
       [pageIndex]="0"
       [pageSize]="0"
       [pageSizeOptions]="[0, 3, 5, 8]">

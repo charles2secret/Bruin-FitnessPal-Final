@@ -23,9 +23,9 @@ export class LoginComponent implements OnInit {
     const username = target.querySelector('#username').value
     const password = target.querySelector('#password').value
     var message: string ='';
-    
-    this.appService.loginUserByName(username, password).subscribe((data: any) => {
 
+
+    this.appService.loginUserByName(username, password).subscribe((data: any) => {
       if (data.status === "X103") {
         message = data.status
         this.appService.getUserByName(username,password).subscribe((user: any) => {
@@ -46,11 +46,11 @@ export class LoginComponent implements OnInit {
       if (data.status === "X103") {
         this.appService.getUserById(username,password).subscribe((user: any) => {
           this.appService.setAccountId(user.user.accountId)
-        
+
         })
         this.router.navigate(['home'])
-        
-        
+
+
       }
       else if (data.status === "X003") {
         if (message !== "X103") {
@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
       }
 
     })
-    
+
 
   }
 
