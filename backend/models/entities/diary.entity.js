@@ -235,10 +235,26 @@ async function putFoodRecord(accountId, date, food) {
         for (let i=0; i<response.foodDiary.length; i++) {
             if (response.foodDiary[i].date === date) {
                 response.foodDiary[i].food.push(food);
-                if (food.calorieConsumed > 0) response.foodDiary[i].dailyCalorieConsumed += food.calorieConsumed;
-                if (food.totalFat > 0) response.foodDiary[i].dailyCalorieConsumed += food.totalFat * 9;
-                if (food.totalCarbs > 0) response.foodDiary[i].dailyCalorieConsumed += food.totalCarbs * 4;
-                if (food.totalProtein > 0) response.foodDiary[i].dailyCalorieConsumed += food.totalProtein * 4;
+                if (food.calorieConsumed > 0) {
+                    response.foodDiary[i].dailyCalorieConsumed =
+                        Number(response.foodDiary[i].dailyCalorieConsumed) +
+                        Number(food.calorieConsumed);
+                }
+                if (food.totalFat > 0) {
+                    response.foodDiary[i].dailyCalorieConsumed =
+                    Number(response.foodDiary[i].dailyCalorieConsumed) +
+                        Number(Number(food.totalFat) * 9);
+                }
+                if (food.totalCarbs > 0) {
+                    response.foodDiary[i].dailyCalorieConsumed =
+                        Number(response.foodDiary[i].dailyCalorieConsumed) +
+                        Number(Number(food.totalCarbs) * 4);
+                }
+                if (food.totalProtein > 0) {
+                    response.foodDiary[i].dailyCalorieConsumed =
+                        Number(response.foodDiary[i].dailyCalorieConsumed) +
+                        Number(Number(food.totalProtein) * 4);
+                }
                 let status = await response.save();
                 return true;
             }
@@ -332,8 +348,9 @@ async function putActivityRecord(accountId, date, activity) {
         for (let i=0; i<response.activityDiary.length; i++) {
             if (response.activityDiary[i].date === date) {
                 response.activityDiary[i].activity.push(activity);
-                response.activityDiary[i].dailyCalorieBurned +=
-                    activity.calorieBurned;
+                response.activityDiary[i].dailyCalorieBurned =
+                    Number(response.activityDiary[i].dailyCalorieBurned)+
+                    Number(activity.calorieBurned);
                 let status = await response.save();
                 return true;
             }
@@ -420,7 +437,9 @@ async function putWaterRecord(accountId, date, water) {
         let response = await diaryModel.findOne({accountId:accountId});
         for (let i=0; i<response.waterDiary.length; i++) {
             if (response.waterDiary[i].date === date) {
-                response.waterDiary[i].dailyWaterConsumed += water;
+                response.waterDiary[i].dailyWaterConsumed =
+                    Number(response.waterDiary[i].dailyWaterConsumed) +
+                    Number(water);
                 let status = await response.save();
                 return true;
             }
