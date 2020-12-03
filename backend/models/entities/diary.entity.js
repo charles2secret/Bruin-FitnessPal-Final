@@ -236,6 +236,9 @@ async function putFoodRecord(accountId, date, food) {
             if (response.foodDiary[i].date === date) {
                 response.foodDiary[i].food.push(food);
                 if (food.calorieConsumed > 0) response.foodDiary[i].dailyCalorieConsumed += food.calorieConsumed;
+                if (food.totalFat > 0) response.foodDiary[i].dailyCalorieConsumed += food.totalFat * 9;
+                if (food.totalCarbs > 0) response.foodDiary[i].dailyCalorieConsumed += food.totalCarbs * 4;
+                if (food.totalProtein > 0) response.foodDiary[i].dailyCalorieConsumed += food.totalProtein * 4;
                 let status = await response.save();
                 return true;
             }

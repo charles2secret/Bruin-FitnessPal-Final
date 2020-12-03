@@ -7,10 +7,10 @@ const router = require('express-promise-router')();
 //      so to make life eaiser... use post....
 router.post('/health', getHealthRecord);
 router.post('/activity', getActivityRecord);
-router.post('/diet', getFoodRecord);
+router.post('/food', getFoodRecord);
 router.put('/health', putHealthRecord);
 router.put('/activity', putActivityRecord);
-router.put('/food/put', putFoodRecord);
+router.put('/food', putFoodRecord);
 /*
 router.delete('/health', deleteHealthRecord);
 router.delete('/activity', deleteActivityRecord);
