@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from "../app.service";
 import { Router } from '@angular/router';
 import { NotifierService } from '../notifier.service';
+import { AuthGuard } from '../auth.guard';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +11,7 @@ import { NotifierService } from '../notifier.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private appService: AppService, private router: Router,private notifierService:NotifierService) { }
+  constructor(private appService: AppService, private router: Router,private notifierService:NotifierService,private auth:AuthGuard) { }
 
 
   ngOnInit() {
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
         this.appService.getUserByName(username,password).subscribe((user: any) => {
           this.appService.setAccountId(user.user.accountId)
         })
+        this.appService.setLogginStatus(true) 
         this.router.navigate(['home'])
 
       }

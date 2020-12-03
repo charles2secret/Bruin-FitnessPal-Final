@@ -16,7 +16,7 @@ $frontend-primary: mat-palette($mat-grey,800);
 $frontend-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$frontend-warn: mat-palette($mat-red);
+$frontend-warn: mat-palette($mat-grey,600);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".

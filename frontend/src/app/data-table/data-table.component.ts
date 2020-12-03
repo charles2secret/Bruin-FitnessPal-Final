@@ -19,14 +19,14 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   dataSource: DataTableDataSource | undefined;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['duration', 'activityName', 'activityType', 'timeOfDay', 'calorieBurned'];
+  displayedColumns = [ 'activityName', 'activityType',  'timeOfDay','duration','calorieBurned'];
 
   constructor(private appService: AppService, private router: Router,private notifierService:NotifierService) { }
 
   ngOnInit() {
     // @ts-ignore
     let request: DataTableItem[] = [];
-    this.appService.getActivity("michael jackson", "2008-10-01").subscribe((obj: any) => {
+    this.appService.getActivity(this.appService.getAccountId(), this.appService.getActivityDate()).subscribe((obj: any) => {
       console.log(obj.activityDiary.activity)
       for (let i = 0; i < obj.activityDiary.activity.length; i++) {
         request.push(obj.activityDiary.activity[i]);
@@ -34,6 +34,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     })
     this.dataSource = new DataTableDataSource(request);
     this.dataSource.data = request;
+
   }
 
   ngAfterViewInit() {

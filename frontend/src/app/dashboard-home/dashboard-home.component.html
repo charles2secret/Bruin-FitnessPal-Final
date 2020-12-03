@@ -22,8 +22,7 @@
             <label for="calories">Calories</label>
             <input type="number" name="calories" id="calories" min="0" max="10000" placeholder="cals" required>
             <label for="timeOfDay">Time of the day</label>
-            <input type="text" name="timeOfDay" id="timeOfDay" size=”15” maxlength=”30”
-              placeholder="morning/noon/afternoon/evening" required>
+            <input type="text" name="timeOfDay" id="timeOfDay" maxlength="9" size="27" placeholder="morning/noon/afternoon/evening" required>
 
             <p></p>
             <input type="submit" value="Log" href="#">
@@ -34,7 +33,7 @@
           <label for="date">Date</label>
           <input type="date" name="date" id="date" required>
           <p> </p>
-          <input type="submit" value="Check" >
+          <input type="submit" value="Check">
         </form>
       </div>
     </div>
@@ -43,22 +42,18 @@
         Calories
       </div>
       <div class="panel-body">
-        <form (submit)="loginCalories($event)">
+        <form (submit)="checkCalories($event)">
           <div class="Calories">
-
-            <label for="consumption">Consumption</label>
-            <input type="number" name="consumption" id="consumption" min="0" max="10000" placeholder="cals" required>
-            <label for="burned">Burned</label>
-            <input type="number" name="burned" id="burned" min="0" max="10000" placeholder="cals" required>
             <label for="metabolism">Metabolism </label>
-            <input type="number" name="metabolism" id="metabolism" min="0" max="10000" required>
+            <input type="number" name="metabolism" id="metabolism" min="0" max="10000" placeholder="cals" required>
+            <label for="date">Date</label>
+            <input type="date" name="date" id="date" required>
+            <p></p>
+            <input type="submit" value="check" >
 
-            <p>Click the "log" button if you are ready</p>
-            <input type="submit" value="Log" href="#">
-            <p>Choose a date to check </p>
           </div>
-          <input type="button" value="Check" routerLink="#">
         </form>
+        
       </div>
     </div>
     <div class="panel-wrapper">

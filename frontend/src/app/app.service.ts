@@ -28,8 +28,43 @@ export class AppService {
 
   uri = 'http://localhost:3000';
   private accountId;
+  private activityDate;
+  private loginStatus = false;
+  private metabolism = 0;
+  private calorieBurned = 0;
+  private calorieConsumption = 0;
+  setMetabolism(temp){
+    this.metabolism=temp
+  }
+  getMetabolism(){
+    return this.metabolism
+  }
+  setCalorieB(temp){
+    this.calorieBurned=temp
+  }
+  getCalorieB(){
+    return this.calorieBurned
+  }
+  setCalorieC(temp){
+    this.calorieConsumption=temp
+  }
+  getCalorieC(){
+    return this.calorieConsumption
+  }
+  setLogginStatus(status){
+    this.loginStatus = status
+  }
+  getLogginStatus(){
+    return this.loginStatus
+  }
   setAccountId (tempAccountId){
     this.accountId=tempAccountId;
+  }
+  getActivityDate (){
+    return this.activityDate;
+  }
+  setActivityDate (tempDate){
+    this.activityDate=tempDate;
   }
   getAccountId (){
     return this.accountId;
@@ -99,8 +134,16 @@ export class AppService {
       date: date
     }
     let response = this.httpClient.post(`${this.uri}/diaries/activity`, query);
-    console.log(response)
+    
     return response
+  }
+
+  getFood(id,date){
+    const food = {
+      accountId:id,
+      date:date,
+    }
+    return this.httpClient.post(`${this.uri}/diaries/food`,food);
   }
   updateIssue(id, title, responsible, description, severity) {
     const issue = {

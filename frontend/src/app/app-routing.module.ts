@@ -7,15 +7,19 @@ import { NavigationPanelComponent } from './navigation-panel/navigation-panel.co
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { PlanComponent } from './plan/plan.component';
 import {DataTableComponent} from "./data-table/data-table.component";
+import { AuthGuard } from './auth.guard'
+import { ChartComponent } from './chart/chart.component';
 
 const routes: Routes = [
-  { path:'home', component: DashboardHomeComponent },
+  { path:'home', component: DashboardHomeComponent,canActivate:[AuthGuard] },
   { path:'login', component: LoginComponent},
   { path:'navigate', component:NavigationPanelComponent},
   { path:'signUp', component: SignUpComponent},
   //FriendsComponent
-  { path:'friends', component: DataTableComponent},
-  { path:'plan', component: PlanComponent},
+  { path:'table', component: DataTableComponent},
+  { path:'friends', component: FriendsComponent,canActivate:[AuthGuard]},
+  { path:'chart', component: ChartComponent},
+  { path:'plan', component: PlanComponent,canActivate:[AuthGuard]},
   { path: '', redirectTo: 'login', pathMatch: 'full',}
 ];
 

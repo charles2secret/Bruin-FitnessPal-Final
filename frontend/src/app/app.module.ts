@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './login/login.component';
-
+import { AuthGuard } from './auth.guard'
 
 // for communicating with backend using HttpClient
 import { AppService } from './app.service';
@@ -29,7 +29,8 @@ import { FormsModule } from '@angular/forms';
 import { DataTableComponent } from './data-table/data-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort'; 
+import { MatSortModule } from '@angular/material/sort';
+import { ChartComponent } from './chart/chart.component'; 
 
 @NgModule({
   declarations: [
@@ -40,7 +41,9 @@ import { MatSortModule } from '@angular/material/sort';
     SignUpComponent,
     FriendsComponent,
     PlanComponent,
-    DataTableComponent
+    DataTableComponent,
+    ChartComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -60,10 +63,11 @@ import { MatSortModule } from '@angular/material/sort';
     MatSnackBarModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    ChartsModule
   ],
   // add service class to providers
-  providers: [AppService],
+  providers: [AppService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
