@@ -25,7 +25,11 @@ import {HttpClientModule} from '@angular/common/http';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FriendsComponent } from './friends/friends.component';
 import { PlanComponent } from './plan/plan.component';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { DataTableComponent } from './data-table/data-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort'; 
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     SignUpComponent,
     FriendsComponent,
-    PlanComponent
+    PlanComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,10 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     HttpClientModule, // new module for AppService
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   // add service class to providers
   providers: [AppService],

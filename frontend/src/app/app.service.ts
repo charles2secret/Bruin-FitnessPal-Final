@@ -86,6 +86,16 @@ export class AppService {
       }
       return this.httpClient.put(`${this.uri}/diaries/activity`,_activity);
   }
+
+  getActivity(id, date) {
+    const query = {
+      accountId: id,
+      date: date
+    }
+    let response = this.httpClient.post(`${this.uri}/diaries/activity`, query);
+    console.log(response)
+    return response
+  }
   updateIssue(id, title, responsible, description, severity) {
     const issue = {
       title: title,
@@ -95,7 +105,7 @@ export class AppService {
     };
     return this.httpClient.post(`${this.uri}/issue/${id}`,issue);
   }
-  
+
   deleteIssue(id) {
     return this.httpClient.get(`${this.uri}/issue/delete/${id}`);
   }
