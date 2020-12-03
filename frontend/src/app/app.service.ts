@@ -77,7 +77,13 @@ export class AppService {
     }
     return this.httpClient.post(`${this.uri}/users/register`,user);
   }
-
+  getActivity(id,date){
+    const activity = {
+      accountId:id,
+      date:date,
+    }
+    return this.httpClient.post(`${this.uri}/diaries/activity`,activity);
+  }
   putActivity(id,date,activityName,activityType,calorieBurned,duration,timeOfDay){
       const _activity = {
         accountId:id,

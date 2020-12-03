@@ -3,6 +3,7 @@
  * it prints error message in detail in console
  *
  * @param {Error} err
+  * @param {String} file_name of where the function is called
  * @param {String} function_name of the error happens
  * @param {...string} args
  */

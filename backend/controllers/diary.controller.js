@@ -7,27 +7,109 @@ const router = require('express-promise-router')();
 //      so to make life eaiser... use post....
 router.post('/health', getHealthRecord);
 router.post('/activity', getActivityRecord);
-router.post('/diet', getFoodRecord);
+router.post('/food', getFoodRecord);
 router.put('/health', putHealthRecord);
 router.put('/activity', putActivityRecord);
-router.put('/food/put', putFoodRecord);
+router.put('/food', putFoodRecord);
 /*
 router.delete('/health', deleteHealthRecord);
 router.delete('/activity', deleteActivityRecord);
 router.delete('/food', deleteFoodRecord);
-
-
  */
+
 module.exports = router;
 
-//TODO: finish as much as you can
-async function putHealthRecord(req, res) {}
-async function putFoodRecord(req, res) {}
-async function getFoodRecord(req, res) {}
-async function getHealthRecord(req, res) {}
+async function putHealthRecord(req, res) {
+    try {
+        let response = await diaryService.putHealthRecord(req.body);
+        if (response === "Health Successfully Logged") {
+            res.send({
+                status: "X103",
+                message: response
+            })
+        } else {
+            res.send({
+                status: "X003",
+                message: response
+            })
+        }
+    } catch (err) {
+        res.send({
+            status: "X003",
+            message: err
+        })
+    }
+}
+
+async function getHealthRecord(req, res) {
+    try {
+        let HealthRecord = await diaryService.getHealthRecord(req.body);
+        if (HealthRecord) {
+            res.send({
+                status: "X111",
+                HealthDiary: HealthRecord
+            })
+        } else {
+            res.send({
+                status: "X001",
+                message: "the given date doesn't have any health record yet"
+            })
+        }
+
+    } catch (err) {
+        res.send({
+            status: "X001",
+            message: err
+        })
+    }
+}
 
 
-//TODO: ==================== finished functions below ====================
+async function putFoodRecord(req, res) {
+    try {
+        let response = await diaryService.putFoodRecord(req.body);
+        if (response === "Food Successfully Logged") {
+            res.send({
+                status: "X103", 
+                message: response
+            })
+        } else {
+            res.send({
+                status: "X003",
+                message: response
+            })
+        }
+    } catch (err) {
+        res.send({
+            status: "X003",
+            message: err
+        })
+    }
+}
+
+async function getFoodRecord(req, res) {
+    try {
+        let foodDiary = await diaryService.getFoodRecord(req.body);
+        if (foodDiary) {
+            res.send({
+                status: "X111",
+                foodDiary: foodDiary
+            })
+        } else {
+            res.send({
+                status: "X001",
+                message: "the given date doesn't have any food diary yet"
+            })
+        }
+
+    } catch (err) {
+        res.send({
+            status: "X001",
+            message: err
+        })
+    }
+}
+
 async function putActivityRecord(req, res) {
     try {
         let response = await diaryService.putActivityRecord(req.body);
