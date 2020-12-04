@@ -10,6 +10,10 @@ router.post('/current', getUser);
 router.put('/current', updateUser);
 router.delete('/current', deleteUser);
 
+router.post('/friend', getFriend);
+router.put('/friend', addFriend);
+router.delete('/friend', deleteFriend);
+
 router.get('/email', getEmail);
 router.get('/phone', getPhone);
 router.get('/gender', getGender);
@@ -245,3 +249,85 @@ async function getAddress(req, res) {
         });
     }
 }
+
+async function getFriend(req, res) {
+    try {
+        let response = await userService.getFriend(req.body);
+        if (response) {
+            console.log("friend list is returned for accountId " + req.body.accountId);
+            res.send({
+                status: "X111",
+                friendList: response
+            })
+        }
+        else {
+            console.log("no friend found or invalid accountId for user: " + req.body.accountId);
+            res.send({
+                status: "001",
+                message: response
+            })
+        }
+
+    } catch (err) {
+        res.send({
+            status: "X001",
+            message: err
+        })
+    }
+
+}
+
+async function addFriend(req, res) {
+    try {
+        let response = await userService.addFriend(req.body);
+        if (response) {
+            console.log("add success, friend list is returned for accountId " + req.body.accountId);
+            res.send({
+                status: "X113",
+                friendList: response
+            })
+        }
+        else {
+            console.log("failed to add new friend" + req.body.accountId);
+            res.send({
+                status: "003",
+                message: response
+            })
+        }
+
+    } catch (err) {
+        res.send({
+            status: "X003",
+            message: err
+        })
+    }
+
+}
+
+async function deleteFriend(req, res) {
+    try {
+        let response = await userService.deleteFriend(req.body);
+        if (response) {
+            console.log("delete success, friend list is returned for accountId " + req.body.accountId);
+            res.send({
+                status: "X114",
+                friendList: response
+            })
+        }
+        else {
+            console.log("no friend found or invalid accountId for user: " + req.body.accountId);
+            res.send({
+                status: "004",
+                message: response
+            })
+        }
+
+    } catch (err) {
+        res.send({
+            status: "X004",
+            message: err
+        })
+    }
+}
+
+

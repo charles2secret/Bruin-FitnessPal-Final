@@ -25,9 +25,23 @@ userFactory.getBirth = getBirth;
 userFactory.getUserById = getUserById;
 userFactory.getUserByName = getUserByName;
 
+userFactory.getFriend = getFriend;
+userFactory.checkFriend = checkFriend;
+userFactory.deleteFriend = deleteFriend;
+userFactory.addFriend = addFriend;
+
 userFactory.delByID = delByID;
 module.exports = userFactory;
 
+const friendSchema = new Schema ({
+    friendId: { type: String,
+                minlength: 6,
+                maxlength: 20,
+                trim: true,
+                required: true,
+                lowercase: true
+    }
+});
 
 const userSchema = new Schema ({
     username: { type: String, required: true, unique: true},
@@ -67,7 +81,8 @@ const userSchema = new Schema ({
     gender: {
         type: String,
         enum: ['male','female','other']
-    }
+    },
+    friendList: [friendSchema]
 });
 const userModel = mongoose.model('User', userSchema);
 
@@ -179,7 +194,10 @@ async function register(username, password, accountId) {
         const newUser = new userModel({
             username: username,
             password: password,
-            accountId: accountId
+            accountId: accountId,
+            friendList: [{
+                friendId: "BFP-STAFF"
+            }]
         });
         let saveUser = await newUser.save(); //when fail its goes to catch
         if (saveUser == null) {
@@ -189,6 +207,7 @@ async function register(username, password, accountId) {
         }
         console.log("successfully register new user.");
         console.log(newUser);
+
         return true;
     } catch (err) {
         util.HandleError(err, "user.entity.js", "register","username: " + username +
@@ -626,4 +645,71 @@ async function delByID(accountId){
     }
 }
 
+async function getFriend(accountId) {
+    try {
+        let user = await userModel.findOne({accountId: accountId});
+        if (user == null) {
+            console.log("user " + accountId + " for getFriend doesn't exist");
+            return null;
+        }
+        console.log("friendList is successfully returned for " + accountId + " which might be null");
+        return user.friendList;
+    } catch (err) {
+        util.HandleError(err, "user.entity.js", "getFriend", "accountId: "+accountId);
+        return null;
+    }
+}
+
+async function checkFriend(accountId, friendId) {
+    try {
+        let user = await userModel.findOne({accountId: accountId});
+        if (user == null) {
+            console.log("user " + accountId + " for getFriend doesn't exist");
+            return false;
+        }
+        if (user.friendList == null) {
+            console.log( "no friend for user + " + accountId + " at checkFriend");
+            return true;
+        }
+        for (let i=0; i<user.friendList.length; i++) {
+            if (user.friendList[i].friendId === friendId) {
+                console.log("friend " + friendId, " already exist");
+                return false;
+            }
+        }
+        console.log("check passed for " + accountId + " , now can add friend!");
+        return true;
+
+    } catch (err) {
+        util.HandleError(err, "user.entity.js", "checkFriend", "accountId: "+accountId+" friendId " +friendId);
+        return null;
+    }
+}
+async function addFriend(accountId, friendId) {
+    try {
+        let user = await userModel.findOne({accountId: accountId});
+        user.friendList.push({friendId: friendId});
+        await user.save();
+        user = await userModel.findOne({accountId: accountId});
+        return user.friendList;
+    } catch (err) {
+        util.HandleError(err, "user.entity.js", "addFriend", "accountId: "+accountId+" friendId " +friendId);
+        return null;
+    }
+}
+async function deleteFriend(accountId, friendId) {
+    try {
+        let user = await userModel.findOne({accountId: accountId});
+        user.friendList = user.friendList.filter(
+            x => x.friendId !== friendId
+        );
+        //user.friendList.pull({friendId: friendId});
+        await user.save();
+        user = await userModel.findOne({accountId: accountId});
+        return user.friendList;
+    } catch (err) {
+        util.HandleError(err, "user.entity.js", "deleteFriend", "accountId: "+accountId+" friendId " +friendId);
+        return null;
+    }
+}
 
