@@ -30,7 +30,13 @@ export class DashboardHomeComponent implements OnInit {
     const calories = target.querySelector('#calories').value
     const timeOfDay = target.querySelector('#timeOfDay').value
     this.appService.putActivity(this.appService.getAccountId(),date,activityName,type,calories,duration,timeOfDay).subscribe((data:any)=>{
-        console.log(this.appService.getAccountId(),date,activityName,type,calories,duration,timeOfDay)
+      if(data.status==="X103"){
+        this.notifierService.showNotification("successfully log in","ok")
+      }
+      else{
+        this.notifierService.showNotification(data.message,"ok")
+      }  
+      console.log(this.appService.getAccountId(),date,activityName,type,calories,duration,timeOfDay)
     })
   }
   checkActivity(event:any){
@@ -57,14 +63,14 @@ export class DashboardHomeComponent implements OnInit {
     const metabolism = target.querySelector('#metabolism').value
     const date = target.querySelector('#date').value
     this.appService.setMetabolism(metabolism)
-    
+    this.appService.setActivityDate(date)
     var message:string=''
     var status1:string=''
     var status2:string=''
     this.appService.getActivity(this.appService.getAccountId(),date).subscribe((data:any)=>{
       if(data.status==="X111"){
         status1="X111"
-        console.log(data.activityDiary.dailyCalorieBurned)
+        
         this.appService.setCalorieB(data.activityDiary.dailyCalorieBurned)
       }
       else{
@@ -76,7 +82,9 @@ export class DashboardHomeComponent implements OnInit {
     this.appService.getFood(this.appService.getAccountId(),date).subscribe((data:any)=>{
       if(data.status==="X111"){
         status2="X111"
+        
         this.appService.setCalorieC(data.foodDiary.dailyCalorieConsumed)
+        this.router.navigate(['chart'])
       }
       else{
         this.notifierService.showNotification(data.message,'ok')
@@ -84,14 +92,47 @@ export class DashboardHomeComponent implements OnInit {
     }
     )
     
-    if(status1==="X111" && status2==="X111"){
-      this.appService.setActivityDate(date)
-        this.router.navigate(['chart'])
-    }
   }
   
   loginHealth(event: any){
   }
-  loginDiet(event: any){
+  checkDiet(event: any){
+    event.preventDefault()
+    const target = event.target
+    const date = target.querySelector('#date').value
+    this.appService.getFood(this.appService.getAccountId(),date).subscribe((data:any)=>{
+      if(data.status==="X111"){
+        this.appService.setActivityDate(date)
+        
+        
+        console.log(data.foodDiary)
+      }
+      else{
+        this.notifierService.showNotification(data.message,'ok')
+      }
+    }
+
+    )
+  }
+  loginDiet(event:any){
+    event.preventDefault()
+    const target = event.target
+    const date = target.querySelector('#date').value
+    const foodName = target.querySelector('#name').value
+    const fat:number = target.querySelector('#fat').value
+    const protein:number = target.querySelector('#protein').value
+    const carb:number = target.querySelector('#carb').value
+    const fiber:number = target.querySelector('#fiber').value
+    const calories:number = target.querySelector('#calories').value
+    const timeOfDay = target.querySelector('#when').value
+    this.appService.putFood(this.appService.getAccountId(),date,foodName,calories,timeOfDay,fat,protein,carb,fiber).subscribe((data:any)=>{
+      if(data.status==="X103"){
+        this.notifierService.showNotification("successfully log in","ok")
+      }
+      else{
+        this.notifierService.showNotification(data.message,"ok")
+      }
+      console.log(this.appService.getAccountId(),date,name,calories,timeOfDay,fat,protein,carb,fiber)
+  })
   }
 }

@@ -11,7 +11,7 @@ import { AuthGuard } from './auth.guard'
 import { ChartComponent } from './chart/chart.component';
 
 const routes: Routes = [
-  { path:'home', component: DashboardHomeComponent,canActivate:[AuthGuard] },
+  { path:'home', component: DashboardHomeComponent },
   { path:'login', component: LoginComponent},
   { path:'navigate', component:NavigationPanelComponent},
   { path:'signUp', component: SignUpComponent},

@@ -127,7 +127,14 @@ export class AppService {
       }
       return this.httpClient.put(`${this.uri}/diaries/activity`,_activity);
   }
-
+  putFood(id,date,foodName,calorieConsumed,timeOfDay,totalFat,totalProtein,totalCarbs,totalFiber){
+    const _food = {
+      accountId:id,
+      date:date,
+      food:{foodName,calorieConsumed,timeOfDay,totalFat,totalProtein,totalCarbs,totalFiber},
+    }
+    return this.httpClient.put(`${this.uri}/diaries/food`,_food);
+  }
   getActivity(id, date) {
     const query = {
       accountId: id,

@@ -3,6 +3,7 @@
   <div class="main-content">
     <h1>Fitness Tracker</h1>
     <p>Logging in your everyday life!</p>
+    <p>Checking history by date!</p>
     <div class="panel-wrapper">
       <div class="panel-head">
         Daily Activities
@@ -85,21 +86,32 @@
       <div class="panel-body">
         <form (submit)="loginDiet($event)">
           <div class="Diet">
+            <label for="date">Date</label>
+            <input type="date" name="date" id="date" required>
             <label for="when">When?</label>
             <input type="text" name="when" id="when" minlength="5" maxlength="9" size="25"
               placeholder="breakfast/lunch/dinner/snack" required>
             <label for="name">Name</label>
             <input type="text" name="name" id="name" maxlength="30" size="25" required>
-            <label for="clories">Calories</label>
-            <input type="number" name="calories" id="weight" min="0" max="10000" placeholder="cals" required>
-            <label for="amount">Amount</label>
-            <input type="number" name="amount" id="amount" min="0" max="10000" placeholder="g" required>
-
-            <p>Click the "log" button if you are ready</p>
+            <label for="calories">Calories</label>
+            <input type="number" name="calories" id="calories" min="0" max="10000" placeholder="cals" required>
+            <label for="fat">Total Fat</label>
+            <input type="number" name="fat" id="fat" min="0" max="10000"  value="0">
+            <label for="protein">Total Protein</label>
+            <input type="number" name="protein" id="protein" min="0" max="10000"  value="0">
+            <label for="carb">Total Carbs</label>
+            <input type="number" name="carb" id="carb" min="0" max="10000"  value="0">
+            <label for="fiber">Total Fiber</label>
+            <input type="number" name="fiber" id="fiber" min="0" max="10000"  value="0">
+            <p></p>
             <input type="submit" value="Log" href="#">
-            <p>Choose a date to check </p>
           </div>
-          <input type="button" value="Check" routerLink="#">
+        </form>
+        <form (submit)="checkDiet($event)">
+          <label for="date">Date</label>
+          <input type="date" name="date" id="date" required>
+          <p> </p>
+          <input type="submit" value="Check">
         </form>
       </div>
     </div>
