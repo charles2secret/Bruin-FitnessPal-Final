@@ -179,7 +179,7 @@ async function putHealthRecord(RecordParam) {
         const sleepPut = (sleep == null || resultSleep);
         const weightPut = (weight == null || resultWeight);
 
-        if (waterPut && sleepPut && weightPut) return "Health Successfully Logged";
+        if (waterPut || sleepPut || weightPut) return "Health Successfully Logged";
     } catch(err){
         util.HandleError(err,"diary.service.js","putHealthRecord");
         return err;

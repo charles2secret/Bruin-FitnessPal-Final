@@ -34,7 +34,7 @@ module.exports = diaryFactory;
 
 const foodSchema = new Schema({
     foodName: {type: String, required: true},
-    calorieConsumed : {default: -1, type: Number},
+    calorieConsumed : {default: 0, type: Number},
     timeOfDay: {
         type: String,
         required: true,
@@ -42,11 +42,11 @@ const foodSchema = new Schema({
             "lunch",
             "dinner",
             "snack"]},
-    totalFat: {type: Number, default: -1},
-    totalProtein: {type: Number, default: -1},
-    totalCarbs: {type: Number, default: -1},
-    totalSodium: {type: Number, default: -1},
-    totalFiber: {type: Number, default: -1}
+    totalFat: {type: Number, default: 0},
+    totalProtein: {type: Number, default: 0},
+    totalCarbs: {type: Number, default: 0},
+    totalSodium: {type: Number, default: 0},
+    totalFiber: {type: Number, default: 0}
 });
 
 const foodDiarySchema = new Schema({
