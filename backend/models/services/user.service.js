@@ -30,6 +30,9 @@ service.getBirth = getBirth;
 service.register = register;
 service.update = update;
 service.delete = _delete;
+service.getFriend = getFriend;
+service.addFriend = addFriend;
+service.deleteFriend = deleteFriend;
 module.exports = service;
 
 
@@ -194,5 +197,47 @@ async function getGender(userParam) {
     } else {
         return null;
     }
+}
+
+//TODO: warning, this function doesn't check if id is not in the db
+async function getFriend(userParam) {
+    let friendList = await userFactory.getFriend(userParam.accountId);
+    return friendList;
+}
+
+//TODO: warning, this function doesn't check if id is not in the db
+async function addFriend(userParam) {
+    let status = await userFactory.checkFriend(userParam.accountId, userParam.friendId);
+    if (!status) {
+        console.log("friend exist already or user not found");
+        return null;
+    }
+    let friendList = await userFactory.addFriend(userParam.accountId, userParam.friendId);
+    if (!friendList) {
+        console.log("addFriend failed but friendId is a valid one");
+        return friendList;
+    }
+    else {
+        console.log("addFriend success, friend added: " + userParam.friendId);
+        return friendList;
+    }
+
+}
+
+async function deleteFriend(userParam) {
+    let status = await userFactory.checkFriend(userParam.accountId, userParam.friendId);
+    if (status) {
+        console.log("friend doesn't exist or user not found");
+        return null;
+    }
+    let friendList = await userFactory.deleteFriend(userParam.accountId, userParam.friendId);
+    for (let i=0; i<friendList.length; i++){
+        if (friendList[i].friendId === userParam.friendId) {
+            console.log("delete failed!!!");
+            return friendList;
+        }
+    }
+    console.log("oops, you just deleted a friend!");
+    return friendList;
 }
 
