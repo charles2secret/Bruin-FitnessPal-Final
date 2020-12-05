@@ -9,6 +9,7 @@ import { PlanComponent } from './plan/plan.component';
 import {DataTableComponent} from "./data-table/data-table.component";
 import { AuthGuard } from './auth.guard'
 import { ChartComponent } from './chart/chart.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path:'home', component: DashboardHomeComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path:'friends', component: FriendsComponent,canActivate:[AuthGuard]},
   { path:'chart', component: ChartComponent},
   { path:'plan', component: PlanComponent,canActivate:[AuthGuard]},
+  { path:'profile', component:ProfileComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full',}
 ];
 

@@ -30,7 +30,9 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { ChartComponent } from './chart/chart.component'; 
+import { ChartComponent } from './chart/chart.component';
+import { ProfileComponent } from './profile/profile.component';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { ChartComponent } from './chart/chart.component';
     PlanComponent,
     DataTableComponent,
     ChartComponent,
+    ProfileComponent,
+    
     
   ],
   imports: [

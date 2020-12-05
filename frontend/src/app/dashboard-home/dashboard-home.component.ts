@@ -95,6 +95,39 @@ export class DashboardHomeComponent implements OnInit {
   }
   
   loginHealth(event: any){
+    event.preventDefault()
+    const target = event.target
+    const date = target.querySelector('#date').value
+    const water = target.querySelector('#water').value
+    const weight = target.querySelector('#weight').value
+    const sleep = target.querySelector('#sleep').value
+    this.appService.putHealth(this.appService.getAccountId(),date,water,sleep,weight).subscribe((data:any)=>{
+      if(data.status==="X103"){
+        this.notifierService.showNotification("successfully log in","ok")
+      }
+      else{
+        this.notifierService.showNotification(data.message,"ok")
+      }  
+      console.log(this.appService.getAccountId(),date,water,weight,sleep)
+    })
+  }
+  checkHealth(event:any){
+    event.preventDefault()
+    const target = event.target
+    const date = target.querySelector('#date').value
+    this.appService.getHealth(this.appService.getAccountId(),date).subscribe((data:any)=>{
+      if(data.status==="X111"){
+        this.appService.setActivityDate(date)
+        
+        
+        console.log(data)
+      }
+      else{
+        this.notifierService.showNotification(data.message,'ok')
+      }
+    }
+
+    )
   }
   checkDiet(event: any){
     event.preventDefault()

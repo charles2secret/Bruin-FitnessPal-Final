@@ -64,18 +64,26 @@
       <div class="panel-body">
         <form (submit)="loginHealth($event)">
           <div class="Health">
-            <label for="water">Water Consumed</label>
+            <label for="date">Date</label>
+            <input type="date" name="date" id="date" required>
+            <label for="water">Add water</label>
             <input type="number" name="water" id="water" min="0" max="100000" placeholder="ml" required>
             <label for="weight">Weight</label>
-            <input type="number" name="weight" id="weight" min="0" max="300" placeholder="kg" required>
-            <label for="sleep">Sleep</label>
-            <input type="number" name="sleep" id="sleep" min="0" max="24" placeholder="hrs" required>
+            <input type="text" name="weight" id="weight">
+            <label for="sleep">Sleep (mins)</label>
+            <input type="number" name="sleep" id="sleep" min="0" max="1440" placeholder="mins" value="0">
 
-            <p>Click the "log" button if you are ready</p>
+            <p></p>
             <input type="submit" value="Log" href="#">
-            <p>Choose a date to check </p>
+            
           </div>
-          <input type="button" value="Check" routerLink="#">
+          
+        </form>
+        <form (submit)="checkHealth($event)">
+          <label for="date">Date</label>
+          <input type="date" name="date" id="date" required>
+          <p> </p>
+          <input type="submit" value="Check">
         </form>
       </div>
     </div>

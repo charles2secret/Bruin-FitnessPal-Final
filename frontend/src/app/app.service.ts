@@ -135,6 +135,16 @@ export class AppService {
     }
     return this.httpClient.put(`${this.uri}/diaries/food`,_food);
   }
+  putHealth(id,date,water,sleep,weight){
+    const _health = {
+      accountId:id,
+      date: date,
+      water: water,
+      sleep: sleep,
+      weight: weight,
+    }
+    return this.httpClient.put(`${this.uri}/diaries/health`,_health);
+}
   getActivity(id, date) {
     const query = {
       accountId: id,
@@ -151,6 +161,14 @@ export class AppService {
       date:date,
     }
     return this.httpClient.post(`${this.uri}/diaries/food`,food);
+  }
+
+  getHealth(id,date){
+    const health = {
+      accountId:id,
+      date:date,
+    }
+    return this.httpClient.post(`${this.uri}/diaries/health`,health);
   }
   updateIssue(id, title, responsible, description, severity) {
     const issue = {
