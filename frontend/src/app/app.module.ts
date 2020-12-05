@@ -32,6 +32,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ChartComponent } from './chart/chart.component';
 import { ProfileComponent } from './profile/profile.component';
+import { DataTableFoodComponent } from './data-table-food/data-table-food.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { ProfileComponent } from './profile/profile.component';
     DataTableComponent,
     ChartComponent,
     ProfileComponent,
+    DataTableFoodComponent,
     
     
   ],
@@ -68,7 +70,8 @@ import { ProfileComponent } from './profile/profile.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    ChartsModule
+    ChartsModule,
+    
   ],
   // add service class to providers
   providers: [AppService,AuthGuard],

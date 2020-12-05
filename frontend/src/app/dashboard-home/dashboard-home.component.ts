@@ -137,7 +137,7 @@ export class DashboardHomeComponent implements OnInit {
       if(data.status==="X111"){
         this.appService.setActivityDate(date)
         
-        
+        this.router.navigate(['foodTable'])
         console.log(data.foodDiary)
       }
       else{

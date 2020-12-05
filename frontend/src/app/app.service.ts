@@ -33,6 +33,34 @@ export class AppService {
   private metabolism = 0;
   private calorieBurned = 0;
   private calorieConsumption = 0;
+  private username;
+  private password;
+  private gender;
+  private email;
+  setUsername(temp){
+    this.username=temp
+  }
+  getUsername(){
+    return this.username
+  }
+  setpassword(temp){
+    this.password=temp
+  }
+  getpassword(){
+    return this.password
+  }
+  setgender(temp){
+    this.gender=temp
+  }
+  getgender(){
+    return this.gender
+  }
+  setemail(temp){
+    this.email=temp
+  }
+  getemail(){
+    return this.email
+  }
   setMetabolism(temp){
     this.metabolism=temp
   }
