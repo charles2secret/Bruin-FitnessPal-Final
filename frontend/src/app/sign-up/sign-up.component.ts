@@ -27,6 +27,7 @@ export class SignUpComponent implements OnInit {
     this.appService.registerUser(username,password,userID,email,gender).subscribe((data:any)=>{
      
       if (data.status === "X103") {
+        this.notifierService.showNotification('Successfully sign up! Login with your new account!','ok')
         this.router.navigate(['login'])
       }
       else if (data.status === "X003"){
