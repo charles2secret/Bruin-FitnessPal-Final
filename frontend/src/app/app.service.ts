@@ -166,5 +166,19 @@ export class AppService {
     return this.httpClient.get(`${this.uri}/issue/delete/${id}`);
   }
 
+  //FRIENDS
+  getFriends() {
+    // type ArrayType = Array<{
+    //   _id: string, 
+    //   friendId: string,
+    // }>;
+    const friends = {
+      // status: null,
+      // friendList: null
+    };
+    //console.log(this.httpClient.post(`${this.uri}/users/friends`, friends));
+    return this.httpClient.post(`${this.uri}/users/friends`, friends);
+  }
+
 }
 

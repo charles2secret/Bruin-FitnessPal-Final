@@ -31,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ChartComponent } from './chart/chart.component'; 
+//import { FriendsService } from './friends.service';
 
 @NgModule({
   declarations: [
