@@ -28,8 +28,71 @@ export class AppService {
 
   uri = 'http://localhost:3000';
   private accountId;
+  private activityDate;
+  private loginStatus = false;
+  private metabolism = 0;
+  private calorieBurned = 0;
+  private calorieConsumption = 0;
+  private username;
+  private password;
+  private gender;
+  private email;
+  setUsername(temp){
+    this.username=temp
+  }
+  getUsername(){
+    return this.username
+  }
+  setpassword(temp){
+    this.password=temp
+  }
+  getpassword(){
+    return this.password
+  }
+  setgender(temp){
+    this.gender=temp
+  }
+  getgender(){
+    return this.gender
+  }
+  setemail(temp){
+    this.email=temp
+  }
+  getemail(){
+    return this.email
+  }
+  setMetabolism(temp){
+    this.metabolism=temp
+  }
+  getMetabolism(){
+    return this.metabolism
+  }
+  setCalorieB(temp){
+    this.calorieBurned=temp
+  }
+  getCalorieB(){
+    return this.calorieBurned
+  }
+  setCalorieC(temp){
+    this.calorieConsumption=temp
+  }
+  getCalorieC(){
+    return this.calorieConsumption
+  }
+  setLogginStatus(status){
+    this.loginStatus = status
+  }
+  getLogginStatus(){
+    return this.loginStatus
+  }
   setAccountId (tempAccountId){
     this.accountId=tempAccountId;
+  }
+  getActivityDate (){
+    return this.activityDate;
+  }
+  setActivityDate (tempDate){
+    this.activityDate=tempDate;
   }
   getAccountId (){
     return this.accountId;
@@ -77,7 +140,13 @@ export class AppService {
     }
     return this.httpClient.post(`${this.uri}/users/register`,user);
   }
-
+  getActivity(id,date){
+    const activity = {
+      accountId:id,
+      date:date,
+    }
+    return this.httpClient.post(`${this.uri}/diaries/activity`,activity);
+  }
   putActivity(id,date,activityName,activityType,calorieBurned,duration,timeOfDay){
       const _activity = {
         accountId:id,
@@ -85,6 +154,49 @@ export class AppService {
         activity:{activityName,activityType,calorieBurned,duration,timeOfDay},
       }
       return this.httpClient.put(`${this.uri}/diaries/activity`,_activity);
+  }
+  putFood(id,date,foodName,calorieConsumed,timeOfDay,totalFat,totalProtein,totalCarbs,totalFiber){
+    const _food = {
+      accountId:id,
+      date:date,
+      food:{foodName,calorieConsumed,timeOfDay,totalFat,totalProtein,totalCarbs,totalFiber},
+    }
+    return this.httpClient.put(`${this.uri}/diaries/food`,_food);
+  }
+  putHealth(id,date,water,sleep,weight){
+    const _health = {
+      accountId:id,
+      date: date,
+      water: water,
+      sleep: sleep,
+      weight: weight,
+    }
+    return this.httpClient.put(`${this.uri}/diaries/health`,_health);
+}
+  getActivity(id, date) {
+    const query = {
+      accountId: id,
+      date: date
+    }
+    let response = this.httpClient.post(`${this.uri}/diaries/activity`, query);
+    
+    return response
+  }
+
+  getFood(id,date){
+    const food = {
+      accountId:id,
+      date:date,
+    }
+    return this.httpClient.post(`${this.uri}/diaries/food`,food);
+  }
+
+  getHealth(id,date){
+    const health = {
+      accountId:id,
+      date:date,
+    }
+    return this.httpClient.post(`${this.uri}/diaries/health`,health);
   }
   updateIssue(id, title, responsible, description, severity) {
     const issue = {
@@ -95,9 +207,23 @@ export class AppService {
     };
     return this.httpClient.post(`${this.uri}/issue/${id}`,issue);
   }
-  
+
   deleteIssue(id) {
     return this.httpClient.get(`${this.uri}/issue/delete/${id}`);
+  }
+
+  //FRIENDS
+  getFriends() {
+    // type ArrayType = Array<{
+    //   _id: string, 
+    //   friendId: string,
+    // }>;
+    const friends = {
+      // status: null,
+      // friendList: null
+    };
+    //console.log(this.httpClient.post(`${this.uri}/users/friends`, friends));
+    return this.httpClient.post(`${this.uri}/users/friends`, friends);
   }
 
 }

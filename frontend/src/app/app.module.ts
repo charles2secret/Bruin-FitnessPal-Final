@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './login/login.component';
-
+import { AuthGuard } from './auth.guard'
 
 // for communicating with backend using HttpClient
 import { AppService } from './app.service';
@@ -25,7 +25,15 @@ import {HttpClientModule} from '@angular/common/http';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FriendsComponent } from './friends/friends.component';
 import { PlanComponent } from './plan/plan.component';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { DataTableComponent } from './data-table/data-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { ChartComponent } from './chart/chart.component';
+import { ProfileComponent } from './profile/profile.component';
+import { DataTableFoodComponent } from './data-table-food/data-table-food.component';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +43,13 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     SignUpComponent,
     FriendsComponent,
-    PlanComponent
+    PlanComponent,
+    DataTableComponent,
+    ChartComponent,
+    ProfileComponent,
+    DataTableFoodComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -52,10 +66,15 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     HttpClientModule, // new module for AppService
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    ChartsModule,
+    
   ],
   // add service class to providers
-  providers: [AppService],
+  providers: [AppService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -37,7 +37,7 @@ label {
 }
 
 input[type=button] {
-  background-color: #F89104;
+  background-color: #7f0000;
   border: none;
   width: 20%;
   color:white;
@@ -48,7 +48,7 @@ input[type=button] {
 }
 
 input[type=submit] {
-  background-color: #F89104;
+  background-color: #7f0000;
   border: none;
   width: 20%;
   color:white;
