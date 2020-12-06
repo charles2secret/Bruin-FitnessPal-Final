@@ -33,6 +33,34 @@ export class AppService {
   private metabolism = 0;
   private calorieBurned = 0;
   private calorieConsumption = 0;
+  private username;
+  private password;
+  private gender;
+  private email;
+  setUsername(temp){
+    this.username=temp
+  }
+  getUsername(){
+    return this.username
+  }
+  setpassword(temp){
+    this.password=temp
+  }
+  getpassword(){
+    return this.password
+  }
+  setgender(temp){
+    this.gender=temp
+  }
+  getgender(){
+    return this.gender
+  }
+  setemail(temp){
+    this.email=temp
+  }
+  getemail(){
+    return this.email
+  }
   setMetabolism(temp){
     this.metabolism=temp
   }
@@ -135,6 +163,16 @@ export class AppService {
     }
     return this.httpClient.put(`${this.uri}/diaries/food`,_food);
   }
+  putHealth(id,date,water,sleep,weight){
+    const _health = {
+      accountId:id,
+      date: date,
+      water: water,
+      sleep: sleep,
+      weight: weight,
+    }
+    return this.httpClient.put(`${this.uri}/diaries/health`,_health);
+}
   getActivity(id, date) {
     const query = {
       accountId: id,
@@ -151,6 +189,14 @@ export class AppService {
       date:date,
     }
     return this.httpClient.post(`${this.uri}/diaries/food`,food);
+  }
+
+  getHealth(id,date){
+    const health = {
+      accountId:id,
+      date:date,
+    }
+    return this.httpClient.post(`${this.uri}/diaries/health`,health);
   }
   updateIssue(id, title, responsible, description, severity) {
     const issue = {
