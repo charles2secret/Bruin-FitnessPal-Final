@@ -13,17 +13,17 @@ import { ProfileComponent } from './profile/profile.component';
 import { DataTableFoodComponent } from './data-table-food/data-table-food.component';
 
 const routes: Routes = [
-  { path:'home', component: DashboardHomeComponent,canActivate:[AuthGuard] },
+  { path:'home', component: DashboardHomeComponent,/*canActivate:[AuthGuard] */},
   { path:'login', component: LoginComponent},
   { path:'navigate', component:NavigationPanelComponent},
   { path:'signUp', component: SignUpComponent},
   //FriendsComponent
   { path:'table', component: DataTableComponent},
   { path:'foodTable', component: DataTableFoodComponent},
-  { path:'friends', component: FriendsComponent,canActivate:[AuthGuard]},
+  { path:'friends', component: FriendsComponent,/*canActivate:[AuthGuard]*/},
   { path:'chart', component: ChartComponent},
-  { path:'plan', component: PlanComponent,canActivate:[AuthGuard]},
-  { path:'profile', component:ProfileComponent,canActivate:[AuthGuard]},
+  { path:'plan', component: PlanComponent,/*canActivate:[AuthGuard]*/},
+  { path:'profile', component:ProfileComponent,/*canActivate:[AuthGuard]*/},
   { path: '', redirectTo: 'login', pathMatch: 'full',}
 ];
 

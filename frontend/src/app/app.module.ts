@@ -30,15 +30,10 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-<<<<<<< HEAD
-import { ChartComponent } from './chart/chart.component'; 
-//import { FriendsService } from './friends.service';
-=======
 import { ChartComponent } from './chart/chart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DataTableFoodComponent } from './data-table-food/data-table-food.component';
 
->>>>>>> 6d6ac0ef40dbc1ea6874756dae8898930a662c74
 
 @NgModule({
   declarations: [
