@@ -141,7 +141,7 @@ export class DashboardHomeComponent implements OnInit {
         console.log(data.foodDiary)
       }
       else{
-        this.notifierService.showNotification(data.message,'ok')
+        this.notifierService.showNotification("Please double check your input",'ok')
       }
     }
 
