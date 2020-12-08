@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Testability } from '@angular/core';
 import { IFriend } from '../friend';
 import { AppService } from "../app.service";
 
@@ -18,23 +18,56 @@ export class FriendsComponent implements OnInit {
   //     }[]
   // };
 
+  newFriend: string;
+  friends: string[];
+
   constructor(private appService: AppService) { 
-    //this.friends = null;
+    this.newFriend = "";
+    this.friends = [];
   }
 
   ngOnInit(): void {
-    
+    this.appService.getFriends(this.appService.getAccountId()).subscribe((data:any) => {
+      if (data.status === "X111") {
+        var i: number; var size: number = data.friendList.length;
+        for (i = 0; i < size; i++) {
+          this.friends.push(data.friendList[i].friendId);
+        }
+      }
+      else if (data.status === "001") {
+
+      }
+      else if (data.status === "X001") {
+
+      }
+    });
   }
 
   // getFriends() {
   //   return this.appService.getFriends();
   // }
 
-  addBut() {
+  addFriend() {
+    this.appService.addFriend(this.newFriend).subscribe((data:any) => {
+      if (data.status === "X113") {
+        this.friends.push(this.newFriend);
+      }
+    });
+    this.clearFunc();
+  }
 
-    //this.friends.push(this.friend_ID);
-    //this.friend_ID = "";
-    //console.log(this.friends[0]);
+  delFriend(friend: string) {
+    // console.log(friend);
+    // this.appService.delFriend(friend).subscribe((data:any) => {
+    //   console.log(data.status);
+    //   if (data.status === "X114") {
+    //     this.friends = this.friends.filter(item => item != friend);
+    //   }
+    // });    
+  }
+
+  clearFunc() {
+    this.newFriend = "";
   }
 
   showProfile() {
@@ -46,10 +79,7 @@ export class FriendsComponent implements OnInit {
     //   console.log(data);
     // });
 
-    this.appService.getFriends().subscribe((data:any) => {
-      //this.friends = data;
-      console.log(data);
-    });
+    
 
     //this.appService.getFriends();
   }

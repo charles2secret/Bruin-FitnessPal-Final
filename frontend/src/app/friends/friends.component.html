@@ -1,15 +1,22 @@
+<body>
 
-<button (click)="test()">test</button>
+    <input type="text" [(ngModel)]="newFriend"> 
+    <button (click)="addFriend()">Add</button> 
+    <button (click)="clearFunc()">Clear</button>
 
-<button (click)="addBut()">Add</button>
+    <ul >
+        <li *ngFor="let friend of friends">
+            <button (click)="showProfile()">{{friend}}</button>
+            <button (click)="delFriend(friend)">x</button>
+        </li>
+    </ul>
+
+</body>
 
 
 <!--
-<ul>
-    <li *ngFor="let friend of friends">
-        <button (click)="showProfile()">{{friend}}</button>
-    </li>
-</ul>
 
 <input type="text" [(ngModel)]="friend_ID"/>
+
+<button (click)="test()">test</button>
 -->

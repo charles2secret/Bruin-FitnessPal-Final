@@ -19,10 +19,12 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(event: any) {
-    event.preventDefault()
-    const target = event.target
-    const username = target.querySelector('#username').value
-    const password = target.querySelector('#password').value
+    event.preventDefault();
+    const target = event.target;
+    // const username = target.querySelector('#username').value;
+    // const password = target.querySelector('#password').value;
+    const username = "123456";
+    const password = "123456";
     var message: string ='';
 
 
