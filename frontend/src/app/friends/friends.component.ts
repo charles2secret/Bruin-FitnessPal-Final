@@ -61,9 +61,10 @@ export class FriendsComponent implements OnInit {
     // this.appService.delFriend(friend).subscribe((data:any) => {
     //   console.log(data.status);
     //   if (data.status === "X114") {
-    //     this.friends = this.friends.filter(item => item != friend);
+        
     //   }
-    // });    
+    // });
+    this.friends = this.friends.filter(item => item != friend);    
   }
 
   clearFunc() {
