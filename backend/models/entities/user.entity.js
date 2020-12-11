@@ -31,6 +31,10 @@ userFactory.deleteFriend = deleteFriend;
 userFactory.addFriend = addFriend;
 
 userFactory.delByID = delByID;
+
+userFactory.updatePlan = updatePlan;
+userFactory.getPlan = getPlan;
+userFactory.deleteActivity = deleteActivity;
 module.exports = userFactory;
 
 const friendSchema = new Schema ({
@@ -82,7 +86,11 @@ const userSchema = new Schema ({
         type: String,
         enum: ['male','female','other']
     },
-    friendList: [friendSchema]
+    friendList: [friendSchema],
+    workoutPlan: [{
+        time: {type: String},
+        activity: {type: String}
+    }]
 });
 const userModel = mongoose.model('User', userSchema);
 
@@ -709,6 +717,54 @@ async function deleteFriend(accountId, friendId) {
         return user.friendList;
     } catch (err) {
         util.HandleError(err, "user.entity.js", "deleteFriend", "accountId: "+accountId+" friendId " +friendId);
+        return null;
+    }
+}
+
+async function getPlan(accountId) {
+    try {
+        let user = await userModel.findOne({accountId: accountId});
+        if (user) {
+            console.log("user found, returning workoutPlan");
+            return user.workoutPlan;
+        }
+        console.log("user not found for getPlan, please debug");
+        return null;
+    } catch (err) {
+        util.HandleError(err, "user.entity.js", "getPlan", "accountId: "+accountId+" friendId " +friendId);
+        return null;
+    }
+
+}
+
+async function updatePlan(accountId, workoutPlan) {
+    try {
+        let user = await userModel.findOne({accountId: accountId});
+        user.workoutPlan = workoutPlan;
+        await user.save();
+        user = await userModel.findOne({accountId: accountId});
+        return user.workoutPlan;
+    } catch (err) {
+        util.HandleError(err, "user.entity.js", "updatePlan", "accountId: "+accountId+" friendId " +friendId);
+        return null;
+    }
+}
+
+async function deleteActivity(accountId, activity) {
+    try {
+        let user = await userModel.findOne({accountId: accountId});
+        let userPlan = user.workoutPlan;
+        for (let i=0; i<userPlan.length; i++) {
+            if (userPlan[i].time === activity.time) {
+                userPlan.splice(i,1);
+                break;
+            }
+        }
+        await user.save();
+        user = await userModel.findOne({accountId: accountId});
+        return user.workoutPlan;
+    } catch (err) {
+        util.HandleError(err, "user.entity.js", "deletePlan", "accountId: "+accountId+" friendId " +friendId);
         return null;
     }
 }

@@ -33,6 +33,9 @@ service.delete = _delete;
 service.getFriend = getFriend;
 service.addFriend = addFriend;
 service.deleteFriend = deleteFriend;
+service.getWorkoutPlan = getWorkoutPlan;
+service.updateWorkoutPlan = updateWorkoutPlan;
+service.deleteActivity = deleteActivity;
 module.exports = service;
 
 
@@ -241,3 +244,33 @@ async function deleteFriend(userParam) {
     return friendList;
 }
 
+async function getWorkoutPlan(userParam) {
+    let response = await userFactory.getPlan(userParam.accountId);
+    if (response) {
+        console.log("plan found for accountId: " + userParam.accountId);
+        return response;
+    }
+    console.log("return empty workoutPlan for accountId: " + userParam.accountId);
+    return null;
+}
+
+async function updateWorkoutPlan(userParam) {
+    console.log(userParam.workoutPlan);
+    let response = await userFactory.updatePlan(userParam.accountId, userParam.workoutPlan);
+    if (response) {
+        console.log("plan found for accountId: " + userParam.accountId);
+        return response;
+    }
+    console.log("return empty workoutPlan for accountId: " + userParam.accountId);
+    return null;
+}
+
+async function deleteActivity(userParam) {
+    let response = await userFactory.deleteActivity(userParam.accountId, userParam.activity);
+    if (response) {
+        console.log("activity deleted for accountId: " + userParam.accountId);
+        return response;
+    }
+    console.log("return empty workoutPlan for accountId: " + userParam.accountId);
+    return null;
+}
