@@ -1,24 +1,54 @@
 # Bruin-FitnessPal
-CS97 Group Project
+A web application designed for fitness pro!
+<br/>
+## Get Started
 
-Please always sync with the master branch before doing anyworkSome useful links <br/>
+Use `git clone` to download project into your local repository <br/>
+Use `cd {yourPath}/Bruin-FitnessPal` to the project folder <br/>
+ <br/>
+
+Establish connection to the server and open browser at: localhost:3000
+```
+  cd backend/
+  npm start
+  cd ..
+```
+you should see the server website open with db usage and API docs available  <br/>
+ <br/>
+ 
+Initialize angular project and open browser at: localhost:4200
+```
+  cd frontend/
+  ng serve
+```
+you should see Angular welcome message and the program is ready to go  <br/>
+
+<br/>
+## Bruin-FitnessPal usage
+
+you can use our test account to login, in case something unexpected happens:  <br/>
+  * accountId: 705200057 <br/>
+  * password: 123456 <br/>
+  * note: some input fields have regexp checker enabled, e.g. email address <br/>
+          some input fields have enum checker enabled, such as activityType <br/>
+          please follow the conventions or the hints given by that particular input field <br/>
+<br/>
+## Privacy Concerns
+
+Do not use real username and password to test our program <br/>
+The data will be stored on Mongo Atlas Cloud unless at the request of user to delete <br/>
+<br/>
+## Acknowledgement
+This project is done by: Ao Jiao, Charles Zhou, Katie Chang, and James Youn <br/>
+All group members have completed at least three meaningful commits <br/>
+Quick link to project contribution can be found in the following link: <br/>
+https://github.com/aojiaoo/Bruin-FitnessPal/graphs/contributors  <br/>
+<br/>
+Thanks again for grading our project, cheers <br/>
+<br/>
 
 
-'git branch'  see what branch you are in <br/>
-'git checkout branch-to-go' switch to another local branch <br/>
-'git pull origin main' get most up-to-date version from master main <br/>
-'git add .' stage your recent work <br/>
-'git commit' commit your work to local repo <br/>
-'git push' push to GitHub <br/>
+          
 
-remember, always push into your branch only! <br/>
-after that, you can send a request to merge into the main <br/>
-which will of course, needs approval from project owner (me) <br/>
-make sure only merge runnable version and that is: <br/>
-  always 'ng serve' first before push and merge <br/>
 
-to sum up, everytime you work on project you are *responsible!!* to do the following: <br/>
-'git checkout <frontend or backend>' <br/>
-'git pull origin main' <br/>
-'git push' <br/>
-start working on your part....
+
