@@ -1,5 +1,5 @@
 # Bruin-FitnessPal
-A web application designed for fitness pro!
+A web application designed for fitness pro
 <br/>
 ## Get Started
 
