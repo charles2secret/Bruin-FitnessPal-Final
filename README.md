@@ -1,6 +1,17 @@
 # Bruin-FitnessPal
 A web application designed for fitness pro
 <br/>
+
+# Introduction <br />
+Bruin FitnessPal is dedicated to motivate people to stay healthy <br/>
+by providing a highly sociable, Instagram-like fitness platform <br/>
+for users to share and exchange their workout and diet logs + plans. <br/>
+This client-server web application includes features such as <br/>
+user registration, login, profiling, logging, and planning of  <br/>
+diet, water consumption, hours of sleep, and type and duration of exercise <br/>
+finally, a social platform pabe that allows the sharing of the aforementioned <br/>
+
+
 ## Get Started <br/>
 
 Use `git clone` to download project into your local repository <br/>
@@ -21,6 +32,13 @@ Initialize angular project and open browser at: localhost:4200
   cd frontend/
   ng serve
 ```
+
+## System Requirements
+Bruin-FitnessPal is built with the MEAN stack, t.e. MongoDB, Express, Angular, Node <br/>
+Especially you'll need: <br/>
+* npm v7.3.0 <br/>
+* Angular Cli version 11.0.1 <br/>
+* node v15.0.1 <br/>
 
 
 ## Bruin-FitnessPal usage <br/>
