@@ -15,30 +15,21 @@ div {
     padding-left: 10px;
 }
 
-/* table {
-
-} */
-
 th, td {
     padding: 10px;
 }
 
 #pair {
+    padding: 0px;
     display: flex;
-}
-
-/* .activityCol {
-    padding-right: 100px;
-} */
+} 
 
 .Time, .Activity {
     color: #2d7d98;
     font-weight: bold;
-    /* display: block; */
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     font-size: 1.2em;
-    /*word-spacing: 100px;*/
 }
 
 .Button {
@@ -53,4 +44,12 @@ th, td {
 
 .dropdown:hover {
     
-}
+} 
+
+/* table {
+
+} */
+
+/* .activityCol {
+    padding-right: 100px;
+} */

@@ -215,14 +215,9 @@ export class AppService {
 
   //FRIENDS
   getFriends(id) {
-    // type ArrayType = Array<{
-    //   _id: string, 
-    //   friendId: string,
-    // }>;
     const friends = {
       accountId: id
     };
-    //console.log(this.httpClient.post(`${this.uri}/users/friends`, friends));
     return this.httpClient.post(`${this.uri}/users/friend`, friends);
   }
 
@@ -235,14 +230,11 @@ export class AppService {
   }
 
   delFriend(friendId) {
-    // const _friend = new HttpHeaders({
-    //   accountId: this.getAccountId(),
-    //   friendId: friendId,
-    // });
-    // const options = {
-    //   _friend: _friend
-    // }
-    // return this.httpClient.delete(`${this.uri}/users/friend`, options);
+    const _friend = {
+      accountId: this.getAccountId(),
+      friendId: friendId,
+    };
+    return this.httpClient.delete(`${this.uri}/users/friend`, { body: _friend });
   }
 
 }

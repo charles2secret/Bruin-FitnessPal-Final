@@ -24,6 +24,7 @@ export class DashboardHomeComponent implements OnInit {
     event.preventDefault()
     const target = event.target
     const date = target.querySelector('#date').value
+
     const activityName = target.querySelector('#activityName').value
     const type = target.querySelector('#type').value
     const duration = target.querySelector('#duration').value

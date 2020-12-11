@@ -1,5 +1,4 @@
 import { Component, OnInit, Testability } from '@angular/core';
-import { IFriend } from '../friend';
 import { AppService } from "../app.service";
 
 
@@ -9,17 +8,9 @@ import { AppService } from "../app.service";
   styleUrls: ['./friends.component.css']
 })
 export class FriendsComponent implements OnInit {
-  // friends: {
-  //   status: string,
-  //   friendList: 
-  //     {
-  //       _id: string,
-  //       friendId: string
-  //     }[]
-  // };
-
   newFriend: string;
   friends: string[];
+  listMode: boolean = true;
 
   constructor(private appService: AppService) { 
     this.newFriend = "";
@@ -27,9 +18,14 @@ export class FriendsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getFriends();
+  }
+
+  getFriends() {
     this.appService.getFriends(this.appService.getAccountId()).subscribe((data:any) => {
       if (data.status === "X111") {
         var i: number; var size: number = data.friendList.length;
+        this.friends = [];
         for (i = 0; i < size; i++) {
           this.friends.push(data.friendList[i].friendId);
         }
@@ -43,46 +39,37 @@ export class FriendsComponent implements OnInit {
     });
   }
 
-  // getFriends() {
-  //   return this.appService.getFriends();
-  // }
-
   addFriend() {
     this.appService.addFriend(this.newFriend).subscribe((data:any) => {
       if (data.status === "X113") {
-        this.friends.push(this.newFriend);
+        this.getFriends();
       }
     });
     this.clearFunc();
   }
 
   delFriend(friend: string) {
-    // console.log(friend);
-    // this.appService.delFriend(friend).subscribe((data:any) => {
-    //   console.log(data.status);
-    //   if (data.status === "X114") {
-        
-    //   }
-    // });
-    this.friends = this.friends.filter(item => item != friend);    
+    console.log(friend);
+    this.appService.delFriend(friend).subscribe((data:any) => {
+      console.log(data.status);
+      if (data.status === "X114") {
+        this.getFriends();
+      }
+    });   
   }
 
   clearFunc() {
     this.newFriend = "";
   }
 
-  showProfile() {
-
+  showProfile(friend: string) {
+    this.listMode = false;
+    this.appService.getActivity(friend, this.appService.getActivityDate()).subscribe((data:any) => {
+      console.log(data);
+    })
   }
 
   test() {
-    // const tfriends = this.appService.getFriends().subscribe(data => {
-    //   console.log(data);
-    // });
-
-    
-
-    //this.appService.getFriends();
   }
 
 }

@@ -9,7 +9,7 @@
       <tr>
         <th class="Time">Time</th>
         <th class="Activity">Activity</th>
-        <th class="Location">Location</th>
+        <!--<th class="Location">Location</th>-->
       </tr>
       <tr *ngFor="let event of events">
         <td>{{event.Time}}</td>
@@ -25,7 +25,7 @@
       <tr>
         <th class="Time">Time</th>
         <th class="Activity">Activity</th>
-        <th class="Location">Location</th>
+        <!--<th class="Location">Location</th>-->
       </tr>
       <tr *ngFor="let tevent of tevents">
         <td>{{tevent.Time}}</td>
@@ -36,15 +36,17 @@
           </div>    
           <mat-menu #MatMenuTrigger="matMenu">
             <div *ngFor="let act of activities">
+              <span>
               <button mat-menu-item (click)="clickFunc(tevent, act)">
                 {{act}}
               </button>
+              </span>
               <button mat-menu-item (click)="delActivity(act)">x</button>
               <br>
             </div>
           </mat-menu>
         </td>
-        <td>Placeholder</td>
+        <!--<td>Placeholder</td>-->
       </tr>
     </table>
     <button class="Button" (click)="saveFunc()">Save</button>

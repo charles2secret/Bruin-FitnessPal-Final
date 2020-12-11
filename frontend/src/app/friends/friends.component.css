@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    padding: 20px;
+}
+
+#title {
+    font-size: 30px;
+}
+
+div {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+}
+
+#add, #clear {
+    background-color: #7f0000;
+    border: none;
+    width: 7%;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.5em;
+}
+
+#friendlist {
+    padding-bottom: 10px;
+    
+}
+
+#friend {
+    padding-right: 10px;
+}
