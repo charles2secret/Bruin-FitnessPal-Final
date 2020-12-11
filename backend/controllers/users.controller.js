@@ -20,7 +20,84 @@ router.get('/gender', getGender);
 router.get('/address', getAddress);
 router.get('/birth', getBirth);
 
+router.post('/workout', getWorkoutPlan);
+router.put('/workout', updateWorkoutPlan);
+router.delete('/workout', deleteActivity);
+
 module.exports = router;
+
+async function deleteActivity(req, res) {
+    try {
+        let response = await userService.deleteActivity(req.body);
+        if (response) {
+            res.send({
+                status: "X114",
+                workoutPlan: response
+            });
+        }
+        else {
+            res.send({
+                status: "X001",
+                message: "no workout found"
+            })
+        }
+    } catch (err) {
+        res.send({
+            status: "X004",
+            message: err
+        });
+    }
+}
+
+async function getWorkoutPlan(req, res) {
+    try {
+        let response = await userService.getWorkoutPlan(req.body);
+        if (response) {
+            res.send({
+                status: "X111",
+                workoutPlan: response
+            });
+        }
+        else {
+            res.send({
+                status: "X001",
+                message: "no workout found"
+            })
+        }
+    } catch (err) {
+        res.send({
+            status: "X001",
+            message: err
+        });
+    }
+}
+
+async function updateWorkoutPlan(req, res) {
+    try {
+        let response = await userService.updateWorkoutPlan(req.body);
+        if (response) {
+            res.send({
+                status: "X113",
+                workoutPlan: response
+            });
+        }
+        else {
+            res.send({
+                status: "X003",
+                message: "no workout found"
+            })
+        }
+
+    } catch (err) {
+        res.send({
+            status: "X003",
+            message: err
+        });
+    }
+
+}
+
+
 
 
 async function loginUser(req, res) {
