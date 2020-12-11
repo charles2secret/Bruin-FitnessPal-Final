@@ -17,14 +17,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './auth.guard'
+import { PlanComponent } from './plan/plan.component';
+import { AuthGuard } from './auth.guard';
 
 // for communicating with backend using HttpClient
 import { AppService } from './app.service';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FriendsComponent } from './friends/friends.component';
-import { PlanComponent } from './plan/plan.component';
 import { FormsModule } from '@angular/forms';
 import { DataTableComponent } from './data-table/data-table.component';
 import { MatTableModule } from '@angular/material/table';

@@ -15,7 +15,8 @@
 // @ts-nocheck
 import { Injectable } from '@angular/core';
 // new add for AppService
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+//import { RequestOptions } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -213,17 +214,27 @@ export class AppService {
   }
 
   //FRIENDS
-  getFriends() {
-    // type ArrayType = Array<{
-    //   _id: string, 
-    //   friendId: string,
-    // }>;
+  getFriends(id) {
     const friends = {
-      // status: null,
-      // friendList: null
+      accountId: id
     };
-    //console.log(this.httpClient.post(`${this.uri}/users/friends`, friends));
-    return this.httpClient.post(`${this.uri}/users/friends`, friends);
+    return this.httpClient.post(`${this.uri}/users/friend`, friends);
+  }
+
+  addFriend(friendId) {
+    const _friend = {
+      accountId: this.getAccountId(),
+      friendId: friendId,
+    };
+    return this.httpClient.put(`${this.uri}/users/friend`, _friend);
+  }
+
+  delFriend(friendId) {
+    const _friend = {
+      accountId: this.getAccountId(),
+      friendId: friendId,
+    };
+    return this.httpClient.delete(`${this.uri}/users/friend`, { body: _friend });
   }
 
 }

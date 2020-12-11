@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 //import {cloneDeep} from 'lodash';
 
 interface Event {
@@ -14,7 +15,10 @@ interface Event {
 })
 
 export class PlanComponent implements OnInit {
+  //@ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  
   editMode: boolean = false;
+  showActs: boolean = false;
 
   events: Event[] = [
     {Time: "05:00", Activity: ""},
@@ -38,46 +42,48 @@ export class PlanComponent implements OnInit {
     {Time: "23:00", Activity: ""},   
   ];
 
+  activities: string[] = [
+    "running",
+    "swimming"
+  ];
+
+  //locations: string[];
+
   tevents: Event[] = JSON.parse(JSON.stringify(this.events));
-  //tevents: Event[] = this.events.slice(0);
-  // events.forEach(val => tevents.push(Object.assign({}, val)));
-  // tevents: Event[] = this.events.slice();
-
-  // dayPlan : Activity[] = [];
-
-  
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  // dayClick() {
-    
+  // openMenu() {
+  //   this.trigger.openMenu();
   // }
 
-  // enter() {
-  //   this.dayPlan = [{Time: "12:00am", Event: this.event}];
-  // }
-
-  editBut() {
+  editFunc() {
     this.editMode = !this.editMode;
   }
 
-  saveBut() {
-    //this.tevents[0].Activity = "lol";
-    console.log(this.tevents[0].Activity);
+  saveFunc() {
     this.events = JSON.parse(JSON.stringify(this.tevents));
-    //this.events = this.tevents.slice(0);
-    //this.events = this.tevents;
     this.editMode = !this.editMode;
   }
 
-  cancelBut() {
-    //this.tevents = this.events.slice(0);
+  cancelFunc() {
     this.tevents = JSON.parse(JSON.stringify(this.events));
     this.editMode = !this.editMode;
-    
+  }
+
+  clickFunc(event: Event, activity: string) {
+    event.Activity = activity;
+  }
+
+  addActivity(activity: string) {
+    this.activities.push(activity);
+  }
+
+  delActivity(activity: string) {
+    this.activities = this.activities.filter(item => item != activity);
   }
 
   test() {

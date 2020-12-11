@@ -1,15 +1,34 @@
+<body>
 
-<button (click)="test()">test</button>
+    <div id="title">Friends Page</div>
 
-<button (click)="addBut()">Add</button>
+    <input type="text" [(ngModel)]="newFriend"> 
+    <button id="add" (click)="addFriend()">Add</button> 
+    <button id="clear" (click)="clearFunc()">Clear</button>
+
+    <div *ngIf="!listMode; then logBlock else listBlock"></div>
+
+    <ng-template #listBlock>
+    <ul >
+        <li id="friendlist" *ngFor="let friend of friends">
+            <span id="friend">
+                <button (click)="showProfile(friend)">{{friend}}</button>
+            </span>
+            <button id="X" (click)="delFriend(friend)">x</button>
+        </li>
+    </ul>
+    </ng-template>
+
+    <ng-template #logBlock>
+        
+    </ng-template>
+
+</body> 
 
 
 <!--
-<ul>
-    <li *ngFor="let friend of friends">
-        <button (click)="showProfile()">{{friend}}</button>
-    </li>
-</ul>
 
 <input type="text" [(ngModel)]="friend_ID"/>
+
+<button (click)="test()">test</button>
 -->

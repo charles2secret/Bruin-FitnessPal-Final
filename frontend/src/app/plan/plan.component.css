@@ -1,30 +1,55 @@
-/* table {
-    column-gap: 1000px;
-    padding: 100px;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    padding: 20px;
+}
+
+#title {
+    font-size: 30px;
+}
+
+div {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+}
 
 th, td {
     padding: 10px;
 }
 
+#pair {
+    padding: 0px;
+    display: flex;
+} 
+
 .Time, .Activity {
     color: #2d7d98;
     font-weight: bold;
-    /* display: block; */
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     font-size: 1.2em;
-    
-    /*word-spacing: 100px;*/
 }
 
 .Button {
     background-color: #7f0000;
     border: none;
     width: 7%;
-    color:white;
+    color: white;
     font-weight: bold;
     cursor: pointer;
     border-radius: 0.5em;
-    
 }
+
+.dropdown:hover {
+    
+} 
+
+/* table {
+
+} */
+
+/* .activityCol {
+    padding-right: 100px;
+} */
