@@ -12,11 +12,12 @@
         <!--<th class="Location">Location</th>-->
       </tr>
       <tr *ngFor="let event of events">
-        <td>{{event.Time}}</td>
-        <td>{{event.Activity}}</td>
+        <td>{{event.time}}</td>
+        <td>{{event.activity}}</td>
       </tr>
     </table>
     <button class="Button" (click)="editFunc()">Edit</button>
+    <button (click)="test()">test</button>
   </ng-template>
 
   <ng-template #editBlock>
@@ -27,17 +28,18 @@
         <th class="Activity">Activity</th>
         <!--<th class="Location">Location</th>-->
       </tr>
-      <tr *ngFor="let tevent of tevents">
-        <td>{{tevent.Time}}</td>
+      <tr *ngFor="let event of events">
+        <td>{{event.time}}</td>
         <td class="activityCol">
           <div id="pair">
-          <input type="text" [(ngModel)]="tevent.Activity" [matMenuTriggerFor]="MatMenuTrigger" />
-          <button mat-menu-item (click)="addActivity(tevent.Activity)">+</button>      
+          <input type="text" [(ngModel)]="event.activity" />
+          <button [matMenuTriggerFor]="MatMenuTrigger">Acts</button>
+          <button mat-menu-item (click)="addActivity(event.activity)">+</button>      
           </div>    
           <mat-menu #MatMenuTrigger="matMenu">
             <div *ngFor="let act of activities">
               <span>
-              <button mat-menu-item (click)="clickFunc(tevent, act)">
+              <button mat-menu-item (click)="clickFunc(event, act)">
                 {{act}}
               </button>
               </span>
@@ -49,7 +51,7 @@
         <!--<td>Placeholder</td>-->
       </tr>
     </table>
-    <button class="Button" (click)="saveFunc()">Save</button>
+    <button class="Button" (click)="savePlan()">Save</button>
     <button class="Button" (click)="cancelFunc()">Cancel</button>
   </ng-template>
 
@@ -57,7 +59,6 @@
 
 
 <!--
-<button (click)="test()">test</button>
 
 <input type="text" [(ngModel)]="event"/>
 

@@ -214,27 +214,43 @@ export class AppService {
   }
 
   //FRIENDS
-  getFriends(id) {
+  getFriends(userId) {
     const friends = {
-      accountId: id
+      accountId: userId
     };
     return this.httpClient.post(`${this.uri}/users/friend`, friends);
   }
 
-  addFriend(friendId) {
+  addFriend(userId, friendId) {
     const _friend = {
-      accountId: this.getAccountId(),
+      accountId: userId,
       friendId: friendId,
     };
     return this.httpClient.put(`${this.uri}/users/friend`, _friend);
   }
 
-  delFriend(friendId) {
+  delFriend(userId, friendId) {
     const _friend = {
-      accountId: this.getAccountId(),
+      accountId: userId,
       friendId: friendId,
     };
     return this.httpClient.delete(`${this.uri}/users/friend`, { body: _friend });
+  }
+
+  //WORKOUT PLAN
+  getPlan(userId) {
+    const user = {
+      accountId: userId
+    };
+    return this.httpClient.post(`${this.uri}/users/workout`, user);
+  }
+
+  savePlan(userId, plan) {
+    const _plan = {
+      accountId: userId,
+      workoutPlan: plan
+    };
+    return this.httpClient.put(`${this.uri}/users/workout`, _plan);
   }
 
 }

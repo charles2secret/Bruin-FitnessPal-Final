@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { AppService } from "../app.service";
 //import {cloneDeep} from 'lodash';
 
 interface Event {
-  Time: string,
-  Activity: string,
+  time: string,
+  activity: string,
   Location?: string
 }
 
@@ -19,67 +20,101 @@ export class PlanComponent implements OnInit {
   
   editMode: boolean = false;
   showActs: boolean = false;
-
-  events: Event[] = [
-    {Time: "05:00", Activity: ""},
-    {Time: "06:00", Activity: ""},
-    {Time: "07:00", Activity: ""},
-    {Time: "08:00", Activity: ""},
-    {Time: "09:00", Activity: ""},
-    {Time: "10:00", Activity: ""},
-    {Time: "11:00", Activity: ""},
-    {Time: "12:00", Activity: ""},
-    {Time: "13:00", Activity: ""},
-    {Time: "14:00", Activity: ""},
-    {Time: "15:00", Activity: ""},
-    {Time: "16:00", Activity: ""},
-    {Time: "17:00", Activity: ""},
-    {Time: "18:00", Activity: ""},
-    {Time: "19:00", Activity: ""},
-    {Time: "20:00", Activity: ""},
-    {Time: "21:00", Activity: ""},
-    {Time: "22:00", Activity: ""},
-    {Time: "23:00", Activity: ""},   
-  ];
-
   activities: string[] = [
     "running",
     "swimming"
+  ];
+
+  events: Event[] = [
+    {time: "05:00", activity: ""},
+    {time: "06:00", activity: ""},
+    {time: "07:00", activity: ""},
+    {time: "08:00", activity: ""},
+    {time: "09:00", activity: ""},
+    {time: "10:00", activity: ""},
+    {time: "11:00", activity: ""},
+    {time: "12:00", activity: ""},
+    {time: "13:00", activity: ""},
+    {time: "14:00", activity: ""},
+    {time: "15:00", activity: ""},
+    {time: "16:00", activity: ""},
+    {time: "17:00", activity: ""},
+    {time: "18:00", activity: ""},
+    {time: "19:00", activity: ""},
+    {time: "20:00", activity: ""},
+    {time: "21:00", activity: ""},
+    {time: "22:00", activity: ""},
+    {time: "23:00", activity: ""},   
   ];
 
   //locations: string[];
 
   tevents: Event[] = JSON.parse(JSON.stringify(this.events));
 
-  constructor() { }
+  constructor(private appService: AppService) { }
 
   ngOnInit(): void {
+    this.getPlan();
   }
 
-  // openMenu() {
-  //   this.trigger.openMenu();
-  // }
+  getPlan() {
+    this.appService.getPlan(this.appService.getAccountId()).subscribe((data:any) => {
+      if (data.status === "X111") {
+        let plan = data.workoutPlan;
+        let i: number; let size: number = plan.length;
+        this.events = [];
+        for (i = 0; i < size; i++) {
+          this.events.push({
+            time: plan[i].time,
+            activity: plan[i].activity
+          });
+        }
+      }
+      else {
+        console.log("Error getting plan");
+      }
+    });
+  }
 
   editFunc() {
     this.editMode = !this.editMode;
   }
 
-  saveFunc() {
-    this.events = JSON.parse(JSON.stringify(this.tevents));
+  savePlan() {
+    this.appService.savePlan(this.appService.getAccountId(), this.events).subscribe((data:any) => {
+      if (data.status === "X113") {
+        console.log(data);
+        this.getPlan();
+      }
+      else {
+        console.log("Error getting plan");
+      }
+    });
+    // this.events = JSON.parse(JSON.stringify(this.tevents));
     this.editMode = !this.editMode;
   }
 
   cancelFunc() {
-    this.tevents = JSON.parse(JSON.stringify(this.events));
+    this.getPlan();
+    console.log(this.events);
     this.editMode = !this.editMode;
   }
 
   clickFunc(event: Event, activity: string) {
-    event.Activity = activity;
+    event.activity = activity;
   }
 
   addActivity(activity: string) {
-    this.activities.push(activity);
+    if (activity === "") {
+      return;
+    }
+    let size: number = this.activities.length;
+    for (let i = 0; i < size; i++) {
+      if (this.activities[i].toLowerCase() === activity.toLowerCase()) {
+        return;
+      }
+    }
+    this.activities.push(activity.toLowerCase());
   }
 
   delActivity(activity: string) {
@@ -87,9 +122,8 @@ export class PlanComponent implements OnInit {
   }
 
   test() {
-    this.tevents[0].Activity = "whoah";
-    console.log(this.events[0].Activity + " ");
-    console.log(this.tevents[0].Activity);
+    this.getPlan();
+    console.log(this.events);
   }
 
 }

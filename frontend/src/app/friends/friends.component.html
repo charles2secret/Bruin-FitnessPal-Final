@@ -2,25 +2,47 @@
 
     <div id="title">Friends Page</div>
 
-    <input type="text" [(ngModel)]="newFriend"> 
-    <button id="add" (click)="addFriend()">Add</button> 
-    <button id="clear" (click)="clearFunc()">Clear</button>
-
     <div *ngIf="!listMode; then logBlock else listBlock"></div>
 
     <ng-template #listBlock>
-    <ul >
-        <li id="friendlist" *ngFor="let friend of friends">
-            <span id="friend">
-                <button (click)="showProfile(friend)">{{friend}}</button>
-            </span>
-            <button id="X" (click)="delFriend(friend)">x</button>
-        </li>
-    </ul>
+        <input type="text" [(ngModel)]="newFriend">
+        <button id="add" (click)="addFriend()">Add</button>
+        <button id="clear" (click)="clearFunc()">Clear</button>
+        <ul>
+            <li id="friendlist" *ngFor="let friend of friends">
+                <span id="friend">
+                    <button (click)="showProfile(friend)">{{friend}}</button>
+                </span>
+                <button id="X" (click)="delFriend(friend)">x</button>
+            </li>
+        </ul>
     </ng-template>
 
     <ng-template #logBlock>
-        
+        <div>See what your friends have been up to today!</div>
+        <div *ngIf="isActivity; then activityBlock else noActionBlock"></div>
+        <ng-template #activityBlock>
+            <table>
+                <tr>
+                    <th>Activity</th>
+                    <th>Type</th>
+                    <th>Time of Day</th>
+                    <th>Duration</th>
+                    <th>Calorie Burned</th>
+                </tr>
+                <tr *ngFor="let activity of friendActivities">
+                    <td>{{activity.activityName}}</td>
+                    <td>{{activity.activityType}}</td>
+                    <td>{{activity.timeOfDay}}</td>
+                    <td>{{activity.calorieBurned}}</td>
+                    <td>{{activity.duration}}</td>
+                </tr>
+            </table>
+        </ng-template>
+        <ng-template #noActionBlock>
+            <div>Friend has no activity to show today.</div>
+        </ng-template>
+        <button (click)="back()">back</button>
     </ng-template>
 
 </body> 
