@@ -20,17 +20,23 @@ export interface Activity {
 export class FriendsComponent implements OnInit {
   newFriend: string;
   friends: string[];
-  listMode: boolean = true;
+  listMode: boolean;
   todayDate: any;
-  friendActivities: Activity[] = [];
-  isActivity: boolean = false;
-  friendExists: boolean = true;
+  friendActivities: Activity[];
+  isActivity: boolean;
+  friendExists: boolean;
+  friendIsYou: boolean;
 
   constructor(private appService: AppService, private datePipe: DatePipe) { 
     this.newFriend = "";
     this.friends = [];
+    this.listMode = true;
     this.todayDate = new Date();
     this.todayDate = this.datePipe.transform(this.todayDate, 'yyyy-MM-dd');
+    this.friendActivities = [];
+    this.isActivity = false;
+    this.friendExists = true;
+    this.friendIsYou = false; 
   }
 
   ngOnInit(): void {
@@ -50,13 +56,18 @@ export class FriendsComponent implements OnInit {
   }
 
   addFriend() {
-
+    this.friendExists = true;
+    this.friendIsYou = false;
+    if (this.newFriend == this.appService.getAccountId()) {
+      this.friendIsYou = true;
+      return;
+    }
     this.appService.addFriend(this.appService.getAccountId(), this.newFriend).subscribe((data:any) => {
       if (data.status === "X113") {
-        this.friendExists = true;
         this.getFriends();
       }
       else {
+        console.log(data.status);
         this.friendExists = false;
       }
     });

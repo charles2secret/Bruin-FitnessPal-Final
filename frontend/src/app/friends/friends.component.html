@@ -7,7 +7,8 @@
         <input type="text" [(ngModel)]="newFriend" placeholder="friend id"/>
         <button class="button" (click)="addFriend()">Add</button>
         <button class="button" (click)="clearFunc()">Clear</button>
-        <span *ngIf="!friendExists" id="noFriend">Friend id does not exist.</span>
+        <span *ngIf="!friendExists" class="noFriend">Friend already added or does not exist.</span>
+        <span *ngIf="friendIsYou" class="noFriend">You cannot add yourself as a friend.</span>
         <div id="friendsHeading">Friends</div>
         <ul id="friendList">
             <li id="friendRow" *ngFor="let friend of friends">
