@@ -59,14 +59,16 @@ export class PlanComponent implements OnInit {
   getPlan() {
     this.appService.getPlan(this.appService.getAccountId()).subscribe((data:any) => {
       if (data.status === "X111") {
-        let plan = data.workoutPlan;
-        let i: number; let size: number = plan.length;
-        this.events = [];
-        for (i = 0; i < size; i++) {
-          this.events.push({
-            time: plan[i].time,
-            activity: plan[i].activity
-          });
+        if (data.workoutPlan.length != 0) {
+          let plan = data.workoutPlan;
+          let i: number; let size: number = plan.length;
+          this.events = [];
+          for (i = 0; i < size; i++) {
+            this.events.push({
+              time: plan[i].time,
+              activity: plan[i].activity
+            });
+          }
         }
       }
     });
