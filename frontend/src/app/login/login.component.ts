@@ -25,9 +25,6 @@ export class LoginComponent implements OnInit {
     const password = target.querySelector('#password').value;
     var message: string ='';
 
-
-    
-
     this.appService.loginUserById(username, password).subscribe((data: any) => {
 
       if (data.status === "X103") {

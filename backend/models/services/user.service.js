@@ -210,9 +210,14 @@ async function getFriend(userParam) {
 
 //TODO: warning, this function doesn't check if id is not in the db
 async function addFriend(userParam) {
-    let status = await userFactory.checkFriend(userParam.accountId, userParam.friendId);
-    if (!status) {
-        console.log("friend exist already or user not found");
+    let status1 = await userFactory.checkFriend(userParam.accountId, userParam.friendId);
+    let status2 = await userFactory.findById(userParam.friendId);
+    if (!status2) {
+        console.log("friend did not register in Bruin FitnessPal");
+        return null;
+    }
+    if (!status1) {
+        console.log("friend was found in your friendList already");
         return null;
     }
     let friendList = await userFactory.addFriend(userParam.accountId, userParam.friendId);
