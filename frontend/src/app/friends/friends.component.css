@@ -5,31 +5,153 @@ body {
     padding: 20px;
 }
 
+#noFriend {
+    margin-left: 10px;
+}
+
 #title {
     font-size: 30px;
+    margin-bottom: 40px;
+    color: rgb(11, 3, 88);
 }
 
-div {
+#friendList {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+#friendRow {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#friendLog {
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+#pw {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+#friendsHeading {
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.viewTime {
+    height: 100%;
     padding-top: 10px;
-    padding-bottom: 20px;
-    padding-left: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+} 
+
+.viewActivity {
+    text-align: center;
 }
 
-#add, #clear {
+table {
+    border: 5px solid #37474f;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0px 1px 5px #777;
+}
+
+th {
+    border: 2px solid #37474f;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #37474f;
+    color: white;
+}
+
+td {
+    border-bottom: 2px solid #37474f;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: rgb(233, 232, 232);
+}
+
+.button {
     background-color: #7f0000;
     border: none;
-    width: 7%;
-    color: rgb(255, 255, 255);
+    width: 60px;
+    color: white;
     font-weight: bold;
     cursor: pointer;
     border-radius: 0.5em;
-}
-
-#friendlist {
-    padding-bottom: 10px;
-    
+    text-align: center;
+    margin-right: 0px;
 }
 
 #friend {
-    padding-right: 10px;
+    padding: 5px;
+    background-color: rgb(224, 222, 222);
+    border: none;
+    box-shadow: 0px 1px 2px rgb(145, 144, 144);
 }
+#friend:hover {
+    background-color: rgb(196, 194, 194);
+}
+
+#x {
+    border: none;
+    padding: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: rgb(0, 0, 0, 0.5);
+    box-shadow: 0px 1px 2px rgb(165, 165, 165);
+}
+#x:hover {
+    background-color: rgb(211, 209, 209)
+}
+
+.acts {
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    display: inline;
+}
+
+.add {
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    display: inline;
+}
+
+.act {
+    text-align: center;
+    width: fit-content;
+    display: inline;
+}
+
+.del {
+    text-align: center;
+    width: fit-content;
+    display: inline;
+}
+
+.input {
+    height: 20px;
+    display: inline;
+}
+
+.time {
+    display: inline flex;
+    text-align: center;
+    vertical-align: middle;
+    padding-right: 40px;
+}
+
+#noActivity {
+    margin-bottom: 20px;
+}
+

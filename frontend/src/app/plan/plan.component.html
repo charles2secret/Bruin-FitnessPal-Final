@@ -3,75 +3,49 @@
   <div *ngIf="!editMode; then viewBlock else editBlock"></div>
 
   <ng-template #viewBlock>
-    <div id="title">Planner</div>
-
-    <table>
+    <table class="tableVBlock">
+      <tr class="title">
+        <th colspan="2">Daily Plan</th>
+      </tr>
       <tr>
-        <th class="Time">Time</th>
-        <th class="Activity">Activity</th>
-        <!--<th class="Location">Location</th>-->
+        <th class="timeHeader">Time</th>
+        <th class="activityHeader">Activity</th>
       </tr>
       <tr *ngFor="let event of events">
-        <td>{{event.time}}</td>
-        <td>{{event.activity}}</td>
+        <td class="viewTime">{{event.time}}</td>
+        <td class="viewActivity">{{event.activity}}</td>
       </tr>
     </table>
-    <button class="Button" (click)="editFunc()">Edit</button>
-    <button (click)="test()">test</button>
+    <button class="button" (click)="editFunc()">Edit</button>
   </ng-template>
 
   <ng-template #editBlock>
     <div id="pw">Plan your workout!</div>
-    <table>
+    <table class="tableEBlock">
       <tr>
-        <th class="Time">Time</th>
-        <th class="Activity">Activity</th>
-        <!--<th class="Location">Location</th>-->
+        <th class="timeHeader">Time</th>
+        <th class="activityHeader">Activity</th>
       </tr>
-      <tr *ngFor="let event of events">
-        <td>{{event.time}}</td>
+      <tr class="row" *ngFor="let event of events">
+        <td class="time">{{event.time}}</td>
         <td class="activityCol">
-          <div id="pair">
-          <input type="text" [(ngModel)]="event.activity" />
-          <button [matMenuTriggerFor]="MatMenuTrigger">Acts</button>
-          <button mat-menu-item (click)="addActivity(event.activity)">+</button>      
-          </div>    
+          <input class="input" type="text" [(ngModel)]="event.activity" />
+          <button class="acts" mat-menu-item [matMenuTriggerFor]="MatMenuTrigger">Acts</button>
+          <button class="add" mat-menu-item (click)="addActivity(event.activity)">+</button>
           <mat-menu #MatMenuTrigger="matMenu">
-            <div *ngFor="let act of activities">
-              <span>
-              <button mat-menu-item (click)="clickFunc(event, act)">
+            <div *ngFor="let act of activities" class="savedAct">
+              <button class="act" mat-menu-item (click)="clickFunc(event, act)">
                 {{act}}
               </button>
-              </span>
-              <button mat-menu-item (click)="delActivity(act)">x</button>
+              <button class="del" mat-menu-item (click)="delActivity(act)">x</button>
               <br>
             </div>
           </mat-menu>
         </td>
-        <!--<td>Placeholder</td>-->
       </tr>
     </table>
-    <button class="Button" (click)="savePlan()">Save</button>
-    <button class="Button" (click)="cancelFunc()">Cancel</button>
+    <button class="button" (click)="savePlan()">Save</button>
+    <button class="button" (click)="cancelFunc()">Cancel</button>
   </ng-template>
 
 </body>
-
-
-<!--
-
-<input type="text" [(ngModel)]="event"/>
-
-<button (click)="enter()">Enter</button>
-
-
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
- #enddocregion mat-menu-trigger-for
-<mat-menu #menu="matMenu">
-  <button mat-menu-item>Day</button>
-</mat-menu>
-
-<div class="dropdown" *ngFor="let act of activities">
-              
-            </div>
--->

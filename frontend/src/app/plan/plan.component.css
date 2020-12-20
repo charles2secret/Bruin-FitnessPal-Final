@@ -5,51 +5,136 @@ body {
     padding: 20px;
 }
 
-#title {
+.title {
+    margin-bottom: 40px;
+    background-color: #37474f;
+    width: 200px;
     font-size: 30px;
+    color: white;
+    vertical-align: middle;
+    text-align: left;
+    border: 10px solid #37474f;
 }
 
-div {
-    padding-top: 10px;
-    padding-bottom: 20px;
-    padding-left: 10px;
-}
-
-th, td {
+.title th {
     padding: 10px;
 }
 
-#pair {
-    padding: 0px;
-    display: flex;
-} 
-
-.Time, .Activity {
-    color: #2d7d98;
-    font-weight: bold;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    font-size: 1.2em;
+#pw {
+    font-size: 20px;
+    margin-bottom: 30px;
 }
 
-.Button {
+.tableVBlock {
+    border-collapse: collapse;
+    background-color: white;
+    width: 100%;
+}
+
+.tableVBlock th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    border-top: 2px solid #37474f;
+}
+
+.tableVBlock td {
+    padding-left: 10px;
+    border-top: 2px solid #37474f;
+}
+
+.viewTime {
+    width: 40px;
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+} 
+
+.viewActivity {
+    text-align: left;
+}
+
+table {
+    margin-bottom: 20px;
+    box-shadow: 0px 1px 5px #777;
+    width: 100%
+}
+
+.activityCol {
+    padding: 0px;
+    display: flex;
+    align-items: center;
+} 
+
+.tableVBlock .timeHeader {
+    text-align: left;
+    color: rgb(2, 2, 122);
+    font-size: 15px;
+}
+
+.tableVBlock .activityHeader {
+    color: rgb(2, 2, 122);
+    text-align: left;
+    font-size: 15px;
+}
+
+.tableEBlock th {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.tableEBlock td {
+    padding-left: 10px;
+}
+
+.tableEBlock .timeHeader {
+    text-align: left;
+    color: rgb(2, 2, 122);
+    font-size: 15px;
+    padding-left: 10px;
+    width: 70px;
+}
+
+.tableEBlock .activityHeader {
+    padding-right: 100px;
+    color: rgb(2, 2, 122);
+    text-align: left;
+    font-size: 15px;
+}
+
+.acts {
+    text-align: center;
+    width: 70px;
+}
+
+.add {
+    text-align: center;
+    width: 40px;
+}
+
+.savedAct {
+    display: flex;
+}
+
+.act {
+    text-align: center;
+    width: fit-content;
+}
+
+.del {
+    text-align: center;
+    width: 40px;
+}
+
+.button {
     background-color: #7f0000;
     border: none;
-    width: 7%;
+    width: 70px;
     color: white;
     font-weight: bold;
     cursor: pointer;
     border-radius: 0.5em;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 30px;
 }
-
-.dropdown:hover {
-    
-} 
-
-/* table {
-
-} */
-
-/* .activityCol {
-    padding-right: 100px;
-} */

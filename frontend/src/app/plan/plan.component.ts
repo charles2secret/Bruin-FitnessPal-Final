@@ -1,12 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { Component, OnInit } from '@angular/core';
 import { AppService } from "../app.service";
-//import {cloneDeep} from 'lodash';
 
 interface Event {
   time: string,
-  activity: string,
-  Location?: string
+  activity: string
 }
 
 @Component({
@@ -16,13 +13,19 @@ interface Event {
 })
 
 export class PlanComponent implements OnInit {
-  //@ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-  
   editMode: boolean = false;
-  showActs: boolean = false;
   activities: string[] = [
+    "walking",
+    "jogging",
     "running",
-    "swimming"
+    "swimming",
+    "basketball",
+    "football",
+    "soccer",
+    "volleyball",
+    "hockey",
+    "cycling",
+    "skating"
   ];
 
   events: Event[] = [
@@ -47,10 +50,6 @@ export class PlanComponent implements OnInit {
     {time: "23:00", activity: ""},   
   ];
 
-  //locations: string[];
-
-  tevents: Event[] = JSON.parse(JSON.stringify(this.events));
-
   constructor(private appService: AppService) { }
 
   ngOnInit(): void {
@@ -70,9 +69,6 @@ export class PlanComponent implements OnInit {
           });
         }
       }
-      else {
-        console.log("Error getting plan");
-      }
     });
   }
 
@@ -83,20 +79,14 @@ export class PlanComponent implements OnInit {
   savePlan() {
     this.appService.savePlan(this.appService.getAccountId(), this.events).subscribe((data:any) => {
       if (data.status === "X113") {
-        console.log(data);
         this.getPlan();
       }
-      else {
-        console.log("Error getting plan");
-      }
     });
-    // this.events = JSON.parse(JSON.stringify(this.tevents));
     this.editMode = !this.editMode;
   }
 
   cancelFunc() {
     this.getPlan();
-    console.log(this.events);
     this.editMode = !this.editMode;
   }
 
@@ -119,11 +109,6 @@ export class PlanComponent implements OnInit {
 
   delActivity(activity: string) {
     this.activities = this.activities.filter(item => item != activity);
-  }
-
-  test() {
-    this.getPlan();
-    console.log(this.events);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Testability } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppService } from "../app.service";
 import { DatePipe } from '@angular/common';
 
@@ -24,6 +24,7 @@ export class FriendsComponent implements OnInit {
   todayDate: any;
   friendActivities: Activity[] = [];
   isActivity: boolean = false;
+  friendExists: boolean = true;
 
   constructor(private appService: AppService, private datePipe: DatePipe) { 
     this.newFriend = "";
@@ -45,12 +46,6 @@ export class FriendsComponent implements OnInit {
           this.friends.push(data.friendList[i].friendId);
         }
       }
-      else if (data.status === "001") {
-
-      }
-      else if (data.status === "X001") {
-
-      }
     });
   }
 
@@ -58,20 +53,18 @@ export class FriendsComponent implements OnInit {
 
     this.appService.addFriend(this.appService.getAccountId(), this.newFriend).subscribe((data:any) => {
       if (data.status === "X113") {
+        this.friendExists = true;
         this.getFriends();
       }
       else {
-        //ADD CODE
-        console.log("FRIEND NOT IN DATABASE");
+        this.friendExists = false;
       }
     });
     this.clearFunc();
   }
 
   delFriend(friend: string) {
-    console.log(friend);
     this.appService.delFriend(this.appService.getAccountId(), friend).subscribe((data:any) => {
-      console.log(data.status);
       if (data.status === "X114") {
         this.getFriends();
       }
@@ -108,9 +101,4 @@ export class FriendsComponent implements OnInit {
     this.friendActivities = [];
     this.listMode = true;
   }
-
-  test() {
-    console.log(this.friendActivities[0].activityName);
-  }
-
 }
